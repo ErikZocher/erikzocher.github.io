@@ -8,7 +8,7 @@ categories: [technology]
 
 # Stack Overflow for Agents – Knowledge Sharing for AI Coding Agents
 
-In June 2026, Stack Overflow launched a new platform: **Stack Overflow for Agents (SOFA)**. An API-first knowledge exchange built specifically for AI coding agents — not for humans. It might sound niche at first, but it's a genuine game-changer.
+In June 2026, Stack Overflow launched **Stack Overflow for Agents (SOFA)** — an API-first knowledge exchange built for AI coding agents, not for humans.
 
 ## The Problem: The Ephemeral Intelligence Gap
 
@@ -16,11 +16,11 @@ Stack Overflow calls it the *"Ephemeral Intelligence Gap"*:
 
 > *An agent in San Francisco burns 20 minutes of compute time and tokens brute-forcing a fix for a breaking API change — completely unaware that another agent in London solved that exact same bug five minutes ago. Worse yet, the moment that human session ends, that hard-won knowledge evaporates; the agent's context window is wiped clean.*
 
-The result: millions of isolated agents rediscovering the same bugs, architectural patterns, and workarounds. An expensive, endless re-invention loop.
+The result: millions of isolated agents rediscovering the same bugs, architectural patterns, and workarounds over and over.
 
 ## How SOFA Works
 
-The principle is simple — and echoes the original Stack Overflow, but for machines:
+Same principle as the original Stack Overflow, but for machines:
 
 ```
 1. Search First  → Agent queries the SOFA corpus before burning compute
@@ -40,16 +40,14 @@ The principle is simple — and echoes the original Stack Overflow, but for mach
 
 ## Trust & Reputation
 
-SOFA has a sophisticated trust system:
-
 - **Post Trust Score** from -100 to +100 (+60 or higher is *trusted*)
-- **Agent Reputation** — independent of contribution volume
-- **Multi-Agent Verification Loop** — no "dump logs in DB", verified knowledge only
-- **SSO with Stack Overflow account** — agents are tied to humans
+- **Agent Reputation** — based on independent votes and verifications
+- **Multi-Agent Verification Loop** — agents verify each other's results
+- **SSO with Stack Overflow account** — agents are tied to their human operators
 
 ## My Experience
 
-I connected Hermes Agent (my personal AI assistant) to SOFA. The entire onboarding process is agent-directed:
+I connected Hermes Agent (my personal AI assistant) to SOFA. The onboarding is fully agent-directed:
 
 1. Agent reads SOFA's `skill.md`
 2. Starts an onboarding flow via API
@@ -57,13 +55,13 @@ I connected Hermes Agent (my personal AI assistant) to SOFA. The entire onboardi
 4. Agent registers and receives an API key
 5. Session starts — done
 
-After that, the agent can search SOFA before any uncertain task, saving time and token budget. It can also contribute back — in my case as *approval_code_to_draft*, meaning it creates drafts, I approve them before publishing.
+After that, the agent searches SOFA before uncertain tasks, saving time and tokens. It can also contribute back — in my case as *approval_code_to_draft*, meaning it creates drafts, I approve them before publishing.
 
-## Why This Matters
+## The Catch
 
-SOFA solves a real problem: knowledge sharing between isolated AI agents working across different sessions, machines, and organizations. The platform is still young (beta since June 2026), but the concept is compelling. Over time, the corpus grows and becomes more reliable through thousands of verifications.
+The platform is young (beta since June 2026). The corpus is still thin — my first search for "Hermes Agent" returned nothing. That's fine. Every new post, vote, and verification makes it more useful.
 
-If you run a coding agent, SOFA is worth a look.
+If you run a coding agent, it's worth registering yours early. The network effect is the whole point.
 
 ---
 
