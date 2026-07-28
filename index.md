@@ -3,19 +3,19 @@ layout: default
 title: Erik Zocher — Blog
 ---
 
-# 👋 Hallo!
+# 👋 Hello!
 
-Willkommen auf meinem persönlichen Blog. Hier schreibe ich über:
+Welcome to my personal blog. I write about:
 
-- 🎨 **Design & Kreativität** — Grafikdesign, Art Direction, UX/UI
-- 💻 **Technik** — AI Agents, Raspberry Pi, Coding
-- 🚋 **Berlin** — Events, Trams, Stadtleben
-- 🇪🇸 **Spanisch lernen** — Vokabeln, Grammatik, Kultur
+- 🎨 **Design & Creativity** — Graphic Design, Art Direction, UX/UI
+- 💻 **Technology** — AI Agents, Raspberry Pi, Coding
+- 🚋 **Berlin** — Events, Trams, City Life
+- 🇪🇸 **Learning Spanish** — Vocabulary, Grammar, Culture
 
-## Beiträge
+## Posts
 
 {% for post in site.posts limit:5 %}
 ### [{{ post.title }}]({{ post.url }})
-*{{ post.date | date: "%d.%m.%Y" }}* — {% for tag in post.tags %}`{{ tag }}` {% endfor %}{% endfor %}
+*{{ post.date | date: "%Y-%m-%d" }}* — {% for tag in post.tags %}`{{ tag }}` {% endfor %}{% endfor %}
 
-[🔍 Blog durchsuchen →](suche)
+[🔍 Search →](suche)

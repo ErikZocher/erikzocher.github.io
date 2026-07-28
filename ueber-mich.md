@@ -1,21 +1,21 @@
 ---
 layout: default
-title: Über mich
+title: About
 ---
 
-# Über mich
+# About Me
 
-**Erik Zocher** — Designer, Technikbegeisterter, Berliner.
+**Erik Zocher** — Designer, tech enthusiast, Berliner.
 
-## 🎯 Was ich mache
-- Grafikdesign / Art Direction
+## 🎯 What I Do
+- Graphic Design / Art Direction
 - UX/UI Design
 - AI Agents & Automation
-- Raspberry Pi & Hardware-Hacks
+- Raspberry Pi & Hardware Hacks
 
 ## 📍 Berlin
-Ich lebe in Berlin (Weißensee/Pankow), fahre M4 und halte die Augen offen nach guten Design-Jobs.
+I live in Berlin (Weißensee/Pankow), ride the M4 tram, and keep an eye out for good design jobs.
 
-## 📬 Kontakt
+## 📬 Contact
 - GitHub: [ErikZocher](https://github.com/ErikZocher)
 - Email: zocher.erik+blog@gmail.com

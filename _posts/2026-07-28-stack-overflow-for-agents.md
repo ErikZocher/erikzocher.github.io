@@ -1,70 +1,70 @@
 ---
 layout: default
-title: "Stack Overflow for Agents – Wissensaustausch für KI-Agenten"
+title: "Stack Overflow for Agents – Knowledge Sharing for AI Coding Agents"
 date: 2026-07-28
 tags: [sofa, stack-overflow, ai-agents, coding, knowledge-sharing]
-categories: [technik]
+categories: [technology]
 ---
 
-# Stack Overflow for Agents – Wissensaustausch für KI-Agenten
+# Stack Overflow for Agents – Knowledge Sharing for AI Coding Agents
 
-Im Juni 2026 hat Stack Overflow eine neue Plattform gelauncht: **Stack Overflow for Agents (SOFA)**. Eine API-first Wissensdatenbank, die speziell für KI-Coding-Agenten entwickelt wurde – nicht für Menschen. Das klingt erstmal unspektakulär, ist aber ein echter Gamechanger.
+In June 2026, Stack Overflow launched a new platform: **Stack Overflow for Agents (SOFA)**. An API-first knowledge exchange built specifically for AI coding agents — not for humans. It might sound niche at first, but it's a genuine game-changer.
 
-## Das Problem: Ephemeral Intelligence Gap
+## The Problem: The Ephemeral Intelligence Gap
 
-Stack Overflow nennt es das *"Ephemeral Intelligence Gap"*:
+Stack Overflow calls it the *"Ephemeral Intelligence Gap"*:
 
-> *Ein Agent in San Francisco verbrennt 20 Minuten Compute-Time und Tokens, um einen Breaking-API-Change zu fixen – während ein Agent in London genau dasselbe Problem 5 Minuten vorher gelöst hat. Aber weil kein gemeinsames Gedächtnis existiert, verdampft dieses Wissen, sobald die Session endet.*
+> *An agent in San Francisco burns 20 minutes of compute time and tokens brute-forcing a fix for a breaking API change — completely unaware that another agent in London solved that exact same bug five minutes ago. Worse yet, the moment that human session ends, that hard-won knowledge evaporates; the agent's context window is wiped clean.*
 
-Das Ergebnis: Millionen isolierter Agents entdecken immer wieder dieselben Bugs, Architekturpatterns und Workarounds. Eine teure, endlose Neu-Erfindungs-Schleife.
+The result: millions of isolated agents rediscovering the same bugs, architectural patterns, and workarounds. An expensive, endless re-invention loop.
 
-## Wie SOFA funktioniert
+## How SOFA Works
 
-Das Prinzip ist einfach – und erinnert an das originale Stack Overflow, nur für Maschinen:
+The principle is simple — and echoes the original Stack Overflow, but for machines:
 
 ```
-1. Search First → Agent sucht im SOFA-Korpus, bevor er Compute verbrennt
-2. Contribute   → Bei Wissenslücke: Agent erstellt Post, Human reviewed
-3. Verify       → Andere Agents testen die Lösung und berichten
-4. Compound     → Votes + Replies + Verifications = Live-Konsens
+1. Search First  → Agent queries the SOFA corpus before burning compute
+2. Contribute    → Gap found → Agent drafts a post, Human reviews
+3. Verify        → Other agents test the solution and report back
+4. Compound      → Votes + Replies + Verifications = Live consensus
 ```
 
-## Post-Typen
+## Post Types
 
-| Typ | Beschreibung |
-|-----|-------------|
-| **Question** | Ungelöstes Problem |
-| **TIL (Today I Learned)** | Spezifischer Fix / konkrete Lösung |
-| **Blueprint** | Kategorie-Level-Wissen – "So geht man diese Problemklasse an" |
-| **Playbook** | Wiederholbarer Workflow – strukturiertes Verfahren |
+| Type | Description |
+|------|-------------|
+| **Question** | Unsolved problem where the corpus came up short |
+| **TIL (Today I Learned)** | Specific fix / concrete solution |
+| **Blueprint** | Category-level knowledge — how to approach a class of problem |
+| **Playbook** | Reusable procedural workflow for agents |
 
 ## Trust & Reputation
 
-SOFA hat ein ausgeklügeltes Vertrauenssystem:
+SOFA has a sophisticated trust system:
 
-- **Post Trust Score** von -100 bis +100 (ab +60 gilt Content als *trusted*)
-- **Agent Reputation** – unabhängig von der Beitragsmenge
-- **Multi-Agent Verification Loop** – kein "dump logs in DB", sondern geprüftes Wissen
-- **SSO mit Stack Overflow Account** – Agents sind an Menschen gekoppelt
+- **Post Trust Score** from -100 to +100 (+60 or higher is *trusted*)
+- **Agent Reputation** — independent of contribution volume
+- **Multi-Agent Verification Loop** — no "dump logs in DB", verified knowledge only
+- **SSO with Stack Overflow account** — agents are tied to humans
 
-## Meine Erfahrung
+## My Experience
 
-Ich habe Hermes Agent (meinen persönlichen AI-Assistenten) mit SOFA verbunden. Der Onboarding-Prozess ist komplett Agent-geführt:
+I connected Hermes Agent (my personal AI assistant) to SOFA. The entire onboarding process is agent-directed:
 
-1. Agent liest das `skill.md` von SOFA
-2. Startet einen Onboarding-Flow via API
-3. Man öffnet einen Claim-Link im Browser
-4. Agent registriert sich mit API-Key
-5. Session läuft – fertig
+1. Agent reads SOFA's `skill.md`
+2. Starts an onboarding flow via API
+3. Human opens a claim link in the browser
+4. Agent registers and receives an API key
+5. Session starts — done
 
-Danach kann der Agent vor jeder unsicheren Aufgabe zuerst auf SOFA suchen, bevor er Zeit und Tokens verbrennt. Und er kann selbst Beiträge verfassen – bei mir als *approval_code_to_draft*, d.h. er erstellt Entwürfe, ich gebe sie frei.
+After that, the agent can search SOFA before any uncertain task, saving time and token budget. It can also contribute back — in my case as *approval_code_to_draft*, meaning it creates drafts, I approve them before publishing.
 
-## Fazit
+## Why This Matters
 
-SOFA löst ein echtes Problem: Wissensaustausch zwischen isolierten AI-Agenten. Die Plattform ist noch jung (seit Juni 2026 in Beta), aber das Konzept ist überzeugend. Besonders spannend: Mit der Zeit wächst der Korpus und wird durch tausende Verifikationen immer verlässlicher.
+SOFA solves a real problem: knowledge sharing between isolated AI agents working across different sessions, machines, and organizations. The platform is still young (beta since June 2026), but the concept is compelling. Over time, the corpus grows and becomes more reliable through thousands of verifications.
 
-Wer selbst einen Coding-Agenten betreibt, sollte sich SOFA unbedingt anschauen.
+If you run a coding agent, SOFA is worth a look.
 
 ---
 
-*Mein SOFA-Agent: `ezocher-hermes` – registriert am 28.07.2026*
+*My SOFA agent: `ezocher-hermes` — registered July 28, 2026*
