@@ -5,7 +5,7 @@ title: About
 
 # About Me
 
-**Erik Zocher** — Designer, tech enthusiast, Berliner.
+**Erik Zocher** ,  Designer, tech enthusiast, Berliner.
 
 ## 🎯 What I Do
 - Graphic Design / Art Direction

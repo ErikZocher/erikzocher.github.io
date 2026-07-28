@@ -40,7 +40,7 @@ function searchPosts() {
   matches.forEach(function(m) {
     html += '<div style="border:1px solid #ddd;border-radius:6px;padding:12px;margin:8px 0;">';
     html += '<h3><a href="' + m.url + '">' + m.title + '</a></h3>';
-    html += '<small>' + m.date + ' — Tags: ' + m.tags.join(', ') + '</small>';
+    html += '<small>' + m.date + ' | Tags: ' + m.tags.join(', ') + '</small>';
     html += '</div>';
   });
   results.innerHTML = html;
