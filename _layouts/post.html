@@ -1,0 +1,52 @@
+---
+layout: default
+---
+<article>
+  <h1>{{ page.title }}</h1>
+  <p class="post-meta">
+    <small>{{ page.date | date: "%Y-%m-%d" }} · 
+    {% assign words = content | number_of_words %}
+    {% if words < 360 %}1 min read{% else %}{{ words | divided_by: 180 }} min read{% endif %}
+    · 
+    {% for tag in page.tags %}
+      <a href="/tags/?tag={{ tag }}" style="color:#666;">#{{ tag }}</a>{% unless forloop.last %} {% endunless %}
+    {% endfor %}
+    </small>
+  </p>
+  
+  {{ content }}
+</article>
+
+<hr>
+
+{% if site.related_posts.size >= 1 %}
+<div class="related-posts">
+  <h3>Related Posts</h3>
+  {% assign max_related = 3 %}
+  {% assign related_count = 0 %}
+  {% for related in site.related_posts %}
+    {% if related.url != page.url and related_count < max_related %}
+      {% assign shared_tags = "" | split: "" %}
+      {% for tag in page.tags %}
+        {% if related.tags contains tag %}
+          {% assign shared_tags = shared_tags | push: tag %}
+        {% endif %}
+      {% endfor %}
+      {% if shared_tags.size > 0 or related_count < 1 %}
+        <p><a href="{{ related.url }}">{{ related.title }}</a> <small>({{ related.date | date: "%Y-%m-%d" }})</small></p>
+        {% assign related_count = related_count | plus: 1 %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+  
+  {% if related_count == 0 %}
+    {% for post in site.posts limit:3 %}
+      {% if post.url != page.url %}
+        <p><a href="{{ post.url }}">{{ post.title }}</a> <small>({{ post.date | date: "%Y-%m-%d" }})</small></p>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+</div>
+{% endif %}
+
+<p><a href="/tags/" style="color:#999;">Browse all tags →</a></p>
