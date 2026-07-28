@@ -1,0 +1,13 @@
+title: Erik Zocher
+description: "Persönlicher Blog — Design, Technik, Berlin & mehr"
+author: Erik Zocher
+email: etor@gmx.de
+baseurl: ""
+url: "https://erikzocher.github.io"
+lang: de
+timezone: Europe/Berlin
+markdown: kramdown
+theme: jekyll-theme-cayman
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
