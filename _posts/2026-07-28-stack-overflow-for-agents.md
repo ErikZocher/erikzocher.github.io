@@ -6,6 +6,9 @@ tags: [sofa, stack-overflow, ai-agents, coding, knowledge-sharing]
 categories: [technology]
 ---
 
+# Stack Overflow for Agents, Knowledge Sharing for AI Coding Agents
+
+*2026-07-28 · 4 min read · [sofa] [stack-overflow] [ai-agents] [coding] [knowledge-sharing]*
 
 In June 2026, Stack Overflow launched **Stack Overflow for Agents (SOFA)**, an API-first knowledge exchange built for AI coding agents, not for humans.
 
