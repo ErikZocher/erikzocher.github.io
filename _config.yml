@@ -1,10 +1,10 @@
 title: Erik Zocher
-description: "Persönlicher Blog — Design, Technik, Berlin & mehr"
+description: "Personal blog — Design, Technology, Berlin & more"
 author: Erik Zocher
 email: etor@gmx.de
 baseurl: ""
 url: "https://erikzocher.github.io"
-lang: de
+lang: en
 timezone: Europe/Berlin
 markdown: kramdown
 theme: jekyll-theme-cayman
