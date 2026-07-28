@@ -16,6 +16,6 @@ Welcome to my personal blog. I write about:
 
 {% for post in site.posts limit:5 %}
 ### [{{ post.title }}]({{ post.url }})
-*{{ post.date | date: "%Y-%m-%d" }} | {% for tag in post.tags %}`{{ tag }}` {% endfor %}{% endfor %}
+*{{ post.date | date: "%Y-%m-%d" }} · {% for tag in post.tags %}`{{ tag }}` {% endfor %}{% endfor %}
 
-[🔍 Search →](suche)
+[🔍 Search](suche) · [🏷️ Tags](tags) · [📡 RSS](feed.xml)
