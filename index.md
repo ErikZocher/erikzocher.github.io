@@ -1,16 +1,16 @@
 ---
 layout: default
-title: Erik Zocher ,  Blog
+title: "Erik Zocher's Blog"
 ---
 
 # 👋 Hello!
 
 Welcome to my personal blog. I write about:
 
-- 🎨 **Design & Creativity*| Graphic Design, Art Direction, UX/UI
-- 💻 **Technology*| AI Agents, Raspberry Pi, Coding
-- 🚋 **Berlin*| Events, Trams, City Life
-- 🇪🇸 **Learning Spanish*| Vocabulary, Grammar, Culture
+- 🎨 **Design & Creativity** | Graphic Design, Art Direction, UX/UI
+- 💻 **Technology** | AI Agents, Raspberry Pi, Coding
+- 🚋 **Berlin** | Events, Trams, City Life
+- 🇪🇸 **Learning Spanish** | Vocabulary, Grammar, Culture
 
 ## Posts
 
