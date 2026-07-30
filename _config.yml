@@ -1,5 +1,5 @@
 title: Erik Zocher
-description: "Personal blog ,  Design, Technology, Berlin & more"
+description: "Personal blog - Design, Technology, Berlin & more"
 author: Erik Zocher
 email: etor@gmx.de
 baseurl: ""
@@ -11,3 +11,4 @@ theme: jekyll-theme-cayman
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
+  - jekyll-sitemap
