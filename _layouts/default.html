@@ -9,7 +9,19 @@
   <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
   <script type="module">
     import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-    mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    mermaid.initialize({ startOnLoad: false, theme: 'neutral' });
+
+    // Kramdown renders ```mermaid as <pre><code class="language-mermaid">.
+    // Mermaid expects <div class="mermaid">, so convert before rendering.
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('pre code.language-mermaid').forEach((el) => {
+        const div = document.createElement('div');
+        div.className = 'mermaid';
+        div.textContent = el.textContent;
+        el.parentElement.replaceWith(div);
+      });
+      mermaid.run();
+    });
   </script>
   {% include head-custom.html %}
 </head>
