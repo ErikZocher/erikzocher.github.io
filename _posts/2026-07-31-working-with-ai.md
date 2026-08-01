@@ -123,8 +123,8 @@ Examples in the wild:
 
 - A research agent that finds sources and passes them to a writing agent
 - A review agent that checks the writing agent's work against a style guide
-- n8n-style workflows with AI nodes in the middle
-- Multi-agent systems built with tools like LangGraph
+- [n8n](https://n8n.io/)-style workflows with AI nodes in the middle
+- Multi-agent systems built with tools like [LangGraph](https://langchain-ai.github.io/langgraph/)
 
 **What it gets you:** complex, robust pipelines that split work across specialized pieces. If one step fails, you know exactly which one, and you can fix or replace it without touching the rest.
 
