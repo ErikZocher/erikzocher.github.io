@@ -35,20 +35,26 @@ flowchart LR
 
 ## Level 2: Context Engineering
 
-**What it is:** controlling everything the model sees before it answers. The system prompt, the instructions, the documents, the conversation history, the search results.
+**What it is:** controlling everything the model sees before it answers. The system prompt, the instructions, the documents, the conversation history, the search results. All of these are context.
 
 Prompt engineering is asking the right question. Context engineering is deciding what's in the room when you ask it.
 
-The most common example is RAG (retrieval-augmented generation). Instead of asking the model to answer from its training data, you let it look up your own notes, documentation, or database first, and answer from what it finds. The model becomes an assistant that reads your files before replying.
+There are many ways to get context in. RAG is the most famous, but it's only one:
 
-**What it gets you:** grounded, consistent answers that use your data. This is how customer support bots stop hallucinating product details: they read the manual first.
+- **RAG (retrieval-augmented generation):** the model looks up your notes, documentation, or database and answers from what it finds. Great for grounding answers in your own knowledge base.
+- **IDE integration:** the model sees the actual code you're working on. Tools like Cursor, GitHub Copilot, or Claude Code run alongside your editor, so the context is the project itself, not a summary of it. You don't have to explain what your codebase looks like, the model already sees it.
+- **Links and URLs:** give the model a documentation page, an API reference, or an article URL, and it reads the content before answering. Handy when the answer lives on the web and the model's training data is outdated.
+- **System prompts and memory:** standing instructions plus what you've discussed before. The model remembers the rules and the history you've set up.
+
+**What it gets you:** grounded, consistent answers that use the right source, whether that's your database, your codebase, or a webpage. This is how customer support bots stop hallucinating product details: they read the manual first.
 
 ```mermaid
 flowchart LR
     A[You] -->|prompt| B[LLM]
-    D[System prompt] --> B
-    E[Your docs, RAG] --> B
-    F[Memory] --> B
+    D[System prompt + memory] --> B
+    E[Your docs via RAG] --> B
+    F[IDE: your open code] --> B
+    G[Linked documentation] --> B
     B -->|grounded answer| C[You]
 ```
 
