@@ -73,7 +73,7 @@ Examples of harness pieces:
 - Reading and writing files
 - Calling other APIs
 
-My own setup lives at this level. My agent (Puck, yes I named it) has a terminal, a browser, file access, and messaging. It can check the BVG schedule, generate a dashboard image, push a blog post to GitHub, and send me the result on Telegram. That's a harness around a model.
+My own setup lives at this level. My agent ([Puck](https://erikzocher.github.io/technology/2026/07/28/meet-puck.html), yes I named it) has a terminal, a browser, file access, and messaging. It can check the BVG schedule, generate a dashboard image, push a blog post to GitHub, and send me the result on Telegram. That's a harness around a model.
 
 **What it gets you:** AI that acts, not just talks.
 
