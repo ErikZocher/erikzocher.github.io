@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Disallow: /drafts/
+Disallow: /suche
+Disallow: /tags/
+
+Sitemap: https://erikzocher.github.io/sitemap.xml
