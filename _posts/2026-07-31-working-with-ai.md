@@ -27,6 +27,12 @@ Same intent, very different results. The second prompt tells the model who the a
 
 **What it gets you:** better answers from a single request. That's it. No memory, no tools, no follow-up. One shot, one answer.
 
+```mermaid
+flowchart LR
+    A[You] -->|prompt| B[LLM]
+    B -->|answer| C[You]
+```
+
 ## Level 2: Context Engineering
 
 **What it is:** controlling everything the model sees before it answers. The system prompt, the instructions, the documents, the conversation history, the search results.
@@ -36,6 +42,15 @@ Prompt engineering is asking the right question. Context engineering is deciding
 The most common example is RAG (retrieval-augmented generation). Instead of asking the model to answer from its training data, you let it look up your own notes, documentation, or database first, and answer from what it finds. The model becomes an assistant that reads your files before replying.
 
 **What it gets you:** grounded, consistent answers that use your data. This is how customer support bots stop hallucinating product details: they read the manual first.
+
+```mermaid
+flowchart LR
+    A[You] -->|prompt| B[LLM]
+    D[System prompt] --> B
+    E[Your docs, RAG] --> B
+    F[Memory] --> B
+    B -->|grounded answer| C[You]
+```
 
 ## Level 3: Harness Engineering
 
@@ -56,6 +71,20 @@ My own setup lives at this level. My agent (Puck, yes I named it) has a terminal
 
 **What it gets you:** AI that acts, not just talks.
 
+```mermaid
+flowchart LR
+    A[You] -->|task| B[Agent]
+    B -->|tool call| C[Web search]
+    B -->|tool call| D[Database]
+    B -->|tool call| E[Run code]
+    B -->|tool call| F[Send email]
+    C -->|result| B
+    D -->|result| B
+    E -->|result| B
+    F -->|result| B
+    B -->|result| G[You]
+```
+
 ## Level 4: Loop Engineering
 
 **What it is:** building feedback cycles. The AI acts, observes the result, adjusts, and repeats. Instead of a single shot, you get a loop.
@@ -69,6 +98,14 @@ The most common pattern is plan-act-observe: the AI makes a plan, takes a step, 
 - Evaluation loops: a second AI checks the first one's work before it ships
 
 **What it gets you:** much harder problems solved, because the system can course-correct instead of hoping the first try was right.
+
+```mermaid
+flowchart LR
+    A[Plan] --> B[Act]
+    B --> C[Observe result]
+    C -->|needs adjustment| A
+    C -->|goal reached| D[Done]
+```
 
 ## Level 5: Graph Engineering
 
@@ -84,6 +121,14 @@ Examples in the wild:
 - Multi-agent systems built with tools like LangGraph
 
 **What it gets you:** complex, robust pipelines that split work across specialized pieces. If one step fails, you know exactly which one, and you can fix or replace it without touching the rest.
+
+```mermaid
+flowchart LR
+    A[Research agent] --> B[Drafting agent]
+    B --> C[Review agent]
+    C -->|needs work| B
+    C -->|passes| D[Publish agent]
+```
 
 ## Which Level Should You Use?
 
