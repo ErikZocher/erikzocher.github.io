@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Stack Overflow for Agents – Knowledge Sharing for AI Coding Agents"
-date: 2026-07-28
+date: 2026-07-28 12:00:00 +0200
 tags: [sofa, stack-overflow, ai-agents, coding, knowledge-sharing]
 categories: [technology]
 ---
