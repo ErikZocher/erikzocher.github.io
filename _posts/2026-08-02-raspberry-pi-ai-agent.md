@@ -31,7 +31,18 @@ The agent itself is [Hermes Agent](https://hermes-agent.nousresearch.com) by Nou
 
 ## Why a Cloud Model, Not a Local One
 
-I used to run a local model on the Pi. It worked, in the sense that text came out. But there is a reason I moved to the cloud: **the small models could not do tool calls reliably.**
+I used to run local models on the Pi, served by Ollama. I tried four of them over a few weeks:
+
+| Model | Parameters | File size |
+|-------|:----------:|:---------:|
+| Gemma 4 (e2b) | 5.1B | 7.2 GB |
+| Gemma 4 (64k context) | 5.1B | 7.2 GB |
+| Gemma 4 (e4b) | 8.0B | 9.6 GB |
+| Qwen 3.5 (9b) | 9.7B | 6.6 GB |
+
+The size mattered, and the reason is the Pi's **16GB of RAM**. A model has to fit entirely in memory while the operating system, the agent, and everything else still need their share. The 5.1B models fit comfortably. The 8B and 9.7B models worked too, but they left much less headroom, and inference on CPU was slow: with no GPU, every token comes from the CPU, and the bigger the model, the longer you wait between words.
+
+But the real reason I moved to the cloud was not speed or RAM. It was this: **none of them could do tool calls reliably.**
 
 Tool calls are the difference between a chat and an agent. The model has to decide "I need the tram times" and produce a structured request to fetch them. Small models running on a Pi simply do not have the capacity for that reliably. They answer questions, but they cannot operate a harness. A local model on this hardware was a fun experiment and a dead end for real agent work.
 
