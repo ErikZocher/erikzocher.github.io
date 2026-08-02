@@ -160,18 +160,41 @@ body {
   margin: 20px 0;
 }
 
-/* Theme toggle button in header */
+/* Header nav: text links */
+.nav-link {
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  font-size: 15px;
+  margin: 0 8px;
+  padding: 4px 0;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+.nav-link:hover {
+  color: #fff;
+  border-bottom-color: rgba(255, 255, 255, 0.6);
+}
+
+/* Theme toggle button in header (icon only) */
 .theme-toggle {
   cursor: pointer;
-  border: 1px solid var(--btn-border);
-  border-radius: 4px;
-  background: var(--btn-bg);
-  color: var(--heading);
-  padding: 6px 12px;
-  font-size: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  background: transparent;
+  color: #fff;
+  width: 34px;
+  height: 34px;
+  font-size: 16px;
+  margin-left: 10px;
+  vertical-align: middle;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background 0.2s;
 }
 .theme-toggle:hover {
-  opacity: 0.85;
+  background: rgba(255, 255, 255, 0.15);
 }
 
 /* Mermaid diagrams: fit dark background */
