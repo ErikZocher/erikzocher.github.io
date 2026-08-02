@@ -2,18 +2,42 @@
 layout: post
 title: "Raspberry Pi 5: Booting From NVMe and Auto-Starting Services"
 date: 2026-08-02 11:00:00 +0200
-description: "The technical details behind my headless Pi AI agent: EEPROM boot order, PARTUUID root filesystem, PCIe Gen 3, systemd services, and Raspberry Pi Connect."
-tags: [raspberry-pi, nvme, systemd, homelab, linux]
+description: "The technical details behind my headless Pi AI agent: flashing the SSD with Raspberry Pi Imager, pre-setting WiFi and SSH, EEPROM boot order, PARTUUID root filesystem, PCIe Gen 3, systemd services, and Raspberry Pi Connect."
+tags: [raspberry-pi, nvme, systemd, homelab, linux, headless]
 categories: [technology]
 ---
 
 # Raspberry Pi 5: Booting From NVMe and Auto-Starting Services
 
-*2026-08-02 · 8 min read · [raspberry-pi] [nvme] [systemd] [homelab] [linux]*
+*2026-08-02 · 10 min read · [raspberry-pi] [nvme] [systemd] [homelab] [linux] [headless]*
 
-This is the technical companion to my [Raspberry Pi AI agent overview](https://erikzocher.github.io/technology/2026/08/02/raspberry-pi-ai-agent.html). That post covers the hardware and the big picture. This one covers how the machine actually works: how it boots from the NVMe drive instead of the SD card, how it comes up ready to use after a power cut, and how I get a GUI when I need one.
+This is the technical companion to my [Raspberry Pi AI agent overview](https://erikzocher.github.io/technology/2026/08/02/raspberry-pi-ai-agent.html). That post covers the hardware and the big picture. This one covers the whole machine: from flashing the SSD and setting up WiFi before the first boot, to booting from NVMe, auto-starting services, and getting a GUI when I need one.
 
-## 1. Booting From the NVMe SSD
+## 1. First Boot: Flashing the SSD and Pre-Setting WiFi
+
+Before any customization, the Pi needs an operating system, and for a headless setup the trick is to configure everything **before** the first boot, so you never need a monitor or keyboard.
+
+### Flash the OS directly to the SSD
+
+[Raspberry Pi Imager](https://www.raspberrypi.com/software/) is the official tool and it does the whole job in one go. It runs on Windows, macOS, and Linux, and it can write the OS straight to the NVMe drive.
+
+1. **Connect the SSD to your computer.** An NVMe-to-USB adapter or a small USB enclosure is all you need. The drive shows up like a big USB stick.
+2. **Open Raspberry Pi Imager** and click *Choose Device* → Raspberry Pi 5.
+3. **Choose OS** → Raspberry Pi OS (64-bit) or Raspberry Pi OS Lite if you want no desktop at all.
+4. **Choose Storage** → pick the NVMe SSD, not your computer's own disk!
+5. **Click the gear icon** (or press Ctrl+Shift+X) to open the advanced options. This is the headless magic:
+   - **Enable SSH** and set it to allow password login (or paste an SSH key for key-only access).
+   - **Set the username and password** you want to log in with.
+   - **Configure WiFi**: enter the SSID and password, and pick the WiFi country. The Imager writes these into the image, so the Pi connects to your network on its very first boot, with no keyboard needed.
+   - Optionally set a **hostname** (mine is a plain `ezocher` box, but something like `piagent` is nicer) and your timezone.
+6. **Click Write** and wait. The Imager flashes the OS, then verifies the write.
+7. **Unplug the SSD from the computer**, mount it on the Pi with the M.2 HAT+, connect power, and wait about a minute.
+
+That is the whole first-boot ritual: no monitor, no keyboard, no HDMI cable. The Pi appears on your WiFi, reachable by SSH, with the OS already on the NVMe drive.
+
+If you are curious what the Imager actually did, it wrote a file called `userconfig.txt` (or a first-run script) onto the boot partition of the SSD with your SSH and WiFi settings. That file is read once on first boot and then consumed. You can pre-seed the same settings manually, but the Imager dialog is less error-prone.
+
+## 2. Booting From the NVMe SSD
 
 The Pi 5 does not boot from the microSD in my setup. It boots from the NVMe drive, and there are three pieces to that: the EEPROM boot order, the root filesystem in fstab, and the PCIe speed.
 
@@ -80,7 +104,7 @@ dtparam=pciex1_gen=3
 
 Reboot and `sudo dmesg | grep nvme` should show the drive negotiating at Gen 3 speeds.
 
-## 2. Auto-Starting Services With systemd
+## 3. Auto-Starting Services With systemd
 
 The "turn it on and it just works" part is systemd. Three services run on my Pi, all enabled at boot and all set to restart on failure:
 
@@ -124,7 +148,7 @@ sudo systemctl enable --now <service-name>
 
 The result: after a power cut, the kernel finds the NVMe, mounts the root partition, and systemd brings the whole stack up without a human in the loop. Power on, wait a minute, message the agent on Telegram. That is the whole ritual.
 
-## 3. Raspberry Pi Connect for GUI Access
+## 4. Raspberry Pi Connect for GUI Access
 
 The Pi runs headless, but sometimes you need a graphical interface. **Raspberry Pi Connect** is the Foundation's own remote access service: free, encrypted, and it works from any browser with no port forwarding.
 
