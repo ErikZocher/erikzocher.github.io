@@ -95,16 +95,17 @@
   {% include head-custom.html %}
 </head>
 <body>
-  <header class="page-header" role="banner">
-    <h1 class="project-name">
-      <a href="{{ "/" | relative_url }}" style="color:inherit;text-decoration:none;">{{ site.title }}</a>
-    </h1>
-    <h2 class="project-tagline">{{ site.description }}</h2>
-    <a href="{{ "/tags" | relative_url }}" class="nav-link">Tags</a>
-    <a href="{{ "/suche" | relative_url }}" class="nav-link">Search</a>
-    <a href="{{ "/ueber-mich" | relative_url }}" class="nav-link">About</a>
-    <a href="{{ "/feed.xml" | relative_url }}" class="nav-link">RSS</a>
-    <button id="theme-toggle" class="theme-toggle" title="Toggle dark/light mode">🌙</button>
+  <header class="site-header" role="banner">
+    <div class="site-header-inner">
+      <a class="site-logo" href="{{ "/" | relative_url }}">{{ site.title }}</a>
+      <nav class="site-nav">
+        <a href="{{ "/blog" | relative_url }}" class="nav-link">Blog</a>
+        <a href="{{ "/archive" | relative_url }}" class="nav-link">Archive</a>
+        <a href="{{ "/tags" | relative_url }}" class="nav-link">Tags</a>
+        <a href="{{ "/suche" | relative_url }}" class="nav-link">Search</a>
+        <button id="theme-toggle" class="theme-toggle" title="Toggle dark/light mode">🌙</button>
+      </nav>
+    </div>
   </header>
   <main id="content" class="main-content" role="main">
     {{ content }}
