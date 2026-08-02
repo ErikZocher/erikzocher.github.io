@@ -11,7 +11,7 @@ categories: [technology]
 
 *2026-08-02 · 6 min read · [raspberry-pi] [hermes] [ai-agents] [homelab] [nvme] [telegram]*
 
-I run a personal AI agent from a Raspberry Pi 5 that sits in my living room in Berlin. It watches the tram schedule, updates an e-ink dashboard on my wall, scans job listings, drafts blog posts, and talks to me through Telegram. This post is the overview. If you want the step-by-step technical details, I wrote those up in a separate post: [Booting From NVMe and Auto-Starting Services on a Pi 5](https://erikzocher.github.io/technology/2026/08/02/raspberry-pi-technical-deep-dive.html).
+I run a personal AI agent from a Raspberry Pi 5 that sits in my living room in Berlin. It watches the tram schedule, updates an e-ink dashboard on my wall, scans job listings, drafts blog posts, and talks to me through Telegram. This post is the overview. If you want the step-by-step technical details, I wrote those up in a separate post: [Raspberry Pi 5 From Scratch](https://erikzocher.github.io/technology/2026/08/02/raspberry-pi-technical-deep-dive.html).
 
 ## The Hardware
 
@@ -31,7 +31,18 @@ The agent itself is [Hermes Agent](https://hermes-agent.nousresearch.com) by Nou
 
 ## Why a Cloud Model, Not a Local One
 
-I used to run a local model on the Pi. It worked, in the sense that text came out. But there is a reason I moved to the cloud: **the small models could not do tool calls reliably.**
+I used to run local models on the Pi, served by Ollama. I tried four of them over a few weeks:
+
+| Model | Parameters | File size |
+|-------|:----------:|:---------:|
+| Gemma 4 (e2b) | 5.1B | 7.2 GB |
+| Gemma 4 (64k context) | 5.1B | 7.2 GB |
+| Gemma 4 (e4b) | 8.0B | 9.6 GB |
+| Qwen 3.5 (9b) | 9.7B | 6.6 GB |
+
+The size mattered, and the reason is the Pi's **16GB of RAM**. A model has to fit entirely in memory while the operating system, the agent, and everything else still need their share. The 5.1B models fit comfortably. The 8B and 9.7B models worked too, but they left much less headroom, and inference on CPU was slow: with no GPU, every token comes from the CPU, and the bigger the model, the longer you wait between words.
+
+But the real reason I moved to the cloud was not speed or RAM. It was this: **none of them could do tool calls reliably.**
 
 Tool calls are the difference between a chat and an agent. The model has to decide "I need the tram times" and produce a structured request to fetch them. Small models running on a Pi simply do not have the capacity for that reliably. They answer questions, but they cannot operate a harness. A local model on this hardware was a fun experiment and a dead end for real agent work.
 
@@ -87,4 +98,4 @@ The key decision was separating the model from the machine. The model is in the 
 
 If you want a personal AI agent that actually does things instead of just talking, a Pi 5 with an NVMe drive and a cloud model is a really good place to start.
 
-*Want the technical how-to? Read [Booting From NVMe and Auto-Starting Services on a Pi 5](https://erikzocher.github.io/technology/2026/08/02/raspberry-pi-technical-deep-dive.html).*
+*Want the technical how-to? Read [Raspberry Pi 5 From Scratch](https://erikzocher.github.io/technology/2026/08/02/raspberry-pi-technical-deep-dive.html).*
