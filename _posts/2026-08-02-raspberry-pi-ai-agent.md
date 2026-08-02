@@ -17,7 +17,7 @@ I run a personal AI agent from a Raspberry Pi 5 that sits in my living room in B
 
 **Raspberry Pi 5 Model B (Rev 1.1)** with **16GB RAM**. That matters: the Pi 5 is the first Pi where 16GB is an option, and for an always-on agent, the extra headroom is worth it.
 
-The star of the show is the storage: a **1TB NVMe SSD** (BIWIN CE930) connected through an NVMe HAT. [HAT-Name hier einsetzen]. Booting from NVMe instead of an SD card changes everything. No more worrying about SD card corruption, which is the classic way a headless Pi dies. Reads and writes are fast enough that the agent never waits on disk.
+The star of the show is the storage: a **1TB NVMe SSD** (BIWIN CE930) connected through the official **Raspberry Pi M.2 HAT+**. Booting from NVMe instead of an SD card changes everything. No more worrying about SD card corruption, which is the classic way a headless Pi dies. Reads and writes are fast enough that the agent never waits on disk.
 
 A 238GB microSD is still in the slot from the old setup, but the system boots from the NVMe drive now.
 
