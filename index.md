@@ -18,4 +18,8 @@ Welcome to my personal blog. I write about:
 ### [{{ post.title }}]({{ post.url }})
 *{{ post.date | date: "%Y-%m-%d" }} · {% for tag in post.tags %}`{{ tag }}` {% endfor %}{% endfor %}
 
-[🔍 Search](suche) · [🏷️ Tags](tags) · [📡 RSS](feed.xml)
+[🔍 Search](suche) · [🏷️ Tags](tags)
+
+---
+
+**📡 Follow the blog via [RSS feed](feed.xml)**
