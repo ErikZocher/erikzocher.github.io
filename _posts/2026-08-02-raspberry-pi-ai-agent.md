@@ -27,6 +27,53 @@ A 238GB microSD is still in the slot from the old setup, but the system boots fr
 
 Installing was standard: flash the image, enable SSH, set the WiFi. The interesting part is what runs on top.
 
+## Booting From the SSD
+
+The Pi does not boot from the microSD anymore. It boots from the NVMe drive, and the whole boot story is the part I customized the most.
+
+**The boot order** lives in the EEPROM. Mine reads:
+
+```bash
+$ sudo rpi-eeprom-config | grep BOOT_ORDER
+BOOT_ORDER=0xf146
+```
+
+That value is read from right to left: `6` (restart from top), `4` (USB mass storage, which is where the NVMe appears), `1` (SD card as fallback), `f` (loop back to the beginning). So the Pi tries the NVMe first, falls back to the SD card, and keeps trying until it finds a bootable device. To set it, use:
+
+```bash
+sudo raspi-config   # Advanced Options → Boot Order → NVMe/USB Boot
+# or directly:
+sudo rpi-eeprom-config --edit   # change BOOT_ORDER to 0xf146
+```
+
+**The root filesystem** points at the NVMe partition by its PARTUUID, which is how the kernel finds it at boot:
+
+```bash
+$ cat /etc/fstab
+PARTUUID=957b593b-02  /               ext4    defaults,noatime  0  1
+PARTUUID=957b593b-01  /boot/firmware  vfat    defaults          0  2
+UUID=76602090-...     /mnt/nvme       ext4    defaults,auto,users,rw,nofail 0 0
+```
+
+The microSD is still in the slot, but it is demoted to a data disk (mounted at `/media/ezocher/bootfs`), not a boot device.
+
+**PCIe speed:** the Pi 5 runs the PCIe bus at Gen 2 by default. I bumped it to Gen 3 in `/boot/firmware/config.txt` so the NVMe runs at full speed:
+
+```ini
+dtparam=pciex1_gen=3
+```
+
+**The "turn it on and it just works" part** is systemd. Three services are enabled and set to restart automatically:
+
+```bash
+$ ls /etc/systemd/system/*.service
+hermes-gateway.service    # the agent, restarts on any failure
+ollama.service            # local model serving (legacy, see below)
+kindle-dashboard.service  # serves the e-ink dashboard image
+```
+
+They all use `Restart=always`, so if anything crashes, systemd brings it back within seconds. That is why the Pi comes up and is immediately useful after a reboot: the kernel finds the NVMe, mounts the root partition, and systemd starts the agent without anyone logging in. Power on, wait a minute, message the agent on Telegram. That is the whole ritual.
+
 ## The Agent: Hermes
 
 The agent itself is [Hermes Agent](https://hermes-agent.nousresearch.com) by Nous Research. It is an open source AI agent framework that runs as a daemon on the Pi, and it is the whole point of this box. Instead of a chatbot that answers questions, Hermes is an agent that takes actions: it runs shell commands, reads and writes files, searches the web, manages scheduled jobs, and remembers things across sessions.
