@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "My Raspberry Pi AI Agent: The Full Setup"
-date: 2026-08-02
+date: 2026-08-02 09:00:00 +0200
 description: "How I built a headless AI agent on a Raspberry Pi 5 with an NVMe SSD, DeepSeek in the cloud, and Telegram as the front door."
 tags: [raspberry-pi, hermes, ai-agents, homelab, nvme, telegram]
 categories: [technology]
@@ -9,9 +9,9 @@ categories: [technology]
 
 # My Raspberry Pi AI Agent: The Full Setup
 
-*2026-08-02 · 7 min read · [raspberry-pi] [hermes] [ai-agents] [homelab] [nvme] [telegram]*
+*2026-08-02 · 6 min read · [raspberry-pi] [hermes] [ai-agents] [homelab] [nvme] [telegram]*
 
-I run a personal AI agent from a Raspberry Pi 5 that sits in my living room in Berlin. It watches the tram schedule, updates an e-ink dashboard on my wall, scans job listings, drafts blog posts, and talks to me through Telegram. This post is the full setup, for anyone who wants to build something similar.
+I run a personal AI agent from a Raspberry Pi 5 that sits in my living room in Berlin. It watches the tram schedule, updates an e-ink dashboard on my wall, scans job listings, drafts blog posts, and talks to me through Telegram. This post is the overview. If you want the step-by-step technical details, I wrote those up in a separate post: [Booting From NVMe and Auto-Starting Services on a Pi 5](https://erikzocher.github.io/technology/2026/08/02/raspberry-pi-technical-deep-dive.html).
 
 ## The Hardware
 
@@ -19,60 +19,11 @@ I run a personal AI agent from a Raspberry Pi 5 that sits in my living room in B
 
 The star of the show is the storage: a **1TB NVMe SSD** (BIWIN CE930) connected through the official **Raspberry Pi M.2 HAT+**. Booting from NVMe instead of an SD card changes everything. No more worrying about SD card corruption, which is the classic way a headless Pi dies. Reads and writes are fast enough that the agent never waits on disk.
 
-A 238GB microSD is still in the slot from the old setup, but the system boots from the NVMe drive now.
+A 238GB microSD is still in the slot from the old setup, but the system boots from the NVMe drive now. How I made that work is in the [technical post](https://erikzocher.github.io/technology/2026/08/02/raspberry-pi-technical-deep-dive.html).
 
 ## The OS
 
 **Raspberry Pi OS, based on Debian 13 (Trixie)**, kernel 6.18. Running headless, no monitor, no keyboard. The only cables are power and network. Everything else happens over SSH and Telegram.
-
-Installing was standard: flash the image, enable SSH, set the WiFi. The interesting part is what runs on top.
-
-## Booting From the SSD
-
-The Pi does not boot from the microSD anymore. It boots from the NVMe drive, and the whole boot story is the part I customized the most.
-
-**The boot order** lives in the EEPROM. Mine reads:
-
-```bash
-$ sudo rpi-eeprom-config | grep BOOT_ORDER
-BOOT_ORDER=0xf146
-```
-
-That value is read from right to left: `6` (restart from top), `4` (USB mass storage, which is where the NVMe appears), `1` (SD card as fallback), `f` (loop back to the beginning). So the Pi tries the NVMe first, falls back to the SD card, and keeps trying until it finds a bootable device. To set it, use:
-
-```bash
-sudo raspi-config   # Advanced Options → Boot Order → NVMe/USB Boot
-# or directly:
-sudo rpi-eeprom-config --edit   # change BOOT_ORDER to 0xf146
-```
-
-**The root filesystem** points at the NVMe partition by its PARTUUID, which is how the kernel finds it at boot:
-
-```bash
-$ cat /etc/fstab
-PARTUUID=957b593b-02  /               ext4    defaults,noatime  0  1
-PARTUUID=957b593b-01  /boot/firmware  vfat    defaults          0  2
-UUID=76602090-...     /mnt/nvme       ext4    defaults,auto,users,rw,nofail 0 0
-```
-
-The microSD is still in the slot, but it is demoted to a data disk (mounted at `/media/ezocher/bootfs`), not a boot device.
-
-**PCIe speed:** the Pi 5 runs the PCIe bus at Gen 2 by default. I bumped it to Gen 3 in `/boot/firmware/config.txt` so the NVMe runs at full speed:
-
-```ini
-dtparam=pciex1_gen=3
-```
-
-**The "turn it on and it just works" part** is systemd. Three services are enabled and set to restart automatically:
-
-```bash
-$ ls /etc/systemd/system/*.service
-hermes-gateway.service    # the agent, restarts on any failure
-ollama.service            # local model serving (legacy, see below)
-kindle-dashboard.service  # serves the e-ink dashboard image
-```
-
-They all use `Restart=always`, so if anything crashes, systemd brings it back within seconds. That is why the Pi comes up and is immediately useful after a reboot: the kernel finds the NVMe, mounts the root partition, and systemd starts the agent without anyone logging in. Power on, wait a minute, message the agent on Telegram. That is the whole ritual.
 
 ## The Agent: Hermes
 
@@ -92,36 +43,9 @@ Two front doors, both headless:
 
 **SSH** for everything serious. `ssh ezocher@192.168.178.54` gets me a shell, and from there I can reach the agent's files, logs, and configuration. When something breaks, this is where I look.
 
-**Raspberry Pi Connect** for the rare moments when I need a graphical interface. Connect is the Raspberry Pi Foundation's own remote access service, and it is the easiest way to get a GUI on a headless Pi.
-
-**How to use Raspberry Pi Connect:**
-
-1. **Install it** on the Pi (one-time). On recent Raspberry Pi OS images it is already installed, so check first:
-   ```bash
-   rpi-connect --help
-   ```
-   If that says "command not found", install it:
-   ```bash
-   sudo apt update && sudo apt install rpi-connect
-   ```
-   On the Pi 5 (arm64) the package manager picks the right build automatically.
-
-2. **Sign in** to link the Pi to your Raspberry Pi account:
-   ```bash
-   rpi-connect signin
-   ```
-   It prints a URL. Open it in any browser, log in with your Raspberry Pi ID, and the Pi is linked.
-
-3. **Enable the service** so it survives reboots:
-   ```bash
-   sudo systemctl enable --now rpi-connect
-   ```
-
-4. **Connect from anywhere:** go to [connect.raspberrypi.com](https://connect.raspberrypi.com), log in, and your Pi appears in the list. Click it and you get the desktop in your browser tab, or a shell. No port forwarding, no VPN, no dynamic DNS. The connection is encrypted end to end and works from outside your home network too.
-
-The best part: because the Pi is headless, Connect is purely a fallback for me. The agent runs as a daemon, Telegram is the daily interface, and I only open Connect when I need to look at a GUI application or poke at the desktop environment.
-
 **Telegram** for everything daily. The agent is connected to Telegram as a bot, so I can message it like a friend. Ask for the tram, tell it to draft a blog post, ask it to check a job listing. It replies in the same chat. This is the interface that makes the whole thing feel alive. I check in from my phone, anywhere.
+
+For the rare moments when I need a graphical interface, I use **Raspberry Pi Connect**, the Foundation's own remote desktop service. It works from any browser, no port forwarding needed. The setup steps are in the [technical post](https://erikzocher.github.io/technology/2026/08/02/raspberry-pi-technical-deep-dive.html).
 
 ## The Skills and Plugins That Make It Useful
 
@@ -162,3 +86,5 @@ Uptime at the time of writing: one week, two days, and counting. It just sits th
 The key decision was separating the model from the machine. The model is in the cloud where the compute is, the machine is at home where the actions are. A Raspberry Pi 5 is not a great GPU server, but it is a fantastic always-on agent host: silent, cheap, and powerful enough to run the harness, the schedules, and the memory.
 
 If you want a personal AI agent that actually does things instead of just talking, a Pi 5 with an NVMe drive and a cloud model is a really good place to start.
+
+*Want the technical how-to? Read [Booting From NVMe and Auto-Starting Services on a Pi 5](https://erikzocher.github.io/technology/2026/08/02/raspberry-pi-technical-deep-dive.html).*
