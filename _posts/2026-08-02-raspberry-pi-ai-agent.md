@@ -45,6 +45,35 @@ Two front doors, both headless:
 
 **SSH** for everything serious. `ssh ezocher@192.168.178.54` gets me a shell, and from there I can reach the agent's files, logs, and configuration. When something breaks, this is where I look.
 
+**Raspberry Pi Connect** for the rare moments when I need a graphical interface. Connect is the Raspberry Pi Foundation's own remote access service, and it is the easiest way to get a GUI on a headless Pi.
+
+**How to use Raspberry Pi Connect:**
+
+1. **Install it** on the Pi (one-time). On recent Raspberry Pi OS images it is already installed, so check first:
+   ```bash
+   rpi-connect --help
+   ```
+   If that says "command not found", install it:
+   ```bash
+   sudo apt update && sudo apt install rpi-connect
+   ```
+   On the Pi 5 (arm64) the package manager picks the right build automatically.
+
+2. **Sign in** to link the Pi to your Raspberry Pi account:
+   ```bash
+   rpi-connect signin
+   ```
+   It prints a URL. Open it in any browser, log in with your Raspberry Pi ID, and the Pi is linked.
+
+3. **Enable the service** so it survives reboots:
+   ```bash
+   sudo systemctl enable --now rpi-connect
+   ```
+
+4. **Connect from anywhere:** go to [connect.raspberrypi.com](https://connect.raspberrypi.com), log in, and your Pi appears in the list. Click it and you get the desktop in your browser tab, or a shell. No port forwarding, no VPN, no dynamic DNS. The connection is encrypted end to end and works from outside your home network too.
+
+The best part: because the Pi is headless, Connect is purely a fallback for me. The agent runs as a daemon, Telegram is the daily interface, and I only open Connect when I need to look at a GUI application or poke at the desktop environment.
+
 **Telegram** for everything daily. The agent is connected to Telegram as a bot, so I can message it like a friend. Ask for the tram, tell it to draft a blog post, ask it to check a job listing. It replies in the same chat. This is the interface that makes the whole thing feel alive. I check in from my phone, anywhere.
 
 ## The Skills and Plugins That Make It Useful
