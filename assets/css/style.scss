@@ -1,0 +1,207 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+/* ============ DARK MODE (default) ============ */
+
+/* Dark is the default: :root carries dark values.
+   [data-theme="light"] switches back to Cayman's original look. */
+
+:root {
+  --bg: #0d1117;
+  --bg-secondary: #161b22;
+  --text: #c9d1d9;
+  --text-muted: #8b949e;
+  --heading: #e6edf3;
+  --link: #58a6ff;
+  --header-bg: #10141b;
+  --header-bg-secondary: #0d1117;
+  --code-bg: #1c2128;
+  --code-text: #9ececa;
+  --border: #30363d;
+  --table-border: #30363d;
+  --hr-border: #21262d;
+  --btn-bg: #21262d;
+  --btn-border: #30363d;
+  --blockquote-text: #8b949e;
+}
+
+[data-theme="light"] {
+  --bg: #ffffff;
+  --bg-secondary: #f5f7fa;
+  --text: #606c71;
+  --text-muted: #819198;
+  --heading: #159957;
+  --link: #1e6bb8;
+  --header-bg: #159957;
+  --header-bg-secondary: #155799;
+  --code-bg: #f3f6fa;
+  --code-text: #567482;
+  --border: #dce6f0;
+  --table-border: #e9ebec;
+  --hr-border: #eff0f1;
+  --btn-bg: #fff;
+  --btn-border: rgba(255,255,255,0.7);
+  --blockquote-text: #819198;
+}
+
+/* Apply variables to theme elements */
+body {
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+.page-header {
+  background-image: linear-gradient(120deg, var(--header-bg), var(--header-bg-secondary));
+}
+
+.main-content h1,
+.main-content h2,
+.main-content h3,
+.main-content h4,
+.main-content h5,
+.main-content h6 {
+  color: var(--heading);
+}
+
+.main-content a {
+  color: var(--link);
+}
+
+.main-content pre,
+.main-content code {
+  background-color: var(--code-bg);
+  color: var(--code-text);
+}
+
+.main-content blockquote {
+  color: var(--blockquote-text);
+  border-left-color: var(--border);
+}
+
+.main-content table th,
+.main-content table td {
+  border-color: var(--table-border);
+}
+
+.main-content table tr {
+  border-top-color: var(--table-border);
+}
+
+.main-content table tr:nth-child(2n) {
+  background-color: var(--bg-secondary);
+}
+
+.main-content hr {
+  border-color: var(--hr-border);
+}
+
+.main-content .btn {
+  color: var(--heading);
+  background-color: var(--btn-bg);
+  border-color: var(--btn-border);
+}
+
+.site-footer {
+  border-top-color: var(--border);
+}
+
+.site-footer-owner,
+.site-footer-credits {
+  color: var(--text-muted);
+}
+
+/* Custom: tag badges */
+.tag-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  margin: 4px;
+  background: var(--code-bg);
+  border-radius: 4px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 14px;
+}
+.tag-badge:hover {
+  background: var(--border);
+  color: var(--heading);
+}
+
+/* Custom: share buttons */
+.share-post {
+  margin: 20px 0;
+  text-align: center;
+}
+.share-post h3 {
+  margin-bottom: 10px;
+}
+.share-post .share-buttons {
+  display: inline-flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.share-post .share-btn {
+  padding: 8px 14px;
+  border-radius: 4px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+}
+.share-post .share-btn:hover {
+  opacity: 0.85;
+}
+
+/* Custom: related posts */
+.related-posts {
+  margin: 20px 0;
+}
+
+/* Header nav: text links */
+.nav-link {
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  font-size: 15px;
+  margin: 0 8px;
+  padding: 4px 0;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+.nav-link:hover {
+  color: #fff;
+  border-bottom-color: rgba(255, 255, 255, 0.6);
+}
+
+/* Theme toggle button in header (icon only) */
+.theme-toggle {
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  background: transparent;
+  color: #fff;
+  width: 34px;
+  height: 34px;
+  font-size: 16px;
+  margin-left: 10px;
+  vertical-align: middle;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background 0.2s;
+}
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Mermaid diagrams: fit dark background */
+.mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+[data-theme="dark"] .mermaid {
+  filter: none;
+}
