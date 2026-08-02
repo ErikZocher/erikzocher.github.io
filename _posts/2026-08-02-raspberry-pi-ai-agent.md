@@ -11,7 +11,7 @@ categories: [technology]
 
 *2026-08-02 · 6 min read · [raspberry-pi] [hermes] [ai-agents] [homelab] [nvme] [telegram]*
 
-I run a personal AI agent from a Raspberry Pi 5 that sits in my living room in Berlin. It watches the tram schedule, updates an e-ink dashboard on my wall, scans job listings, drafts blog posts, and talks to me through Telegram. This post is the overview. If you want the step-by-step technical details, I wrote those up in a separate post: [Booting From NVMe and Auto-Starting Services on a Pi 5](https://erikzocher.github.io/technology/2026/08/02/raspberry-pi-technical-deep-dive.html).
+I run a personal AI agent from a Raspberry Pi 5 that sits in my living room in Berlin. It watches the tram schedule, updates an e-ink dashboard on my wall, scans job listings, drafts blog posts, and talks to me through Telegram. This post is the overview. If you want the step-by-step technical details, I wrote those up in a separate post: [Raspberry Pi 5 From Scratch](https://erikzocher.github.io/technology/2026/08/02/raspberry-pi-technical-deep-dive.html).
 
 ## The Hardware
 
@@ -87,4 +87,4 @@ The key decision was separating the model from the machine. The model is in the 
 
 If you want a personal AI agent that actually does things instead of just talking, a Pi 5 with an NVMe drive and a cloud model is a really good place to start.
 
-*Want the technical how-to? Read [Booting From NVMe and Auto-Starting Services on a Pi 5](https://erikzocher.github.io/technology/2026/08/02/raspberry-pi-technical-deep-dive.html).*
+*Want the technical how-to? Read [Raspberry Pi 5 From Scratch](https://erikzocher.github.io/technology/2026/08/02/raspberry-pi-technical-deep-dive.html).*

@@ -1,13 +1,13 @@
 ---
 layout: post
-title: "Raspberry Pi 5: Booting From NVMe and Auto-Starting Services"
+title: "Raspberry Pi 5 From Scratch: SSD Boot, Auto-Starting Services, and Remote Access"
 date: 2026-08-02 11:00:00 +0200
 description: "The technical details behind my headless Pi AI agent: flashing the SSD with Raspberry Pi Imager, pre-setting WiFi and SSH, EEPROM boot order, PARTUUID root filesystem, PCIe Gen 3, systemd services, and Raspberry Pi Connect."
 tags: [raspberry-pi, nvme, systemd, homelab, linux, headless]
 categories: [technology]
 ---
 
-# Raspberry Pi 5: Booting From NVMe and Auto-Starting Services
+# Raspberry Pi 5 From Scratch: SSD Boot, Auto-Starting Services, and Remote Access
 
 *2026-08-02 · 10 min read · [raspberry-pi] [nvme] [systemd] [homelab] [linux] [headless]*
 
