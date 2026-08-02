@@ -13,6 +13,8 @@ categories: [technology]
 
 Most people think working with AI means typing a good prompt. That's level one. There are at least five levels of working with AI, and each one gives you more control than the last. Here they are, from the simplest to the most powerful.
 
+Before we start: this is a moving target. The way we work with AI keeps evolving, and new approaches appear faster than anyone can write about them. Treat this list as a snapshot of where things stand now, not a complete map. The next level might already be on its way.
+
 ## Level 1: Prompt Engineering
 
 **What it is:** the craft of asking well. The words you type into the box.
