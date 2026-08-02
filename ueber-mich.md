@@ -27,8 +27,8 @@ I live in Berlin (Weißensee/Pankow), ride the M4 tram, and keep an eye out for 
 **Angaben gemäß §5 DDG**
 
 Erik Zocher
-[Straße] [Hausnummer]
-[PLZ] Berlin
+Buschallee 109
+13088 Berlin
 Deutschland
 
 **Kontakt**
@@ -36,7 +36,7 @@ E-Mail: zocher.erik+blog@gmail.com
 
 **Verantwortlich für den Inhalt nach §18 Abs. 2 MStV**
 Erik Zocher
-[Straße] [Hausnummer]
-[PLZ] Berlin
+Buschallee 109
+13088 Berlin
 
 *Stand: August 2026*
