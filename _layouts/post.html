@@ -41,17 +41,17 @@ layout: default
 
 <hr>
 
-<div class="share-post" style="margin: 20px 0; text-align: center;">
-  <h3 style="margin-bottom: 10px;">Share this post</h3>
+<div class="share-post">
+  <h3>Share this post</h3>
   {% assign post_url = site.url | append: page.url %}
   {% assign share_text = page.title | append: " - " | append: post_url %}
-  <div style="display: inline-flex; gap: 8px; flex-wrap: wrap; justify-content: center;">
-    <button onclick="copyLink('{{ post_url }}', this)" style="padding:8px 14px;border:none;border-radius:4px;background:#356577;color:#fff;cursor:pointer;font-size:14px;">🔗 Copy link</button>
-    <a href="https://twitter.com/intent/tweet?text={{ share_text | url_encode }}" target="_blank" rel="noopener" style="padding:8px 14px;border-radius:4px;background:#1DA1F2;color:#fff;text-decoration:none;font-size:14px;">X / Twitter</a>
-    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ post_url | url_encode }}" target="_blank" rel="noopener" style="padding:8px 14px;border-radius:4px;background:#0A66C2;color:#fff;text-decoration:none;font-size:14px;">LinkedIn</a>
-    <a href="https://t.me/share/url?url={{ post_url | url_encode }}&text={{ page.title | url_encode }}" target="_blank" rel="noopener" style="padding:8px 14px;border-radius:4px;background:#229ED9;color:#fff;text-decoration:none;font-size:14px;">Telegram</a>
-    <a href="https://wa.me/?text={{ share_text | url_encode }}" target="_blank" rel="noopener" style="padding:8px 14px;border-radius:4px;background:#25D366;color:#fff;text-decoration:none;font-size:14px;">WhatsApp</a>
-    <a href="mailto:?subject={{ page.title | url_encode }}&body={{ share_text | url_encode }}" style="padding:8px 14px;border-radius:4px;background:#666;color:#fff;text-decoration:none;font-size:14px;">✉️ Email</a>
+  <div class="share-buttons">
+    <button onclick="copyLink('{{ post_url }}', this)" class="share-btn" style="background:#356577;">🔗 Copy link</button>
+    <a href="https://twitter.com/intent/tweet?text={{ share_text | url_encode }}" target="_blank" rel="noopener" class="share-btn" style="background:#1DA1F2;">X / Twitter</a>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ post_url | url_encode }}" target="_blank" rel="noopener" class="share-btn" style="background:#0A66C2;">LinkedIn</a>
+    <a href="https://t.me/share/url?url={{ post_url | url_encode }}&text={{ page.title | url_encode }}" target="_blank" rel="noopener" class="share-btn" style="background:#229ED9;">Telegram</a>
+    <a href="https://wa.me/?text={{ share_text | url_encode }}" target="_blank" rel="noopener" class="share-btn" style="background:#25D366;">WhatsApp</a>
+    <a href="mailto:?subject={{ page.title | url_encode }}&body={{ share_text | url_encode }}" class="share-btn" style="background:#666;">✉️ Email</a>
   </div>
 </div>
 
