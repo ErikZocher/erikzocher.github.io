@@ -28,7 +28,7 @@ Before any customization, the Pi needs an operating system, and for a headless s
 5. **Click the gear icon** (or press Ctrl+Shift+X) to open the advanced options. This is the headless magic:
    - **Enable SSH** and set it to allow password login (or paste an SSH key for key-only access).
    - **Set the username and password** you want to log in with.
-   - **Configure WiFi**: enter the SSID and password, and pick the WiFi country. The Imager writes these into the image, so the Pi connects to your network on its very first boot, with no keyboard needed.
+   - **Configure WiFi**: enter the SSID and password. There is also a **country dropdown** (defaults to GB), and it matters more than it looks: set it to your actual country, e.g. `DE` for Germany. The country defines the *regulatory domain*, which tells the kernel which WiFi channels and transmit power levels are legal. With the wrong country you can lose the 5GHz channels entirely; with none set, the radio falls back to conservative defaults. The Imager writes all of this into the image, so the Pi connects to your network on its very first boot, with no keyboard needed.
    - Optionally set a **hostname** (mine is a plain `ezocher` box, but something like `piagent` is nicer) and your timezone.
 6. **Click Write** and wait. The Imager flashes the OS, then verifies the write.
 7. **Unplug the SSD from the computer**, mount it on the Pi with the M.2 HAT+, connect power, and wait about a minute.
