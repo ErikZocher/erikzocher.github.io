@@ -1,5 +1,6 @@
 title: Erik Zocher
 description: "Personal blog - Design, Technology, Berlin & more"
+tagline: "Design, Technology, Berlin & more"
 author: Erik Zocher
 email: zocher.erik+blog@gmail.com
 baseurl: ""
@@ -7,8 +8,10 @@ url: "https://erikzocher.github.io"
 lang: en
 timezone: Europe/Berlin
 markdown: kramdown
-theme: jekyll-theme-cayman
+remote_theme: pages-themes/midnight@v0.2.0
+show_downloads: false
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-sitemap
+  - jekyll-remote-theme
