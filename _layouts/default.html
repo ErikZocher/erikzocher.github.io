@@ -1,66 +1,50 @@
-<!doctype html>
+---
+---
+<!DOCTYPE html>
 <html lang="{{ site.lang | default: "en-US" }}">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="google-site-verification" content="esmmcqnNy_X_l2O5TzghmwPjkHRAEZXbSSuFcPxeJEA" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="google-site-verification" content="esmmcqnNy_X_l2O5TzghmwPjkHRAEZXbSSuFcPxeJEA" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if page.title %}{{ page.title | escape }} | {% endif %}{{ site.title | escape }}</title>
+  <link rel="icon" type="image/x-icon" href="{{ "/assets/images/favicon.ico" | relative_url }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ "/assets/images/favicon-32x32.png" | relative_url }}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ "/assets/images/favicon-16x16.png" | relative_url }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ "/assets/images/apple-touch-icon.png" | relative_url }}">
+  <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
+  <script type="module" integrity="sha384-H3I/GBuI2vR7qAVY20j3ATk7IbKGz5cjGE6Yu5r32ybgMxbG6WBs1dWh+nVIJzxW" crossorigin="anonymous">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: false, theme: 'neutral' });
 
-    {% seo %}
-    <link rel="icon" type="image/x-icon" href="{{ "/assets/images/favicon.ico" | relative_url }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ "/assets/images/favicon-32x32.png" | relative_url }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ "/assets/images/favicon-16x16.png" | relative_url }}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ "/assets/images/apple-touch-icon.png" | relative_url }}">
-    <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-    <script src="{{ '/assets/js/respond.js' | relative_url }}"></script>
-    <script type="module" integrity="sha384-H3I/GBuI2vR7qAVY20j3ATk7IbKGz5cjGE6Yu5r32ybgMxbG6WBs1dWh+nVIJzxW" crossorigin="anonymous">
-      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-      mermaid.initialize({ startOnLoad: false, theme: 'neutral' });
-
-      // Kramdown renders ```mermaid as <pre><code class="language-mermaid">.
-      // Mermaid expects <div class="mermaid">, so convert before rendering.
-      document.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('pre code.language-mermaid').forEach((el) => {
-          const div = document.createElement('div');
-          div.className = 'mermaid';
-          div.textContent = el.textContent;
-          el.parentElement.replaceWith(div);
-        });
-        mermaid.run();
+    // Kramdown renders ```mermaid as <pre><code class="language-mermaid">.
+    // Mermaid expects <div class="mermaid">, so convert before rendering.
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('pre code.language-mermaid').forEach((el) => {
+        const div = document.createElement('div');
+        div.className = 'mermaid';
+        div.textContent = el.textContent;
+        el.parentElement.replaceWith(div);
       });
-    </script>
-    {% include head-custom.html %}
-  </head>
-  <body>
-      <div id="header">
-        <nav>
-          <ul>
-            <li class="fork"><a href="{{ '/' | relative_url }}">Home</a></li>
-            <li class="fork"><a href="{{ '/tags' | relative_url }}">Tags</a></li>
-            <li class="fork"><a href="{{ '/suche' | relative_url }}">Search</a></li>
-            <li class="fork"><a href="{{ '/ueber-mich' | relative_url }}">About</a></li>
-            <li class="fork"><a href="{{ '/feed.xml' | relative_url }}">RSS</a></li>
-            <li class="fork"><a href="{{ site.github.repository_url }}">GitHub</a></li>
-          </ul>
-        </nav>
-      </div><!-- end header -->
-
-    <div class="wrapper">
-
-      <section>
-        <div id="title">
-          <h1>{{ site.title | default: site.github.repository_name }}</h1>
-          <p>{{ site.tagline | default: site.description | default: site.github.project_tagline }}</p>
-          <hr>
-          <span class="credits left">Project maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a></span>
-          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/mattgraham">mattgraham</a></span>
-        </div>
-
-        {{ content }}
-
-      </section>
-
-    </div>
-  </body>
+      mermaid.run();
+    });
+  </script>
+  {% include head-custom.html %}
+</head>
+<body>
+  <header class="page-header" role="banner">
+    <h1 class="project-name">
+      <a href="{{ "/" | relative_url }}" style="color:inherit;text-decoration:none;">{{ site.title }}</a>
+    </h1>
+    <h2 class="project-tagline">{{ site.description }}</h2>
+    <a href="{{ "/tags" | relative_url }}" class="btn">Tags</a>
+    <a href="{{ "/suche" | relative_url }}" class="btn">Search</a>
+    <a href="{{ "/ueber-mich" | relative_url }}" class="btn">About</a>
+    <a href="{{ "/feed.xml" | relative_url }}" class="btn">RSS</a>
+  </header>
+  <main id="content" class="main-content" role="main">
+    {{ content }}
+  </main>
+  {% include footer.html %}
+  {% include head-custom.html %}
+</body>
 </html>
