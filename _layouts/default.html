@@ -99,9 +99,10 @@
     <div class="site-header-inner">
       <a class="site-logo" href="{{ "/" | relative_url }}">{{ site.title }}</a>
       <nav class="site-nav">
+        <a href="{{ "/blog" | relative_url }}" class="nav-link">Blog</a>
+        <a href="{{ "/archive" | relative_url }}" class="nav-link">Archive</a>
         <a href="{{ "/tags" | relative_url }}" class="nav-link">Tags</a>
         <a href="{{ "/suche" | relative_url }}" class="nav-link">Search</a>
-        <a href="{{ "/ueber-mich" | relative_url }}" class="nav-link">About</a>
         <button id="theme-toggle" class="theme-toggle" title="Toggle dark/light mode">🌙</button>
       </nav>
     </div>

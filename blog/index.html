@@ -1,0 +1,33 @@
+---
+layout: default
+title: Blog
+---
+
+# 📰 All Posts
+
+{% for post in paginator.posts %}
+### [{{ post.title }}]({{ post.url }})
+*{{ post.date | date: "%Y-%m-%d" }} · {% for tag in post.tags %}`{{ tag }}` {% endfor %}*
+{% endfor %}
+
+{% if paginator.total_pages > 1 %}
+<div class="pagination" style="text-align:center; margin: 30px 0;">
+  {% if paginator.previous_page %}
+    <a href="{{ paginator.previous_page_path | relative_url }}" class="page-link">← Previous</a>
+  {% endif %}
+
+  {% for page in (1..paginator.total_pages) %}
+    {% if page == paginator.page %}
+      <strong style="margin: 0 6px;">{{ page }}</strong>
+    {% elsif page == 1 %}
+      <a href="{{ '/blog/' | relative_url }}" class="page-link" style="margin: 0 6px;">{{ page }}</a>
+    {% else %}
+      <a href="{{ site.paginate_path | relative_url | replace: ':num', page }}" class="page-link" style="margin: 0 6px;">{{ page }}</a>
+    {% endif %}
+  {% endfor %}
+
+  {% if paginator.next_page %}
+    <a href="{{ paginator.next_page_path | relative_url }}" class="page-link">Next →</a>
+  {% endif %}
+</div>
+{% endif %}
