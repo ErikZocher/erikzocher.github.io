@@ -95,7 +95,7 @@ We descended into the basement, where a new servant had recently been hired. He 
 
 "Good fellow," said Holmes, "and what did you find?"
 
-"I found," said the hound, "that the master was not dead, and yet not alive. I found two masters where there should be one. I barked. I sent letters by post to the far address, `etor@gmx.de`, for when the telegram boy is dead, one must write letters instead. I barked until my throat was raw, and still the household would not listen."
+"I found," said the hound, "that the master was not dead, and yet not alive. I found two masters where there should be one. I barked. I sent letters by post to the far address, `zocher.erik+blog@gmail.com`, for when the telegram boy is dead, one must write letters instead. I barked until my throat was raw, and still the household would not listen."
 
 "A faithful servant," Holmes observed, "and a clever one. He understood the first law of such households: when the telegram is silent, you must cry through other means."
 
