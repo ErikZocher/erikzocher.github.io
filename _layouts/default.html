@@ -30,7 +30,7 @@
 
     function updateToggleLabel(theme) {
       var t = document.getElementById('theme-toggle');
-      if (t) t.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+      if (t) t.textContent = theme === 'dark' ? '☀️' : '🌙';
     }
 
     /* giscus theme sync (iframe loads async, so retry until ready) */
@@ -100,11 +100,11 @@
       <a href="{{ "/" | relative_url }}" style="color:inherit;text-decoration:none;">{{ site.title }}</a>
     </h1>
     <h2 class="project-tagline">{{ site.description }}</h2>
-    <a href="{{ "/tags" | relative_url }}" class="btn">Tags</a>
-    <a href="{{ "/suche" | relative_url }}" class="btn">Search</a>
-    <a href="{{ "/ueber-mich" | relative_url }}" class="btn">About</a>
-    <a href="{{ "/feed.xml" | relative_url }}" class="btn">RSS</a>
-    <button id="theme-toggle" class="theme-toggle">☀️ Light</button>
+    <a href="{{ "/tags" | relative_url }}" class="nav-link">Tags</a>
+    <a href="{{ "/suche" | relative_url }}" class="nav-link">Search</a>
+    <a href="{{ "/ueber-mich" | relative_url }}" class="nav-link">About</a>
+    <a href="{{ "/feed.xml" | relative_url }}" class="nav-link">RSS</a>
+    <button id="theme-toggle" class="theme-toggle" title="Toggle dark/light mode">🌙</button>
   </header>
   <main id="content" class="main-content" role="main">
     {{ content }}
