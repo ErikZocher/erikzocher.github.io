@@ -5,13 +5,13 @@ title: About & Impressum
 
 # About Me
 
-**Erik Zocher** - Designer, tech enthusiast, Berliner.
+**Erik Zocher** - Senior software engineer, design enthusiast, Berliner.
 
 ## 🎯 What I Do
-- Graphic Design / Art Direction
-- UX/UI Design
+- Software Engineering (Senior)
 - AI Agents & Automation
 - Raspberry Pi & Hardware Hacks
+- Design & UX as a passion, not a profession
 
 ## 📍 Berlin
 I live in Berlin (Weißensee/Pankow), ride the M4 tram, and keep an eye out for good design jobs.
