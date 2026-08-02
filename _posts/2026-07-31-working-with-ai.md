@@ -13,6 +13,8 @@ categories: [technology]
 
 Most people think working with AI means typing a good prompt. That's level one. There are at least five levels of working with AI, and each one gives you more control than the last. Here they are, from the simplest to the most powerful.
 
+Before we start: this is a moving target. The way we work with AI keeps evolving, and new approaches appear faster than anyone can write about them. Treat this list as a snapshot of where things stand now, not a complete map. The next level might already be on its way.
+
 ## Level 1: Prompt Engineering
 
 **What it is:** the craft of asking well. The words you type into the box.
@@ -135,6 +137,16 @@ flowchart LR
     C -->|needs work| B
     C -->|passes| D[Publish agent]
 ```
+
+## Beyond the Five Levels
+
+Two more approaches exist outside this ladder, and they work on a different axis.
+
+**Fine-tuning** changes the model itself instead of the interaction around it. You take a base model and train it further on your own data: your writing style, your company's support tickets, your code conventions. The result is a model that knows your stuff before you even prompt it. This is heavier than any level above. It needs data, compute, and maintenance, and it is usually the last resort when context and harness engineering are not enough.
+
+**Evaluation engineering** is the quality control layer. Instead of asking "how do I make the AI better?", it asks "how do I know whether the AI is good?". You build a test set of known cases, run the model against it, and measure how often it gets things right. This matters more than people think. A system that is right 90% of the time and fails silently is worse than one that is right 70% of the time and flags its own uncertainty.
+
+Both of these are their own crafts, and both keep evolving. They are worth knowing about, but they are not where a beginner should start.
 
 ## Which Level Should You Use?
 
