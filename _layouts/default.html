@@ -1,5 +1,3 @@
----
----
 <!DOCTYPE html>
 <html lang="{{ site.lang | default: "en-US" }}">
 <head>
@@ -14,18 +12,84 @@
   <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
   <script type="module" integrity="sha384-H3I/GBuI2vR7qAVY20j3ATk7IbKGz5cjGE6Yu5r32ybgMxbG6WBs1dWh+nVIJzxW" crossorigin="anonymous">
     import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-    mermaid.initialize({ startOnLoad: false, theme: 'neutral' });
 
-    // Kramdown renders ```mermaid as <pre><code class="language-mermaid">.
-    // Mermaid expects <div class="mermaid">, so convert before rendering.
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('pre code.language-mermaid').forEach((el) => {
-        const div = document.createElement('div');
+    /* ---------- Theme management (dark is DEFAULT) ---------- */
+    const THEME_KEY = 'ezocher-theme';
+
+    function currentTheme() {
+      return document.documentElement.getAttribute('data-theme') || 'dark';
+    }
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      try { localStorage.setItem(THEME_KEY, theme); } catch (e) {}
+      updateToggleLabel(theme);
+      syncGiscus(theme === 'dark' ? 'dark' : 'light');
+      renderMermaid();
+    }
+
+    function updateToggleLabel(theme) {
+      var t = document.getElementById('theme-toggle');
+      if (t) t.textContent = theme === 'dark' ? '☀️' : '🌙';
+    }
+
+    /* giscus theme sync (iframe loads async, so retry until ready) */
+    function setGiscusTheme(theme) {
+      var frame = document.querySelector('iframe.giscus-frame');
+      if (frame && frame.contentWindow) {
+        frame.contentWindow.postMessage({
+          giscus: { setConfig: { theme: theme } }
+        }, 'https://giscus.app');
+        return true;
+      }
+      return false;
+    }
+
+    function syncGiscus(theme) {
+      var attempts = 0;
+      var timer = setInterval(function() {
+        attempts++;
+        var ok = setGiscusTheme(theme);
+        if (ok || attempts > 20) clearInterval(timer); // max ~5s
+      }, 250);
+    }
+
+    /* Mermaid: keep source, re-render with theme */
+    function renderMermaid() {
+      var theme = currentTheme() === 'dark' ? 'dark' : 'neutral';
+      mermaid.initialize({ startOnLoad: false, theme: theme });
+      document.querySelectorAll('.mermaid').forEach(function(el) {
+        if (!el.dataset.src) el.dataset.src = el.textContent;
+        el.textContent = el.dataset.src;
+      });
+      mermaid.run();
+    }
+
+    /* ---------- Init ---------- */
+    document.addEventListener('DOMContentLoaded', function() {
+      // Default: dark. Respect stored choice if present.
+      var stored = null;
+      try { stored = localStorage.getItem(THEME_KEY); } catch (e) {}
+      var theme = stored || 'dark';
+      applyTheme(theme);
+
+      // Kramdown renders ```mermaid as <pre><code class="language-mermaid">.
+      // Convert to <div class="mermaid"> before first render.
+      document.querySelectorAll('pre code.language-mermaid').forEach(function(el) {
+        var div = document.createElement('div');
         div.className = 'mermaid';
         div.textContent = el.textContent;
         el.parentElement.replaceWith(div);
       });
-      mermaid.run();
+      renderMermaid();
+
+      // Toggle button
+      var toggle = document.getElementById('theme-toggle');
+      if (toggle) {
+        toggle.addEventListener('click', function() {
+          applyTheme(currentTheme() === 'dark' ? 'light' : 'dark');
+        });
+      }
     });
   </script>
   {% include head-custom.html %}
@@ -36,15 +100,15 @@
       <a href="{{ "/" | relative_url }}" style="color:inherit;text-decoration:none;">{{ site.title }}</a>
     </h1>
     <h2 class="project-tagline">{{ site.description }}</h2>
-    <a href="{{ "/tags" | relative_url }}" class="btn">Tags</a>
-    <a href="{{ "/suche" | relative_url }}" class="btn">Search</a>
-    <a href="{{ "/ueber-mich" | relative_url }}" class="btn">About</a>
-    <a href="{{ "/feed.xml" | relative_url }}" class="btn">RSS</a>
+    <a href="{{ "/tags" | relative_url }}" class="nav-link">Tags</a>
+    <a href="{{ "/suche" | relative_url }}" class="nav-link">Search</a>
+    <a href="{{ "/ueber-mich" | relative_url }}" class="nav-link">About</a>
+    <a href="{{ "/feed.xml" | relative_url }}" class="nav-link">RSS</a>
+    <button id="theme-toggle" class="theme-toggle" title="Toggle dark/light mode">🌙</button>
   </header>
   <main id="content" class="main-content" role="main">
     {{ content }}
   </main>
   {% include footer.html %}
-  {% include head-custom.html %}
 </body>
 </html>
