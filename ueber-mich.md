@@ -1,6 +1,6 @@
 ---
 layout: default
-title: About
+title: About & Impressum
 ---
 
 # About Me
@@ -19,3 +19,24 @@ I live in Berlin (Weißensee/Pankow), ride the M4 tram, and keep an eye out for 
 ## 📬 Contact
 - GitHub: [ErikZocher](https://github.com/ErikZocher)
 - Email: zocher.erik+blog@gmail.com
+
+---
+
+## Impressum
+
+**Angaben gemäß §5 DDG**
+
+Erik Zocher
+[Straße] [Hausnummer]
+[PLZ] Berlin
+Deutschland
+
+**Kontakt**
+E-Mail: zocher.erik+blog@gmail.com
+
+**Verantwortlich für den Inhalt nach §18 Abs. 2 MStV**
+Erik Zocher
+[Straße] [Hausnummer]
+[PLZ] Berlin
+
+*Stand: August 2026*
