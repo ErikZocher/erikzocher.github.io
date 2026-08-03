@@ -49,7 +49,7 @@ Here is the very first video my little cluster ever made. The prompt was "a cute
   Your browser does not support the video tag.
 </video>
 
-It is not Hollywood. The cat drifts more than it walks, and the park is more suggestion than scenery. But consider what just happened: a text prompt typed on a tiny Linux board in Berlin traveled over WiFi to a Windows PC, became a latent-space dream on an NVIDIA GPU, and came back as sixteen frames of a cat in a park. The whole loop took about a minute.
+It is not Hollywood. The cat drifts more than it walks, and the park is more suggestion than scenery. It also has two tails, because of course it does. When a diffusion model does not know how many tails a cat should have, it simply gives it the average number of tails, rounded up. But consider what just happened: a text prompt typed on a tiny Linux board in Berlin traveled over WiFi to a Windows PC, became a latent-space dream on an NVIDIA GPU, and came back as sixteen frames of a cat in a park. The whole loop took about a minute.
 
 ## Lessons Learned
 
