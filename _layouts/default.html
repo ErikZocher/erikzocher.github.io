@@ -58,12 +58,33 @@
     /* Mermaid: keep source, re-render with theme */
     function renderMermaid() {
       var theme = currentTheme() === 'dark' ? 'dark' : 'neutral';
-      mermaid.initialize({ startOnLoad: false, theme: theme });
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: theme,
+        themeVariables: {
+          fontSize: '18px',
+          fontFamily: 'inherit'
+        },
+        flowchart: { useMaxWidth: true, htmlLabels: true, nodeSpacing: 60, rankSpacing: 70 }
+      });
       document.querySelectorAll('.mermaid').forEach(function(el) {
         if (!el.dataset.src) el.dataset.src = el.textContent;
         el.textContent = el.dataset.src;
       });
       mermaid.run();
+    }
+
+    /* Zoom a mermaid diagram (click to toggle enlarge) */
+    function zoomMermaid(el) {
+      var was = el.dataset.zoomed === '1';
+      document.querySelectorAll('.mermaid.zoomed').forEach(function(d) {
+        d.classList.remove('zoomed');
+        delete d.dataset.zoomed;
+      });
+      if (!was) {
+        el.classList.add('zoomed');
+        el.dataset.zoomed = '1';
+      }
     }
 
     /* ---------- Init ---------- */
@@ -83,6 +104,13 @@
         el.parentElement.replaceWith(div);
       });
       renderMermaid();
+
+      // Click on a mermaid diagram to zoom in (toggle)
+      document.querySelectorAll('.mermaid').forEach(function(el) {
+        el.addEventListener('click', function() { zoomMermaid(el); });
+        el.title = 'Click to zoom';
+        el.style.cursor = 'zoom-in';
+      });
 
       // Toggle button
       var toggle = document.getElementById('theme-toggle');

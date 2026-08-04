@@ -261,12 +261,31 @@ body {
 }
 
 /* Mermaid diagrams: fit dark background */
+.mermaid {
+  text-align: center;
+  overflow-x: auto;
+  padding: 8px 4px;
+}
 .mermaid svg {
   max-width: 100%;
   height: auto;
 }
 [data-theme="dark"] .mermaid {
   filter: none;
+}
+/* Zoomed mermaid: full width, room to breathe */
+.mermaid.zoomed {
+  overflow-x: auto;
+}
+.mermaid.zoomed svg {
+  max-width: none;
+  width: 100%;
+  height: auto;
+}
+@media (min-width: 769px) {
+  .mermaid.zoomed svg {
+    min-width: 900px;
+  }
 }
 
 /* ============ ANTI-COOKIE BANNER ============ */
