@@ -14,6 +14,8 @@ categories: [technology]
 Everything in this story actually happened. My headless Raspberry Pi went unreachable one Sunday evening, and debugging it turned out to be a genuine whodunit. The technical TL;DR is at the bottom if you prefer facts over fog. But first, the case.
 
 > **Note:** The chapter illustrations below were added later, generated with Flux (a 12-billion-parameter image model) running on my Windows PC. They imagine what the case would have looked like if Sherlock Holmes had worked with systemd and a soldering iron.
+>
+> **License note:** Flux Dev (the model behind these images) is free for non-commercial use under the FLUX.1-dev Non-Commercial License, which this hobby blog clearly falls under. The images themselves may even be used commercially with a few caveats (attribution and AI-disclosure requirements apply). If I ever want to sell something made with it, I would need a license from Black Forest Labs or switch to the Apache-licensed FLUX.1-schnell. Your mileage may vary, so check the license before publishing anything commercial.
 
 ---
 
