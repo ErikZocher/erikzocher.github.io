@@ -129,19 +129,18 @@ Here is the result, 49 frames at 512x512, generated from the prompt "a cute oran
 
 ## Get the Workflow
 
-The exact workflow I used is available in two flavors, each in two formats:
+The workflow is available as an editable template with a placeholder prompt, in two formats:
 
-**The cat example (what you see above):**
-- For drag-and-drop into the ComfyUI canvas: [ltx23-t2v-cat-ui.json](/assets/workflows/ltx23-t2v-cat-ui.json)
-- For the API: [ltx23-t2v-cat.json](/assets/workflows/ltx23-t2v-cat.json)
-
-**An editable template with a placeholder prompt** (node `4`, replace `REPLACE_WITH_YOUR_PROMPT`):
-- For drag-and-drop: [ltx23-t2v-template-ui.json](/assets/workflows/ltx23-t2v-template-ui.json)
+- For drag-and-drop into the ComfyUI canvas: [ltx23-t2v-template-ui.json](/assets/workflows/ltx23-t2v-template-ui.json)
 - For the API: [ltx23-t2v-template.json](/assets/workflows/ltx23-t2v-template.json)
 
-**Two ways to use either one:**
+In the JSON, node `4` holds the prompt. Replace `REPLACE_WITH_YOUR_PROMPT` with your own text. For reference, the prompt that produced the cat video above was:
 
-1. **In the ComfyUI interface:** download the `-ui` JSON, then drag and drop it onto the ComfyUI canvas. The nodes appear, ready to run.
+> *"a cute orange cat walking through a sunlit park, cinematic lighting, smooth motion, high quality"*
+
+**Two ways to use it:**
+
+1. **In the ComfyUI interface:** download the `-ui` JSON, then drag and drop it onto the ComfyUI canvas. The nodes appear, ready to run. Double-click node `4` to edit the prompt.
 2. **Via the API (how I did it from the Pi):**
    ```bash
    curl -X POST http://<your-comfyui>:8188/prompt \
