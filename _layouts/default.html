@@ -62,10 +62,16 @@
         startOnLoad: false,
         theme: theme,
         themeVariables: {
-          fontSize: '18px',
-          fontFamily: 'inherit'
+          fontSize: '15px'
         },
-        flowchart: { useMaxWidth: true, htmlLabels: true, nodeSpacing: 60, rankSpacing: 70 }
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true,
+          nodeSpacing: 60,
+          rankSpacing: 70,
+          padding: 12,
+          wrappingWidth: 260
+        }
       });
       document.querySelectorAll('.mermaid').forEach(function(el) {
         if (!el.dataset.src) el.dataset.src = el.textContent;

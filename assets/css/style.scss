@@ -269,9 +269,19 @@ body {
 .mermaid svg {
   max-width: 100%;
   height: auto;
+  overflow: visible;
 }
 [data-theme="dark"] .mermaid {
   filter: none;
+}
+/* Keep node labels inside their boxes (fixes text clipping out of nodes) */
+.mermaid .nodeLabel {
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+.mermaid .label-container {
+  overflow: visible;
 }
 
 /* Mermaid lightbox (fullscreen overlay) */
