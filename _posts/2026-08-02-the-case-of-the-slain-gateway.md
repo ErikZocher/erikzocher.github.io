@@ -13,9 +13,13 @@ categories: [technology]
 
 Everything in this story actually happened. My headless Raspberry Pi went unreachable one Sunday evening, and debugging it turned out to be a genuine whodunit. The technical TL;DR is at the bottom if you prefer facts over fog. But first, the case.
 
+> **Note:** The chapter illustrations below were added later, generated with Flux (a 12-billion-parameter image model) running on my Windows PC. They imagine what the case would have looked like if Sherlock Holmes had worked with systemd and a soldering iron.
+
 ---
 
 ## Chapter I: The House at 192.168.178.54
+
+![The House at 192.168.178.54: a foggy Victorian street, the telegram boy at the door](/assets/images/slain-gateway/chapter1-house.png)
 
 It was a Sunday evening in August, and the fog had crept over the digital quarter of Berlin like a thief. In a modest house on the corner of the street called `192.168.178.54`, a machine had fallen silent.
 
@@ -28,6 +32,8 @@ I found my friend Sherlock Holmes in his study, pipe in hand, staring at a sheet
 ---
 
 ## Chapter II: The Note on the Doorstep
+
+![The Note on the Doorstep: Holmes examines two calling cards in the hearth ashes](/assets/images/slain-gateway/chapter2-note.png)
 
 Holmes had been called to the house by a distraught servant. The tale she told was this: the master had been unwell for weeks. He would rise each morning, light his lamps, and begin his rounds. Then, without warning, he would collapse. The servants would find him gasping the same words each time, like a man possessed:
 
@@ -51,6 +57,8 @@ He knelt by the machine's hearth and examined the ashes. There, among the cinder
 
 ## Chapter III: The Rivalry
 
+![The Rivalry: a brass magnifying glass over two calling cards](/assets/images/slain-gateway/chapter3-rivalry.png)
+
 Holmes produced a magnifying glass and held it over the two cards.
 
 "Observe, Watson. The first card, `system.slice`, is clean and new. It was pressed upon the household at exactly twenty minutes past nine this evening, by a footman who answers to the name of root. It carries a curious instruction, quite modern: `--replace`. Whoever bears this card may, by its power, step into the shoes of any predecessor."
@@ -68,6 +76,8 @@ I confess I did not follow. But Holmes was already striding toward the machine's
 ---
 
 ## Chapter IV: The Ghost in the Machine
+
+![The Ghost in the Machine: two claimants in a vast steampunk machine hall](/assets/images/slain-gateway/chapter4-ghost.png)
 
 We found them there, the two claimants, standing at opposite ends of the room.
 
@@ -91,6 +101,8 @@ Holmes studied them both, then turned to me.
 
 ## Chapter V: The Hound of the Machine
 
+![The Hound of the Machine: Holmes and the brass clockwork watchdog](/assets/images/slain-gateway/chapter5-hound.png)
+
 We descended into the basement, where a new servant had recently been hired. He was a large, loyal creature, and he answered to the name of Watchdog. His task was simple: every five minutes, he was to sniff at the master's chambers and report whether the master yet lived.
 
 "Good fellow," said Holmes, "and what did you find?"
@@ -110,6 +122,8 @@ He turned to me, his eyes glittering.
 ---
 
 ## Chapter VI: The Root of All Evil
+
+![The Root of All Evil: Holmes holds the struck-through paper to the gas lamp](/assets/images/slain-gateway/chapter6-root.png)
 
 The root of all evil was not buried deep. It lay, as such things often do, in the most ordinary of places: a single file, unremarkable, dated the twentieth of July.
 
@@ -137,7 +151,7 @@ He closed his notebook and reached for his coat.
 
 ---
 
-## TL;DR — What Actually Happened
+## TL;DR: What Actually Happened
 
 **The setup:** A Raspberry Pi 5 runs Hermes Agent as a systemd service (`hermes-gateway.service`), connecting to Telegram and running cron jobs. It had run stably for about a week and a half before becoming unreachable via both SSH and Telegram (a full system-level hang, likely a hard reset; no clean shutdown was recorded in the journal).
 
