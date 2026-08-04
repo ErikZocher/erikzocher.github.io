@@ -1,0 +1,134 @@
+{
+  "1": {
+    "class_type": "CheckpointLoaderSimple",
+    "inputs": {
+      "ckpt_name": "ltx-2.3-22b-dev-fp8.safetensors"
+    }
+  },
+  "2": {
+    "class_type": "LTXAVTextEncoderLoader",
+    "inputs": {
+      "text_encoder": "gemma_3_12B_it_fp4_mixed.safetensors",
+      "ckpt_name": "ltx-2.3-22b-dev-fp8.safetensors",
+      "device": "default"
+    }
+  },
+  "20": {
+    "class_type": "LTXVAudioVAELoader",
+    "inputs": {
+      "ckpt_name": "ltx-2.3-22b-dev-fp8.safetensors"
+    }
+  },
+  "4": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "a cute orange cat walking through a sunlit park, cinematic lighting, smooth motion, high quality",
+      "clip": ["2", 0]
+    }
+  },
+  "5": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "blurry, low quality, distorted, watermark, flickering",
+      "clip": ["2", 0]
+    }
+  },
+  "10": {
+    "class_type": "LTXVConditioning",
+    "inputs": {
+      "positive": ["4", 0],
+      "negative": ["5", 0],
+      "frame_rate": 24.0
+    }
+  },
+  "6": {
+    "class_type": "EmptyLTXVLatentVideo",
+    "inputs": {
+      "width": 512,
+      "height": 512,
+      "length": 49,
+      "batch_size": 1
+    }
+  },
+  "21": {
+    "class_type": "LTXVEmptyLatentAudio",
+    "inputs": {
+      "frames_number": 49,
+      "frame_rate": 24.0,
+      "batch_size": 1,
+      "audio_vae": ["20", 0]
+    }
+  },
+  "22": {
+    "class_type": "LTXVConcatAVLatent",
+    "inputs": {
+      "video_latent": ["6", 0],
+      "audio_latent": ["21", 0]
+    }
+  },
+  "11": {
+    "class_type": "LTXVScheduler",
+    "inputs": {
+      "steps": 15,
+      "max_shift": 2.05,
+      "base_shift": 0.95,
+      "stretch": true,
+      "terminal": 0.1
+    }
+  },
+  "12": {
+    "class_type": "KSamplerSelect",
+    "inputs": {
+      "sampler_name": "euler"
+    }
+  },
+  "30": {
+    "class_type": "RandomNoise",
+    "inputs": {
+      "noise_seed": 20260803
+    }
+  },
+  "31": {
+    "class_type": "CFGGuider",
+    "inputs": {
+      "model": ["1", 0],
+      "positive": ["10", 0],
+      "negative": ["10", 1],
+      "cfg": 3.0
+    }
+  },
+  "7": {
+    "class_type": "SamplerCustomAdvanced",
+    "inputs": {
+      "noise": ["30", 0],
+      "guider": ["31", 0],
+      "sampler": ["12", 0],
+      "sigmas": ["11", 0],
+      "latent_image": ["22", 0]
+    }
+  },
+  "13": {
+    "class_type": "LTXVSeparateAVLatent",
+    "inputs": {
+      "av_latent": ["7", 0]
+    }
+  },
+  "8": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": ["13", 0],
+      "vae": ["1", 2]
+    }
+  },
+  "9": {
+    "class_type": "SaveAnimatedWEBP",
+    "inputs": {
+      "images": ["8", 0],
+      "filename_prefix": "ltx23_t2v_cat",
+      "fps": 25,
+      "lossless": false,
+      "quality": 90,
+      "method": "default"
+    }
+  }
+}

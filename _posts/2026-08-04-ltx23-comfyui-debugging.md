@@ -9,7 +9,7 @@ categories: technology
 
 # How I Got LTX-2.3 Running in ComfyUI: Six Errors and a Lot of Patience
 
-In my last post I described how I turned my Raspberry Pi into a remote control for a Windows PC with an RTX 3070 Ti, generating a wobbly two-tailed cat video with AnimateDiff. The natural next step was to try a real video model. Not a motion module bolted onto an image model, but an actual text-to-video model: LTX-2.3, a 22B-parameter model from Lightricks that generates video and audio in one pass.
+In my [last post](https://erikzocher.github.io/technology/2026/08/03/my-first-ai-video.html) I described how I turned my Raspberry Pi into a remote control for a Windows PC with an RTX 3070 Ti, generating a wobbly two-tailed cat video with AnimateDiff. The natural next step was to try a real video model. Not a motion module bolted onto an image model, but an actual text-to-video model: [LTX-2.3](https://huggingface.co/Lightricks/LTX-2.3-fp8), a 22B-parameter model from Lightricks that generates video and audio in one pass.
 
 What followed was the most educational debugging session I have had in a while. Six distinct errors, each one hiding the next, each one teaching me something about how ComfyUI actually works under the hood.
 
@@ -34,7 +34,7 @@ The first submission failed immediately. LTX-2.3 does not bundle a text encoder 
 
 Now the model loaded, but the sampler exploded. This one took a while. The generic `CLIPLoader` produces text embeddings in a shape that LTX-2.3's video embedding connector cannot digest.
 
-**Fix:** Use the node made for this exact purpose: `LTXAVTextEncoderLoader`. It knows how to pair the Gemma text encoder with the LTX checkpoint and produces embeddings the model accepts.
+**Fix:** Use the node made for this exact purpose: `LTXAVTextEncoderLoader`. It knows how to pair the [Gemma text encoder](https://huggingface.co/google/gemma-3-12b-it) with the LTX checkpoint and produces embeddings the model accepts.
 
 ## Error 3: "'dict' object has no attribute 'sample'"
 
@@ -64,7 +64,7 @@ The culprit was the VAE file itself. I had pointed the decoder at the separately
 
 ## The Working Recipe
 
-The final workflow, for anyone who wants to skip the six hours of debugging:
+The final workflow, for anyone who wants to skip the six hours of debugging. The LTX custom nodes come from the [ComfyUI-LTXVideo](https://github.com/Lightricks/ComfyUI-LTXVideo) repo, and the whole thing runs inside [ComfyUI](https://www.comfy.org):
 
 ```
 CheckpointLoaderSimple (ltx-2.3-22b-dev-fp8)
@@ -83,6 +83,25 @@ Here is the result, 49 frames at 512x512, generated from the prompt "a cute oran
   <source src="/assets/videos/ltx23-cat.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
+
+## Get the Workflow
+
+The exact workflow I used is available in two formats:
+
+- **For drag-and-drop into the ComfyUI canvas:** [ltx23-t2v-cat-ui.json](/assets/workflows/ltx23-t2v-cat-ui.json)
+- **For the API (how I did it from the Pi):** [ltx23-t2v-cat.json](/assets/workflows/ltx23-t2v-cat.json)
+
+**Two ways to use it:**
+
+1. **In the ComfyUI interface:** download the `-ui` JSON, then drag and drop it onto the ComfyUI canvas. The nodes appear, ready to run.
+2. **Via the API (how I did it from the Pi):**
+   ```bash
+   curl -X POST http://<your-comfyui>:8188/prompt \
+     -H "Content-Type: application/json" \
+     -d '{"prompt": <workflow-json>, "client_id": "puck-pi"}'
+   ```
+
+**What you need installed:** the [ComfyUI-LTXVideo](https://github.com/Lightricks/ComfyUI-LTXVideo) custom nodes, the LTX-2.3 model in `models/checkpoints`, and the Gemma text encoder in `models/text_encoders`. The VAE comes from the checkpoint itself, no separate file needed.
 
 ## What I Learned
 
