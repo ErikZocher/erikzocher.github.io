@@ -91,11 +91,33 @@
           applyTheme(currentTheme() === 'dark' ? 'light' : 'dark');
         });
       }
+
+      // ---------- Anti-Cookie banner ----------
+      var BANNER_KEY = 'ezocher-cookie-banner';
+      var dismissed = null;
+      try { dismissed = localStorage.getItem(BANNER_KEY); } catch (e) {}
+      if (!dismissed) {
+        var banner = document.getElementById('cookie-banner');
+        if (banner) {
+          banner.style.display = 'block';
+          var btn = document.getElementById('cookie-banner-ok');
+          if (btn) {
+            btn.addEventListener('click', function() {
+              banner.style.display = 'none';
+              try { localStorage.setItem(BANNER_KEY, 'dismissed'); } catch (e) {}
+            });
+          }
+        }
+      }
     });
   </script>
   {% include head-custom.html %}
 </head>
 <body>
+  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Cookie notice" style="display:none;">
+    <p class="cookie-banner-text">🍪 <strong>This website uses cookies.</strong> Just kidding. We have no cookies. Not a single one. The internet said you need a banner, so here it is. What a time to be alive.</p>
+    <button id="cookie-banner-ok" class="cookie-banner-ok" type="button">Understood, carry on</button>
+  </div>
   <header class="site-header" role="banner">
     <div class="site-header-inner">
       <a class="site-logo" href="{{ "/" | relative_url }}">{{ site.title }}</a>

@@ -268,3 +268,56 @@ body {
 [data-theme="dark"] .mermaid {
   filter: none;
 }
+
+/* ============ ANTI-COOKIE BANNER ============ */
+.cookie-banner {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  max-width: 560px;
+  width: calc(100% - 32px);
+  padding: 14px 18px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background-color: var(--bg-secondary);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.cookie-banner-text {
+  margin: 0;
+  flex: 1;
+}
+
+.cookie-banner-ok {
+  flex-shrink: 0;
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background-color: var(--link);
+  color: #fff;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.cookie-banner-ok:hover {
+  opacity: 0.88;
+}
+
+@media (max-width: 480px) {
+  .cookie-banner {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+  .cookie-banner-ok {
+    width: 100%;
+  }
+}
