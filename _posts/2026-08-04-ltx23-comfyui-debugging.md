@@ -66,15 +66,58 @@ The culprit was the VAE file itself. I had pointed the decoder at the separately
 
 The final workflow, for anyone who wants to skip the six hours of debugging. The LTX custom nodes come from the [ComfyUI-LTXVideo](https://github.com/Lightricks/ComfyUI-LTXVideo) repo, and the whole thing runs inside [ComfyUI](https://www.comfy.org):
 
-```
-CheckpointLoaderSimple (ltx-2.3-22b-dev-fp8)
-├── model ──▶ CFGGuider ──▶ SamplerCustomAdvanced
-├── vae (slot 2!) ──▶ VAEDecode
-LTXAVTextEncoderLoader (gemma) ──▶ CLIPTextEncode ×2 ──▶ LTXVConditioning
-EmptyLTXVLatentVideo ──┐
-                       ├──▶ LTXVConcatAVLatent ──▶ SamplerCustomAdvanced
-LTXVAudioVAELoader ──▶ LTXVEmptyLatentAudio ──┘
-SamplerCustomAdvanced ──▶ LTXVSeparateAVLatent ──▶ VAEDecode ──▶ SaveAnimatedWEBP
+```mermaid
+flowchart TD
+    subgraph Loaders
+        CKPT["CheckpointLoaderSimple<br/>(ltx-2.3-22b-dev-fp8)"]
+        TENC["LTXAVTextEncoderLoader<br/>(gemma-3-12B)"]
+        ALOAD["LTXVAudioVAELoader"]
+    end
+
+    subgraph Conditioning
+        TE1["CLIPTextEncode (positive)"]
+        TE2["CLIPTextEncode (negative)"]
+        COND["LTXVConditioning"]
+    end
+
+    subgraph Latents
+        VID["EmptyLTXVLatentVideo"]
+        AUD["LTXVEmptyLatentAudio"]
+        CONCAT["LTXVConcatAVLatent"]
+    end
+
+    subgraph Sampling
+        SCHED["LTXVScheduler"]
+        KSEL["KSamplerSelect"]
+        NOISE["RandomNoise"]
+        GUIDER["CFGGuider"]
+        SAMP["SamplerCustomAdvanced"]
+    end
+
+    subgraph Output
+        SEP["LTXVSeparateAVLatent"]
+        VAEDEC["VAEDecode"]
+        SAVE["SaveAnimatedWEBP"]
+    end
+
+    CKPT -->|model| GUIDER
+    CKPT -->|"vae (slot 2)"| VAEDEC
+    TENC --> TE1
+    TENC --> TE2
+    TE1 --> COND
+    TE2 --> COND
+    COND --> GUIDER
+    VID --> CONCAT
+    ALOAD --> AUD
+    AUD --> CONCAT
+    CONCAT --> SAMP
+    GUIDER --> SAMP
+    SCHED -->|sigmas| SAMP
+    KSEL -->|sampler| SAMP
+    NOISE -->|noise| SAMP
+    SAMP --> SEP
+    SEP -->|video| VAEDEC
+    VAEDEC --> SAVE
 ```
 
 Here is the result, 49 frames at 512x512, generated from the prompt "a cute orange cat walking through a sunlit park":
