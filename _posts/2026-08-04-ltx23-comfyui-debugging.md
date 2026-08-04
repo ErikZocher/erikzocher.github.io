@@ -122,6 +122,8 @@ flowchart TD
 
 Here is the result, 49 frames at 512x512, generated from the prompt "a cute orange cat walking through a sunlit park":
 
+> **Note on sound:** this video is silent by design. The workflow creates an *empty audio latent* (`LTXVEmptyLatentAudio`) to satisfy LTX-2.3's joint audio-video architecture, and the output format (animated WebP, then converted to MP4) does not carry audio anyway. LTX-2.3 *can* generate sound when the audio path is conditioned properly, but that is a separate project.
+
 <video controls loop muted playsinline width="100%" style="max-width:512px; border-radius:8px;">
   <source src="/assets/videos/ltx23-cat.mp4" type="video/mp4">
   Your browser does not support the video tag.
@@ -158,4 +160,4 @@ In the JSON, node `4` holds the prompt. Replace `REPLACE_WITH_YOUR_PROMPT` with 
 - **8 GB of VRAM will run a 22B model, technically.** The render took over 20 minutes and the GPU utilization hovered around 10%. It works, but it is the slowest way to generate a two-second clip. For this model, 12-16 GB of VRAM is the honest minimum for comfortable use.
 - **Debugging through an API is a great teacher.** Because I drove ComfyUI from the Pi over its REST API, I had to read every error message, check every node interface, and understand the graph end to end. No clicking around in a UI hoping something works.
 
-The two-tailed cat from last time has a new cousin now. Same cat, same park, same two tails, but this one came from a real 22-billion-parameter video model, rendered at 24 frames per second, through six errors and one very patient Raspberry Pi.
+The two-tailed cat from last time has a new cousin now. Same cat, same park, this one came from a real 22-billion-parameter video model, rendered at 24 frames per second, through six errors and one very patient Raspberry Pi.
