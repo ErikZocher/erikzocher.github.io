@@ -74,17 +74,27 @@
       mermaid.run();
     }
 
-    /* Zoom a mermaid diagram (click to toggle enlarge) */
-    function zoomMermaid(el) {
-      var was = el.dataset.zoomed === '1';
-      document.querySelectorAll('.mermaid.zoomed').forEach(function(d) {
-        d.classList.remove('zoomed');
-        delete d.dataset.zoomed;
-      });
-      if (!was) {
-        el.classList.add('zoomed');
-        el.dataset.zoomed = '1';
-      }
+    /* Open a mermaid diagram in a fullscreen lightbox (tap/click to open, tap backdrop or X to close) */
+    function openMermaidModal(el) {
+      var modal = document.getElementById('mermaid-modal');
+      if (!modal) return;
+      var body = modal.querySelector('.mermaid-modal-body');
+      body.innerHTML = '';
+      // Clone the rendered SVG into the modal
+      var svg = el.querySelector('svg');
+      if (svg) body.appendChild(svg.cloneNode(true));
+      modal.classList.add('open');
+      document.body.classList.add('modal-open');
+      // Focus close button for keyboard users
+      var close = modal.querySelector('.mermaid-modal-close');
+      if (close) close.focus();
+    }
+
+    function closeMermaidModal() {
+      var modal = document.getElementById('mermaid-modal');
+      if (!modal) return;
+      modal.classList.remove('open');
+      document.body.classList.remove('modal-open');
     }
 
     /* ---------- Init ---------- */
@@ -105,12 +115,25 @@
       });
       renderMermaid();
 
-      // Click on a mermaid diagram to zoom in (toggle)
+      // Click on a mermaid diagram to open it in a lightbox
       document.querySelectorAll('.mermaid').forEach(function(el) {
-        el.addEventListener('click', function() { zoomMermaid(el); });
-        el.title = 'Click to zoom';
+        el.addEventListener('click', function() { openMermaidModal(el); });
+        el.title = 'Click to enlarge';
         el.style.cursor = 'zoom-in';
       });
+
+      // Lightbox close: X button, backdrop click, or Escape
+      var modal = document.getElementById('mermaid-modal');
+      if (modal) {
+        modal.addEventListener('click', function(e) {
+          if (e.target === modal || e.target.classList.contains('mermaid-modal-close')) {
+            closeMermaidModal();
+          }
+        });
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') closeMermaidModal();
+        });
+      }
 
       // Toggle button
       var toggle = document.getElementById('theme-toggle');
@@ -162,5 +185,9 @@
     {{ content }}
   </main>
   {% include footer.html %}
+  <div id="mermaid-modal" class="mermaid-modal" role="dialog" aria-modal="true" aria-label="Diagram enlarged">
+    <button type="button" class="mermaid-modal-close" aria-label="Close">✕</button>
+    <div class="mermaid-modal-body"></div>
+  </div>
 </body>
 </html>

@@ -273,19 +273,59 @@ body {
 [data-theme="dark"] .mermaid {
   filter: none;
 }
-/* Zoomed mermaid: full width, room to breathe */
-.mermaid.zoomed {
-  overflow-x: auto;
+
+/* Mermaid lightbox (fullscreen overlay) */
+.mermaid-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: rgba(0, 0, 0, 0.85);
+  padding: 24px;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
-.mermaid.zoomed svg {
-  max-width: none;
-  width: 100%;
+.mermaid-modal.open {
+  display: block;
+}
+.mermaid-modal-body {
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mermaid-modal-body svg {
+  max-width: 100%;
+  max-height: 90vh;
+  width: auto;
   height: auto;
+  background: #fff;
+  border-radius: 6px;
+  padding: 12px;
 }
-@media (min-width: 769px) {
-  .mermaid.zoomed svg {
-    min-width: 900px;
-  }
+[data-theme="dark"] .mermaid-modal-body svg {
+  background: #f0f0f0; /* mermaid svg is light-themed; keep bg light for contrast */
+}
+.mermaid-modal-close {
+  position: fixed;
+  top: 14px;
+  right: 18px;
+  z-index: 310;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  color: #111;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+.mermaid-modal-close:hover {
+  background: #fff;
+}
+body.modal-open {
+  overflow: hidden;
 }
 
 /* ============ ANTI-COOKIE BANNER ============ */
