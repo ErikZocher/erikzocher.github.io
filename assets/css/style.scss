@@ -575,6 +575,7 @@ body.modal-open {
 
 .cookie-banner-ok {
   flex-shrink: 0;
+  margin-left: auto;   /* pushes button to the right end of the flex row */
   padding: 8px 14px;
   margin-top: 4px;
   border: 1px solid var(--btn-border);
