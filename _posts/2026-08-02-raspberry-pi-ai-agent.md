@@ -13,6 +13,8 @@ categories: [technology]
 
 I run a personal AI agent from a Raspberry Pi 5 that sits in my living room in Berlin. It watches the tram schedule, updates an e-ink dashboard on my wall, scans job listings, drafts blog posts, and talks to me through Telegram. This post is the overview. If you want the step-by-step technical details, I wrote those up in a separate post: [Raspberry Pi 5 From Scratch](https://erikzocher.github.io/technology/2026/08/02/raspberry-pi-technical-deep-dive.html).
 
+**The 30-second version:** a Pi 5 with 16 GB RAM, booting from a 1 TB NVMe SSD, runs an open source agent framework (Hermes) as an always-on daemon. The model itself lives in the cloud (DeepSeek), because local models on the Pi could not do tool calls reliably, and tool calls are what separate a chat from an agent. You talk to it over Telegram, fix it over SSH, and it runs a small fleet of scheduled jobs: trams, dashboards, job scans, blog drafts. Total cost: hardware once, single-digit euros per month for the model API, a few watts of power.
+
 ## The Hardware
 
 **Raspberry Pi 5 Model B (Rev 1.1)** with **16GB RAM**. That matters: the Pi 5 is the first Pi where 16GB is an option, and for an always-on agent, the extra headroom is worth it.
@@ -47,6 +49,16 @@ But the real reason I moved to the cloud was not speed or RAM. It was this: **no
 Tool calls are the difference between a chat and an agent. The model has to decide "I need the tram times" and produce a structured request to fetch them. Small models running on a Pi simply do not have the capacity for that reliably. They answer questions, but they cannot operate a harness. A local model on this hardware was a fun experiment and a dead end for real agent work.
 
 So I switched to **DeepSeek v4 Flash** through the DeepSeek API. It is cheap, fast, and capable enough for tool use. The Pi sends requests to the API, the model decides what to do, and the Pi executes it. For this workload, cloud is the right call: the model lives in the cloud, the agent lives on the Pi, and the Pi stays quiet and cool.
+
+```mermaid
+flowchart LR
+    YOU["You (phone / laptop)"] -->|"Telegram, everyday"| PI["Raspberry Pi 5<br/>Hermes agent<br/>16 GB, NVMe boot"]
+    YOU -->|"SSH, serious work"| PI
+    PI -->|"tool calls"| API["DeepSeek v4 Flash<br/>(cloud model)"]
+    API -->|"decisions"| PI
+    PI -->|"fetch data"| EXT["Trams, weather,<br/>job boards, events"]
+    PI -->|"render"| KIND["e-ink dashboard<br/>on the wall"]
+```
 
 ## How I Interact With It
 
@@ -92,9 +104,14 @@ Uptime at the time of writing: one week, two days, and counting. It just sits th
 - **Model API**: DeepSeek v4 Flash is cheap. My usage costs single-digit euros per month.
 - **Everything else**: free. Open source agent, free weather API, free job boards, Telegram bot is free.
 
-## Why This Works
+## The Pattern, Reusable
 
-The key decision was separating the model from the machine. The model is in the cloud where the compute is, the machine is at home where the actions are. A Raspberry Pi 5 is not a great GPU server, but it is a fantastic always-on agent host: silent, cheap, and powerful enough to run the harness, the schedules, and the memory.
+The key decision was separating the model from the machine. The model is in the cloud where the compute is, the machine is at home where the actions are. If you want to build the same thing, the shape is simple:
+
+1. **Put the agent where the actions are, the model where the compute is.** A Pi 5 is a terrible GPU server but a fantastic always-on host: silent, cheap, and strong enough to run the harness, the schedules, and the memory.
+2. **Pick the front door for the audience.** Telegram for daily use, SSH for serious work, remote desktop for the rare graphical moment. Three interfaces, one agent.
+3. **Test local models before committing to them.** I ran four Ollama models before concluding the bottleneck was tool calls, not speed. Small models answer questions; they struggle to operate a harness.
+4. **Let the scheduled jobs do the proving.** A fleet of small cron jobs (trams, dashboard, job scans) turns the agent from a toy into something you rely on daily, and it costs nothing to run.
 
 If you want a personal AI agent that actually does things instead of just talking, a Pi 5 with an NVMe drive and a cloud model is a really good place to start.
 
