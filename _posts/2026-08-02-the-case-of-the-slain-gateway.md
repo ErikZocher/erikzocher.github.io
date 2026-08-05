@@ -13,11 +13,7 @@ categories: [technology]
 
 Everything in this story actually happened. My headless Raspberry Pi went unreachable one Sunday evening, and debugging it turned out to be a genuine whodunit. The technical TL;DR is at the bottom if you prefer facts over fog. But first, the case.
 
-> **Note:** The chapter illustrations below were added later, generated with Flux (a 12-billion-parameter image model) running on my Windows PC. They imagine what the case would have looked like if Sherlock Holmes had worked with systemd and a soldering iron.
->
-> **AI disclosure:** All illustrations in this post are AI-generated images (FLUX.1-dev), selected and edited by me. This disclosure is in line with Article 50 of the EU AI Act.
->
-> **License note:** Flux Dev (the model behind these images) is free for non-commercial use under the FLUX.1-dev Non-Commercial License, which this hobby blog clearly falls under. The images themselves may even be used commercially with a few caveats (attribution and AI-disclosure requirements apply). If I ever want to sell something made with it, I would need a license from Black Forest Labs or switch to the Apache-licensed FLUX.1-schnell. Your mileage may vary, so check the license before publishing anything commercial.
+> **AI disclosure:** All illustrations in this story are AI-generated images (FLUX.1-dev), selected and edited by me.
 
 ---
 
@@ -181,3 +177,7 @@ Both units were enabled, so every boot spawned two gateway instances competing f
 - **Watchdog script** (`gateway_watchdog.sh`, cron every 5 minutes) checks that `ActiveState/SubState` is active/running and that exactly one gateway process exists. On failure it sends an email via himalaya, a fallback channel, since Telegram is dead when the gateway is. Alert spam is prevented with rate-limiting.
 
 **Root cause in one line:** Two enabled systemd units (system + user) fought over one PID file; a broken drop-in override then locked the service in a crash-loop. Adding `--replace`, disabling the user unit, and installing a mail-capable watchdog made the whole thing self-healing.
+
+---
+
+*License note: the illustrations above were generated with Flux Dev, which is free for non-commercial use under the FLUX.1-dev Non-Commercial License, which this hobby blog clearly falls under. The images themselves may even be used commercially with a few caveats (attribution and AI-disclosure requirements apply). If I ever want to sell something made with it, I would need a license from Black Forest Labs or switch to the Apache-licensed FLUX.1-schnell. Your mileage may vary, so check the license before publishing anything commercial.*
