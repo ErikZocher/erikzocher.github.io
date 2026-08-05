@@ -9,19 +9,21 @@ categories: technology
 
 # How to Access Web Pages via MCPs: Chrome DevTools MCP, Browser Use, Hound MCP
 
-When I turned my Raspberry Pi into an AI agent that does real things, the hardest problem was never the AI. It was the web. Every site I wanted my agent to use has a gatekeeper: a CAPTCHA, a bot detector, a fingerprint scanner. And every tool for letting an agent read the web has to pass through that gatekeeper first.
+When I turned my Raspberry Pi into an AI agent that does real things, I had a specific goal in mind: automate certain scenarios end to end, like applying for an apartment automatically. In the end I got surprisingly far, but not all the way. The blocker was never the AI. It was the web, and the gatekeepers standing in front of it.
 
 This post is the story of learning that the hard way. Three MCP tools for web access, what they are actually good at, and the real-world case that taught me the most: getting an agent into Immobilienscout24.
 
 ## What is an MCP anyway?
 
-MCP (Model Context Protocol) is a standard way for AI agents to plug into tools. Instead of every agent inventing its own way to talk to a browser, an MCP server exposes a common interface. For web access, three flavors dominate:
+MCP (Model Context Protocol) is a standard way for AI agents to plug into tools. Instead of every agent inventing its own way to talk to a browser, an MCP server exposes a common interface. For web access, I have learned about three tools that seem useful for interacting with webpages:
 
 | Tool | What it does | Best for |
 |------|--------------|----------|
 | **Chrome DevTools MCP** | Drives a Chrome browser via the DevTools protocol | Clicking, form filling, debugging, persistent sessions |
 | **Browser Use** | Playwright-based automation with a clean Python API | Scripted browsing, scraping, multi-step flows |
 | **Hound MCP** | Fetch + extract text with automatic anti-bot escalation | Reading content quickly, search, PDFs |
+
+And the question everyone asks first: **can they solve CAPTCHAs?** No. None of them. They are vehicles for interacting with webpages, not keys to get past the gate. What they can do is choose which browser to present to the gatekeeper, and that choice determines whether you hit a wall.
 
 ## The honest truth about anti-bot systems
 
@@ -72,8 +74,10 @@ A **real headed desktop Chromium** with a persistent profile, logged in manually
 
 The honest architecture is a **human-in-the-loop boundary**, not full automation:
 
-- **Manual once:** a human logs in, solves the initial CAPTCHA, and establishes the session. This is the one step that cannot be reliably automated, because that is exactly what bot protection is designed to stop.
+- **Manual once:** a human logs in, solves the initial CAPTCHA, and establishes the session. This is the step I cannot reliably automate for now.
 - **Automatic forever after:** everything else (loading listings, parsing details, drafting the message, filling the form, clicking send) runs unattended over CDP.
+
+And honestly, maybe it is better that I could not automate past it. Automating a CAPTCHA does not just require clever engineering, it starts to become borderline against the site's terms of service, and it risks the account getting flagged or worse. The line I stopped at is a line worth respecting.
 
 This is not a failure of automation. It is the correct division of labor: **the human handles the irreducibly human step (proving you are human), the agent handles everything repeatable after it.** Every serious automation project hits this boundary eventually. The question is not "can I automate the whole thing?" but "where is the boundary, and how small can I make the manual side?"
 

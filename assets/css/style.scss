@@ -175,6 +175,73 @@ body {
   color: var(--code-text);
 }
 
+/* Syntax highlighting (Rouge): dark-theme friendly colors (dark is default).
+   The classic Rouge palette uses near-black keywords, unreadable on dark bg. */
+:root .highlight .c1,
+:root .highlight .cm,
+:root .highlight .cp,
+:root .highlight .cs,
+:root .highlight .c,
+:root .highlight .cd {
+  color: #8b949e;           /* comments: muted gray */
+}
+:root .highlight .k,
+:root .highlight .kc,
+:root .highlight .kd,
+:root .highlight .kn,
+:root .highlight .kp,
+:root .highlight .kr,
+:root .highlight .kt,
+:root .highlight .o,
+:root .highlight .ow {
+  color: #ff7b72;           /* keywords/operators: soft red */
+}
+:root .highlight .s,
+:root .highlight .sa,
+:root .highlight .sb,
+:root .highlight .sc,
+:root .highlight .dl,
+:root .highlight .sd,
+:root .highlight .s2,
+:root .highlight .se,
+:root .highlight .sh,
+:root .highlight .si,
+:root .highlight .sx,
+:root .highlight .sr,
+:root .highlight .s1,
+:root .highlight .ss {
+  color: #a5d6ff;           /* strings: light blue */
+}
+:root .highlight .nf,
+:root .highlight .fm,
+:root .highlight .nc,
+:root .highlight .nn,
+:root .highlight .nt {
+  color: #d2a8ff;           /* function/class names: soft purple */
+}
+:root .highlight .nb,
+:root .highlight .bp,
+:root .highlight .na,
+:root .highlight .nv,
+:root .highlight .vc,
+:root .highlight .vg,
+:root .highlight .vi {
+  color: #79c0ff;           /* builtins/vars: blue */
+}
+:root .highlight .m,
+:root .highlight .mb,
+:root .highlight .mf,
+:root .highlight .mh,
+:root .highlight .mi,
+:root .highlight .il,
+:root .highlight .mo {
+  color: #f0883e;           /* numbers: orange */
+}
+:root .highlight .p,
+:root .highlight .err {
+  color: var(--code-text);  /* punctuation: default code text */
+}
+
 .main-content blockquote {
   color: var(--blockquote-text);
   border-left-color: var(--border);
