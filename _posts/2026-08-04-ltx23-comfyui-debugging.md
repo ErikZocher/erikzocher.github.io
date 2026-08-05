@@ -13,6 +13,8 @@ In my [last post](https://erikzocher.github.io/technology/2026/08/03/my-first-ai
 
 What followed was the most educational debugging session I have had in a while. Six distinct errors, each one hiding the next, each one teaching me something about how ComfyUI actually works under the hood.
 
+**The 30-second version:** a 22-billion-parameter video model CAN run on an 8 GB GPU, but only if you wire it as the joint audio-video model it actually is. Five of the six errors were wiring mistakes, not model failures: the wrong text-encoder loader, the wrong VAE file, and a missing audio-latent chain. The recipe at the bottom works. It is slow (20+ minutes for a two-second clip), but it runs entirely on commodity hardware. The errors are the curriculum: each one teaches a real fact about how ComfyUI and LTX-2.3 work.
+
 ## The Setup
 
 Same hardware as last time:
@@ -25,6 +27,17 @@ Same hardware as last time:
 The model files: `ltx-2.3-22b-dev-fp8.safetensors` (22B params, fp8 quantized, 29 GB on disk), the Gemma text encoder, and the model's VAE.
 
 **Quick primer: what is a VAE?** A VAE (Variational Autoencoder) is the translation layer between *pixels* and *latents*. Diffusion models do not work on images or videos directly: they work on a compressed, noisy mathematical representation called a latent space, which is much smaller than the actual pixels. The VAE has two halves: the **encoder** compresses pixels into latents (used for image-to-image and video-to-video), and the **decoder** expands latents back into visible pixels (used at the end of every generation). Think of it as the codec of the diffusion world: the model thinks and dreams in compressed form, and the VAE is what turns those dreams back into something you can see. Getting the wrong VAE is like connecting a Blu-ray player to a VHS-era TV: the signal is there, but nothing displays correctly.
+
+## The Six Errors at a Glance
+
+| # | Error | Root cause | Fix |
+|---|-------|-----------|-----|
+| 1 | `clip input is invalid: None` | LTX-2.3 has no bundled text encoder | Load the Gemma encoder separately |
+| 2 | `got 4 and 3` dimensions | Generic `CLIPLoader` produces the wrong embedding shape | Use `LTXAVTextEncoderLoader` |
+| 3 | `'dict' object has no attribute 'sample'` | Sampler embedded as inline object | Make the sampler its own top-level node |
+| 4 | `expected 16 channels, got 128` | Joint AV latent not split before decoding | Insert `LTXVSeparateAVLatent` |
+| 5 | `tuple index out of range` | No audio latent in the workflow | Build the audio chain with `LTXVEmptyLatentAudio` |
+| 6 | `expected 16 channels, got 128` again | Wrong VAE file (`ae.safetensors` is LTX-2's) | Use the VAE from the checkpoint, slot 2 |
 
 ## Error 1: "clip input is invalid: None"
 
@@ -52,7 +65,7 @@ This was the first clue about LTX-2.3's architecture. The VAE decoder expects 16
 
 ## Error 5: "tuple index out of range"
 
-The separator node complained it could not find the audio half. Right, because the workflow never created one. A joint AV model needs an audio latent to pair with the video latent, even when you only want the video.
+The separator node complained it could not find the audio half. Right, because the workflow never created one. The joint AV model needs an audio latent to pair with the video latent, even when you only want the video.
 
 **Fix:** Build the full audio chain: `LTXVAudioVAELoader` loads the audio VAE from the checkpoint, `LTXVEmptyLatentAudio` creates an empty audio latent, and `LTXVConcatAVLatent` merges the video and audio latents into the joint structure the sampler expects. After sampling, `LTXVSeparateAVLatent` splits them again.
 
@@ -163,3 +176,14 @@ In the JSON, node `4` holds the prompt. Replace `REPLACE_WITH_YOUR_PROMPT` with 
 - **Debugging through an API is a great teacher.** Because I drove ComfyUI from the Pi over its REST API, I had to read every error message, check every node interface, and understand the graph end to end. No clicking around in a UI hoping something works.
 
 The two-tailed cat from last time has a new cousin now. Same cat, same park, this one came from a real 22-billion-parameter video model, rendered at 24 frames per second, through six errors and one very patient Raspberry Pi.
+
+## The Takeaway Framework
+
+Next time you wire a new model into ComfyUI and it fails, run this sequence instead of guessing:
+
+1. **Question the node before the parameter.** Every one of my six errors was a wiring problem, not a settings problem. When something fails in a strange way, suspect the node choice first.
+2. **Read the model's architecture before touching the graph.** LTX-2.3 being a joint audio-video model explained errors 4, 5, and 6 in advance. The model card tells you what the latent looks like; the errors are just the architecture talking.
+3. **Trust the checkpoint over separate files.** The VAE that matched the model was inside the checkpoint, not in the misleadingly named `ae.safetensors`. When a downloaded companion file disagrees with the model, the model is usually right.
+4. **Dump the raw history when the UI hides the error.** The ComfyUI history API can return empty keys for failed nodes; the full traceback is in the raw JSON. Do not debug from a truncated message.
+
+Six errors, six lessons, one working recipe. The errors are the curriculum.
