@@ -13,7 +13,7 @@ categories: [technology]
 
 I spent an evening trying to move a button to the right side of a banner. Five separate CSS fixes, each one textbook-correct, and the button stayed stubbornly on the left. The cause was one line of JavaScript that had been disabling my entire layout the whole time.
 
-**The 30-second version:** the cookie banner on my blog has a dismiss button, "Understood, carry on". The design calls for the text on top and the button below it, right-aligned. I wrote the CSS three different ways, verified it in a headless browser, and every measurement said the button was on the right. My user kept looking at the real page and seeing it on the left. The gap between my measurements and reality turned out to be the bug: the page's own JavaScript showed the banner with `display: block`, which silently turns off every flexbox property I had carefully written. One character class, `flex` instead of `block`, fixed it.
+**The 30-second version:** the cookie banner on my blog has a dismiss button, "Understood, carry on". The design calls for the text on top and the button below it, right-aligned. My AI assistant wrote the CSS three different ways, verified it in a headless browser, and every measurement said the button was on the right. I kept looking at the real page and seeing it on the left. The gap between our measurements and reality turned out to be the bug: the page's own JavaScript showed the banner with `display: block`, which turns off every flexbox property, and the assistant's test tool had been quietly switching it back.
 
 ## The Setup
 
@@ -53,29 +53,29 @@ Maybe the parent was not actually a flex container at that moment. I inspected t
 
 ## Attempt 3: The Measure
 
-I wrote a small script that measured the button's position with `getBoundingClientRect`. The number said the button was 19 pixels from the right edge of the banner. Perfectly placed. My user reloaded the page and the button was on the left. Both of us could not be right.
+I asked my AI assistant to write a small script that measured the button's position with `getBoundingClientRect`. The number said the button was 19 pixels from the right edge of the banner. Perfectly placed. I reloaded the page and the button was on the left. Both of us could not be right.
 
 ## Attempt 4: The Cache
 
-Maybe the user's browser was serving a stale stylesheet. My blog's CSS links carry a version parameter for cache busting, and on local builds that parameter was empty, which lets browsers cache the old CSS forever. I fixed the cache busting, the user hard-refreshed, and the button was still on the left.
+Maybe my browser was serving a stale stylesheet. My blog's CSS links carry a version parameter for cache busting, and on local builds that parameter was empty, which lets browsers cache the old CSS forever. We fixed the cache busting, I hard-refreshed, and the button was still on the left.
 
 ## Attempt 5: The Comparison
 
-I took a screenshot of my own browser. The button was on the right. I sent it to my user. They looked at the live page and the button was on the left. The two screenshots disagreed, and that disagreement was the clue.
+My AI assistant took a screenshot of its headless browser. The button was on the right. I took a screenshot of my own browser. The button was on the left. The two screenshots disagreed, and that disagreement was the clue.
 
-Here is what my user saw (the button on the left):
+Here is what I saw (the button on the left):
 
-![What the user saw: the cookie banner with the button below the text, on the left](/assets/images/button-story/user-view.jpg)
+![What I saw: the cookie banner with the button below the text, on the left](/assets/images/button-story/user-view.jpg)
 
-And here is what I saw (the button on the right):
+And here is what my assistant saw (the button on the right):
 
-![What I saw: the cookie banner with the button below the text, on the right](/assets/images/button-story/my-view.png)
+![What my assistant saw: the cookie banner with the button below the text, on the right](/assets/images/button-story/my-view.png)
 
 Same page, same browser engine, same moment in time. One button on the left, one button on the right. Screenshots do not lie, so one of us was not looking at the same reality.
 
-My measurement script did not just measure the banner. It set `banner.style.display = 'flex'` to make the banner visible before measuring. That inline style, set from JavaScript, was overriding the page's own `display: block` and enabling the flexbox layout I was trying to verify. My test was not observing reality. My test was fixing the bug.
+My assistant's measurement script did not just measure the banner. It set `banner.style.display = 'flex'` to make the banner visible before measuring. That inline style, set from JavaScript, was overriding the page's own `display: block` and enabling the flexbox layout we were trying to verify. The test was not observing reality. The test was fixing the bug.
 
-That is what went wrong: I had built a verification tool that silently corrected the very bug it was supposed to detect. Every measurement I took after that was measuring a page that did not exist. The user's screenshot, taken from a plain browser tab with no helper script running, showed the actual behavior. The moment I stopped trusting my tool and started trusting the discrepancy, the cause was obvious.
+That is what went wrong: we had built a verification tool that silently corrected the very bug it was supposed to detect. Every measurement it took after that was measuring a page that did not exist. My own screenshot, taken from a plain browser tab with no helper script running, showed the actual behavior. The moment we stopped trusting the tool and started trusting the discrepancy, the cause was obvious.
 
 ## The Actual Bug
 
@@ -85,7 +85,7 @@ The page's JavaScript reveals the banner with:
 banner.style.display = 'block';
 ```
 
-`display: block` is not a flex container. Every flexbox property I had written, `flex-direction`, `align-self`, `margin-left: auto`, all of them are ignored when the element is a block box. The CSS was correct the entire time. The JavaScript was replacing it with a plain block layout on every page load, and my measurement tool happened to replace it back.
+`display: block` is not a flex container. Every flexbox property we had written, `flex-direction`, `align-self`, `margin-left: auto`, all of them are ignored when the element is a block box. The CSS was correct the entire time. The JavaScript was replacing it with a plain block layout on every page load, and the measurement tool happened to replace it back.
 
 The fix is one word:
 
