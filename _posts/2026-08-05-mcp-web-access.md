@@ -15,7 +15,11 @@ This post is the story of learning that the hard way. Three MCP tools for web ac
 
 ## What is an MCP anyway?
 
-MCP ([Model Context Protocol](https://modelcontextprotocol.io)) is a standard way for AI agents to plug into tools. Instead of every agent inventing its own way to talk to a browser, an MCP server exposes a common interface. For web access, I have learned about three tools that seem useful for interacting with webpages:
+MCP ([Model Context Protocol](https://modelcontextprotocol.io)) is a standard way for AI agents to plug into tools. Instead of every agent inventing its own way to talk to a browser, an MCP server exposes a common interface.
+
+The easiest way to think about it: **the LLM is the brain, and MCP servers are the hands.** The brain alone can only think, it cannot touch anything. It cannot open a website, click a button, or read a PDF. The hands are the MCP servers: they reach out to different third-party sources, fetch data, press buttons, and bring results back to the brain. The brain decides what to do, the hands do it. This is the whole architecture of an AI agent in one sentence, and it is why MCP is useful: instead of hard-coding one tool into one agent, any brain can grab any set of hands through a common interface.
+
+For web access, I have learned about three tools that seem useful for interacting with webpages:
 
 | Tool | What it does | Best for |
 |------|--------------|----------|
