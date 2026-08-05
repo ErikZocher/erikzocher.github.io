@@ -576,18 +576,20 @@ body.modal-open {
 .cookie-banner-ok {
   flex-shrink: 0;
   padding: 8px 14px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--btn-border);
   border-radius: 6px;
-  background-color: transparent;
+  background-color: var(--btn-bg);
   color: var(--heading);
   font-size: 13px;
+  font-weight: 500;
   cursor: pointer;
   white-space: nowrap;
-  transition: border-color 0.15s ease, color 0.15s ease;
+  transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
 }
 .cookie-banner-ok:hover {
   border-color: var(--accent);
   color: var(--accent);
+  background-color: transparent;
 }
 
 @media (max-width: 480px) {
