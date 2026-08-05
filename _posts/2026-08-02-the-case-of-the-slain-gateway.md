@@ -15,6 +15,8 @@ Everything in this story actually happened. My headless Raspberry Pi went unreac
 
 > **Note:** The chapter illustrations below were added later, generated with Flux (a 12-billion-parameter image model) running on my Windows PC. They imagine what the case would have looked like if Sherlock Holmes had worked with systemd and a soldering iron.
 >
+> **AI disclosure:** All illustrations in this post are AI-generated images (FLUX.1-dev), selected and edited by me. This disclosure is in line with Article 50 of the EU AI Act.
+>
 > **License note:** Flux Dev (the model behind these images) is free for non-commercial use under the FLUX.1-dev Non-Commercial License, which this hobby blog clearly falls under. The images themselves may even be used commercially with a few caveats (attribution and AI-disclosure requirements apply). If I ever want to sell something made with it, I would need a license from Black Forest Labs or switch to the Apache-licensed FLUX.1-schnell. Your mileage may vary, so check the license before publishing anything commercial.
 
 ---

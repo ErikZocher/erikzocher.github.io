@@ -212,6 +212,14 @@ body {
   color: var(--text-muted);
 }
 
+.site-footer-ai {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.8em;
+  color: var(--text-muted);
+  opacity: 0.8;
+}
+
 /* Custom: tag badges */
 .tag-badge {
   display: inline-block;
