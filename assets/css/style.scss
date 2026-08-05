@@ -562,8 +562,7 @@ body.modal-open {
   background-color: var(--bg-secondary);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 14px;
+  gap: 0; /* spacing handled by explicit margins (flex-gap unsupported in older browsers) */
   font-size: 14px;
   line-height: 1.45;
 }
@@ -571,6 +570,7 @@ body.modal-open {
 .cookie-banner-text {
   margin: 0;
   flex: 1;
+  margin-right: 8px;
 }
 
 .cookie-banner-ok {
