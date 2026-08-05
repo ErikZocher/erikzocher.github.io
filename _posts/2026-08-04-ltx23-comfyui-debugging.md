@@ -24,6 +24,8 @@ Same hardware as last time:
 
 The model files: `ltx-2.3-22b-dev-fp8.safetensors` (22B params, fp8 quantized, 29 GB on disk), the Gemma text encoder, and the model's VAE.
 
+**Quick primer: what is a VAE?** A VAE (Variational Autoencoder) is the translation layer between *pixels* and *latents*. Diffusion models do not work on images or videos directly: they work on a compressed, noisy mathematical representation called a latent space, which is much smaller than the actual pixels. The VAE has two halves: the **encoder** compresses pixels into latents (used for image-to-image and video-to-video), and the **decoder** expands latents back into visible pixels (used at the end of every generation). Think of it as the codec of the diffusion world: the model thinks and dreams in compressed form, and the VAE is what turns those dreams back into something you can see. Getting the wrong VAE is like connecting a Blu-ray player to a VHS-era TV: the signal is there, but nothing displays correctly.
+
 ## Error 1: "clip input is invalid: None"
 
 The first submission failed immediately. LTX-2.3 does not bundle a text encoder inside its checkpoint, so the workflow tried to grab a CLIP model that was not there.
