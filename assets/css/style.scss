@@ -561,7 +561,8 @@ body.modal-open {
   border: 1px solid var(--border);
   background-color: var(--bg-secondary);
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: stretch;
   gap: 0; /* spacing handled by explicit margins (flex-gap unsupported in older browsers) */
   font-size: 14px;
   line-height: 1.45;
@@ -569,13 +570,12 @@ body.modal-open {
 
 .cookie-banner-text {
   margin: 0;
-  flex: 1;
-  margin-right: 8px;
+  margin-bottom: 8px;
 }
 
 .cookie-banner-ok {
   flex-shrink: 0;
-  margin-left: auto;   /* pushes button to the right end of the flex row */
+  align-self: flex-end;  /* button right-aligned below the text */
   padding: 8px 14px;
   margin-top: 4px;
   border: 1px solid var(--btn-border);
@@ -596,18 +596,13 @@ body.modal-open {
 
 @media (max-width: 480px) {
   .cookie-banner {
-    /* keep row layout: text wraps, button stays right */
-    align-items: center;
+    /* keep column layout: text on top, button right-aligned below */
     padding: 12px 14px;
   }
   .cookie-banner-text {
-    margin-right: 8px;
-    margin-bottom: 0;
     font-size: 13px;
   }
   .cookie-banner-ok {
-    align-self: auto;
     width: auto;
-    margin-top: 4px;
   }
 }
