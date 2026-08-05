@@ -11,9 +11,7 @@ categories: [technology]
 
 *2026-08-02 · 8 min read · [raspberry-pi] [systemd] [debugging] [homelab] [storytelling]*
 
-Everything in this story actually happened. My headless Raspberry Pi went unreachable one Sunday evening, and debugging it turned out to be a genuine whodunit. The technical [TL;DR is at the bottom](#tldr-what-actually-happened) if you prefer facts over fog. But first, the case.
-
-**Why a story?** Debugging a machine that goes silent has the same shape as a detective case: a victim, a scene, witnesses, conflicting clues, and a culprit who was there all along. Two enabled services that each think the other is an impostor, a crashed process that keeps reviving itself, a watchdog barking into the void. That is not an analogy, it is the plot. Sherlock Holmes is simply the clearest lens for it. The facts are untouched, only the telling is dramatized, and the technical truth is all in the TL;DR below.
+Everything in this story actually happened. My headless Raspberry Pi went unreachable one Sunday evening, and debugging it turned out to be a genuine whodunit. Debugging a machine that goes silent has the same shape as a detective case: a victim, a scene, witnesses, conflicting clues, and a culprit who was there all along. Two enabled services that each think the other is an impostor, a crashed process that keeps reviving itself, a watchdog barking into the void. That is not an analogy, it is the plot. Sherlock Holmes is simply the clearest lens for it. The facts are untouched, only the telling is dramatized, and the technical [TL;DR is at the bottom](#tldr-what-actually-happened) if you prefer facts over fog.
 
 > **AI disclosure:** All illustrations in this story are AI-generated images (FLUX.1-dev), selected and edited by me. They were added later, imagining what the case would have looked like if Sherlock Holmes had worked with systemd and a soldering iron.
 
