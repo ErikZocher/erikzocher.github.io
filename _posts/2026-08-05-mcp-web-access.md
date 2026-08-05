@@ -31,7 +31,7 @@ For web access, I have learned about three tools that seem useful for interactin
 | **[Browser Use](https://github.com/browser-use/browser-use)** | Playwright-based automation with a clean Python API | Scripted browsing, scraping, multi-step flows |
 | **[Hound MCP](https://github.com/dondai1234/master-fetch)** | Fetch + extract text with automatic anti-bot escalation | Reading content quickly, search, PDFs |
 
-And the question everyone asks first: **can they solve CAPTCHAs?** No. None of them. They are vehicles for interacting with webpages, not keys to get past the gate. What they can do is choose which browser to present to the gatekeeper, and that choice determines whether you hit a wall.
+And the question everyone asks first: **can they solve CAPTCHAs?** No. None of them. They are vehicles for interacting with webpages, not keys to get past the gate.
 
 ## The honest truth about anti-bot systems
 
