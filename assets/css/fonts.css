@@ -1,9 +1,21 @@
-/* Self-hosted Open Sans (variable font, 400-700) - no Google Fonts request */
+/* Self-hosted Inter (variable font) - no Google Fonts request */
 @font-face {
-  font-family: 'Open Sans';
+  font-family: 'Inter';
   font-style: normal;
   font-weight: 100 900;
   font-stretch: 100%;
   font-display: swap;
-  src: url('/assets/fonts/OpenSans-Variable.woff2') format('woff2');
+  src: url('/assets/fonts/Inter-Variable.woff2') format('woff2-variations');
 }
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 100 900;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url('/assets/fonts/Inter-Variable-Italic.woff2') format('woff2-variations');
+}
+
+/* Monospace: system stack, zero downloads, consistent across platforms */
+/* (used for code blocks; see --mono in style.scss) */

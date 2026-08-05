@@ -13,7 +13,8 @@
   z-index: 100;
   background-color: var(--bg-secondary);
   border-bottom: 1px solid var(--border);
-  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  backdrop-filter: saturate(1.4) blur(8px);
+  -webkit-backdrop-filter: saturate(1.4) blur(8px);
 }
 
 .site-header-inner {
@@ -109,53 +110,88 @@ body {
    [data-theme="light"] switches back to Cayman's original look. */
 
 :root {
-  --bg: #0d1117;
-  --bg-secondary: #161b22;
-  --text: #c9d1d9;
-  --text-muted: #8b949e;
-  --heading: #e6edf3;
-  --link: #58a6ff;
-  --header-bg: #10141b;
-  --header-bg-secondary: #0d1117;
-  --code-bg: #1c2128;
+  --bg: #0f1115;
+  --bg-secondary: #16181d;
+  --text: #d6d9de;
+  --text-muted: #9aa1ab;
+  --heading: #f0f2f5;
+  --link: #7aa2f7;
+  --header-bg: #111316;
+  --header-bg-secondary: #0f1115;
+  --code-bg: #16181d;
   --code-text: #9ececa;
-  --border: #30363d;
-  --table-border: #30363d;
-  --hr-border: #21262d;
-  --btn-bg: #21262d;
-  --btn-border: #30363d;
-  --blockquote-text: #8b949e;
+  --border: #23262d;
+  --table-border: #23262d;
+  --hr-border: #1d2026;
+  --btn-bg: #1b1e24;
+  --btn-border: #2a2e36;
+  --blockquote-text: #9aa1ab;
+  --accent: #7aa2f7;
+  --selection-bg: rgba(122, 162, 247, 0.25);
 }
 
 [data-theme="light"] {
   --bg: #ffffff;
   --bg-secondary: #f5f7fa;
-  --text: #606c71;
-  --text-muted: #819198;
-  --heading: #159957;
+  --text: #3d444d;
+  --text-muted: #6e7781;
+  --heading: #1f2328;
   --link: #1e6bb8;
-  --header-bg: #159957;
-  --header-bg-secondary: #155799;
-  --code-bg: #f3f6fa;
+  --header-bg: #f5f7fa;
+  --header-bg-secondary: #e9ecf1;
+  --code-bg: #f6f8fa;
   --code-text: #567482;
-  --border: #dce6f0;
-  --table-border: #e9ebec;
-  --hr-border: #eff0f1;
+  --border: #d8dee4;
+  --table-border: #d8dee4;
+  --hr-border: #e4e8ec;
   --btn-bg: #fff;
-  --btn-border: rgba(255,255,255,0.7);
-  --blockquote-text: #819198;
+  --btn-border: rgba(27, 31, 36, 0.15);
+  --blockquote-text: #57606a;
+  --accent: #1e6bb8;
+  --selection-bg: rgba(30, 107, 184, 0.15);
 }
 
 /* Apply variables to theme elements */
 body {
   background-color: var(--bg);
   color: var(--text);
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-.page-header {
-  background-image: linear-gradient(120deg, var(--header-bg), var(--header-bg-secondary));
+::selection {
+  background: var(--selection-bg);
 }
 
+/* Focus visibility (accessibility + polish) */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Reading measure: prose stays readable, media gets the full width */
+.main-content {
+  max-width: 58rem;
+  padding: 2rem 1.5rem;
+}
+@media (max-width: 42em) {
+  .main-content {
+    padding: 1.5rem 1rem;
+  }
+}
+.main-content p,
+.main-content li,
+.main-content blockquote,
+.main-content figcaption {
+  max-width: 70ch;
+}
+
+/* Modern minimal heading scale (Inter, tighter tracking) */
 .main-content h1,
 .main-content h2,
 .main-content h3,
@@ -163,16 +199,87 @@ body {
 .main-content h5,
 .main-content h6 {
   color: var(--heading);
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  font-weight: 650;
+}
+.main-content h1 {
+  font-size: 2.1rem;
+  font-weight: 700;
+}
+.main-content h2 {
+  font-size: 1.55rem;
+  margin-top: 2.5rem;
+}
+.main-content h3 {
+  font-size: 1.25rem;
+}
+.main-content h4 {
+  font-size: 1.05rem;
 }
 
 .main-content a {
   color: var(--link);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s ease;
+}
+.main-content a:hover {
+  border-bottom-color: var(--link);
+  text-decoration: none;
 }
 
 .main-content pre,
 .main-content code {
   background-color: var(--code-bg);
   color: var(--code-text);
+  font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+.main-content pre {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 20px;
+  line-height: 1.6;
+  overflow-x: auto;
+}
+
+.main-content code {
+  border-radius: 4px;
+  padding: 0.15em 0.4em;
+  font-size: 0.88em;
+}
+
+.main-content pre code {
+  padding: 0;
+  background: transparent;
+  border: none;
+  font-size: 0.9rem;
+}
+
+/* Inline code: hairline border instead of heavy fill */
+.main-content p code,
+.main-content li code,
+.main-content td code {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+
+/* Images: hairline border + radius for a designed look */
+.main-content img {
+  max-width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  display: block;
+  margin: 1.5rem auto;
+}
+
+/* Videos: match the image treatment */
+.main-content video {
+  display: block;
+  margin: 1.5rem auto;
+  border: 1px solid var(--border);
 }
 
 /* Syntax highlighting (Rouge): dark-theme friendly colors (dark is default).
@@ -244,24 +351,43 @@ body {
 
 .main-content blockquote {
   color: var(--blockquote-text);
-  border-left-color: var(--border);
+  border-left: 3px solid var(--accent);
+  padding: 0.25em 1em;
+  margin-left: 0;
+  margin-right: 0;
 }
 
+.main-content table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.5rem 0;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
 .main-content table th,
 .main-content table td {
   border-color: var(--table-border);
+  padding: 10px 14px;
+  white-space: normal;
 }
-
+.main-content table th {
+  font-weight: 600;
+  color: var(--heading);
+  border-bottom-width: 2px;
+}
 .main-content table tr {
   border-top-color: var(--table-border);
 }
-
+/* Minimal zebra: very subtle, only on rows, no harsh striping */
 .main-content table tr:nth-child(2n) {
   background-color: var(--bg-secondary);
 }
 
 .main-content hr {
-  border-color: var(--hr-border);
+  border: 0;
+  border-top: 1px solid var(--hr-border);
+  margin: 2.5rem 0;
 }
 
 .main-content .btn {
@@ -293,17 +419,19 @@ body {
   padding: 4px 10px;
   margin: 4px;
   background: var(--code-bg);
-  border-radius: 4px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
   color: var(--text);
   text-decoration: none;
   font-size: 14px;
 }
 .tag-badge:hover {
-  background: var(--border);
+  background: var(--btn-bg);
+  border-color: var(--accent);
   color: var(--heading);
 }
 
-/* Custom: share buttons */
+/* Custom: share buttons (neutral outline, brand color on hover) */
 .share-post {
   margin: 20px 0;
   text-align: center;
@@ -319,15 +447,18 @@ body {
 }
 .share-post .share-btn {
   padding: 8px 14px;
-  border-radius: 4px;
-  color: #fff;
+  border-radius: 6px;
+  color: var(--heading) !important;
+  background-color: transparent !important;
   text-decoration: none;
   font-size: 14px;
-  border: none;
+  border: 1px solid var(--border);
   cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
 }
 .share-post .share-btn:hover {
-  opacity: 0.85;
+  border-color: var(--accent);
+  color: var(--accent) !important;
 }
 
 /* Custom: related posts */
@@ -335,16 +466,19 @@ body {
   margin: 20px 0;
 }
 
-/* Mermaid diagrams: fit dark background */
+/* Mermaid diagrams: fit container width (dark background) */
 .mermaid {
   text-align: center;
   overflow-x: auto;
   padding: 8px 4px;
+  max-width: 100%;
 }
 .mermaid svg {
   max-width: 100%;
   height: auto;
   overflow: visible;
+  display: block;
+  margin: 0 auto;
 }
 [data-theme="dark"] .mermaid {
   filter: none;
@@ -426,7 +560,6 @@ body.modal-open {
   border-radius: 10px;
   border: 1px solid var(--border);
   background-color: var(--bg-secondary);
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
   display: flex;
   align-items: center;
   gap: 14px;
