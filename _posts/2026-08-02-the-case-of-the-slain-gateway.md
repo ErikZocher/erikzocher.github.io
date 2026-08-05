@@ -13,7 +13,7 @@ categories: [technology]
 
 Everything in this story actually happened. My headless Raspberry Pi went unreachable one Sunday evening, and debugging it turned out to be a genuine whodunit. The technical TL;DR is at the bottom if you prefer facts over fog. But first, the case.
 
-> **AI disclosure:** All illustrations in this story are AI-generated images (FLUX.1-dev), selected and edited by me.
+> **AI disclosure:** All illustrations in this story are AI-generated images (FLUX.1-dev), selected and edited by me. They were added later, imagining what the case would have looked like if Sherlock Holmes had worked with systemd and a soldering iron.
 
 ---
 
