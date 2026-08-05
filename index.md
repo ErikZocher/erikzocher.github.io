@@ -21,5 +21,3 @@ I built a personal AI agent named [Puck](https://erikzocher.github.io/technology
 *{{ post.date | date: "%Y-%m-%d" }} · {% for tag in post.tags %}`{{ tag }}` {% endfor %}{% endfor %}
 
 [🔍 Search](suche) · [🏷️ Tags](tags)
-
----
