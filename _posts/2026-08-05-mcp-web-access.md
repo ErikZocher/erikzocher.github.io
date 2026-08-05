@@ -70,6 +70,10 @@ Maybe the problem was headless rendering itself. So I ran a real headed Chromium
 
 A **real headed desktop Chromium** with a persistent profile, logged in manually once, then driven over [CDP (Chrome DevTools Protocol)](https://chromedevtools.github.io/devtools-protocol/). No CAPTCHA. Why? Because it is indistinguishable from a human browser: real rendering, real session cookies, no automation flags from the browser's point of view.
 
+The manual login happened through [Raspberry Pi Connect](https://connect.raspberrypi.com), the Pi's built-in remote screen-sharing service. The Pi runs `rpi-connectd` in the background, and from any browser I can open connect.raspberrypi.com, pick my Pi, and see its desktop as if I were sitting in front of it. That gave me a real desktop session on the Pi, where I launched a normal Chromium window, went to Immobilienscout24, and authenticated as myself: username, password, and the CAPTCHA, all typed by a human in a real browser on a real desktop.
+
+The key detail is where the cookies landed. That login wrote the session into Chromium's persistent profile (`~/.config/chromium`), the same profile the agent's browser uses. So when the agent later starts Chromium with that profile and connects over CDP, it inherits a genuine, human-established session. No cookie theft, no token extraction, no replaying of credentials: the authentication happened once, by a person, in the normal way, and everything after it just reuses the result.
+
 ### The solution is semi-automatic. And that is the point.
 
 The honest architecture is a **human-in-the-loop boundary**, not full automation:
