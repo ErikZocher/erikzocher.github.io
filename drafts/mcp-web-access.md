@@ -45,18 +45,22 @@ A real headed Chromium on a virtual display (Xvfb). Result: still CAPTCHA. Heade
 ### What actually worked
 A **real headed desktop Chromium** with a persistent profile, logged in manually once, then driven over CDP. No CAPTCHA. Why? Because it is indistinguishable from a human browser: real rendering, real session cookies, no automation flags from the browser's point of view.
 
-### Lessons
+### The solution is semi-automatic. And that is the point.
 
-1. **Headless = flagged.** If a site has serious bot protection, headless browsers lose, period.
-2. **Fingerprinting tools are arms races.** They work until the site updates, then they don't.
-3. **Session beats stealth.** A real logged-in session in a real browser is worth more than any fingerprint trick.
-4. **MCP choice matters.** Chrome DevTools MCP is great for interactive work, Browser Use for scripts, Hound for reading. But none of them bypass anti-bot; they only choose the vehicle.
+The honest architecture is a **human-in-the-loop boundary**, not full automation:
+
+- **Manual once:** a human logs in, solves the initial CAPTCHA, and establishes the session. This is the one step that cannot be reliably automated, because that is exactly what bot protection is designed to stop.
+- **Automatic forever after:** everything else (loading listings, parsing details, drafting the message, filling the form, clicking send) runs unattended over CDP.
+
+This is not a failure of automation. It is the correct division of labor: **the human handles the irreducibly human step (proving you are human), the agent handles everything repeatable after it.** Every serious automation project hits this boundary eventually. The question is not "can I automate the whole thing?" but "where is the boundary, and how small can I make the manual side?"
+
+For Immobilienscout, the boundary is one login, once per session. For your own projects: the manual part should be the *identity-establishing* step, and everything mechanical should live on the automated side.
 
 ## Practical recommendations
 
 - For **reading content**: Hound MCP (or plain fetch). Fast, no browser overhead.
 - For **interactive tasks** (forms, logins, clicking): Chrome DevTools MCP with a persistent profile, ideally headed.
-- For **CAPTCHA-protected sites**: use a real headed browser with a real session, not a headless automation stack.
+- For **CAPTCHA-protected sites**: use a real headed browser with a real session, not a headless automation stack. Plan for a human-in-the-loop boundary from the start: one manual login, everything else automated.
 - Respect **ToS and rate limits**. Contacting owners through a site's official contact form is fine; scraping everything is not.
 
 ## Where this goes next
