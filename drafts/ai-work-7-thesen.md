@@ -82,6 +82,8 @@ Alle sieben Aussagen kreisen um denselben Kern: AI verändert nicht nur was wir 
 | 6 | **It Has to Come From the Top** | AI-Adoption scheitert ohne Führung. Heads müssen vorangehen — mit Zeit, Budget und Priorität. |
 | 7 | **🆕 Coding is Solved. Shift Left and Right.** | Coding (Execute) wird von AI übernommen. Engineers müssen sich nach links (Decide) und rechts (Deliver) verschieben. |
 | 8 | **🆕 "I Have Played Around"** | Unstrukturiertes Ausprobieren, Hackathons, Verlassen der Komfortzone zahlen sich überproportional aus. **The errors are the curriculum.** |
+| 9 | **🆕 Automate the Boring Parts, Fill It with the Funny Part** | AI macht den mechanischen Teil; der kreative Teil und der menschliche Touch bleiben beim Menschen. |
+| 10 | **🆕 AI as Junior: Headroom for Ideas** | AI als Junior erledigt die Routine; der Freiraum gehört den Ideen. Feld-Seniorität ist der Multiplikator: guter Input wird 100x Output, schlechter Input wird katastrophal. |
 
 ---
 
@@ -96,6 +98,20 @@ Alle sieben Aussagen kreisen um denselben Kern: AI verändert nicht nur was wir 
 5. **Happy little accidents** — Bob Ross wusste es schon: *"We don't make mistakes, just happy little accidents."* Jeder Fehler ist ein glücklicher kleiner Unfall, der dir etwas zeigt, das kein Plan vorgesehen hatte. Genau das ist der Wert des Spielens: Die Unfälle sind der Ertrag.
 6. **Belege** — Die ComfyUI-Reise: sechs Fehler, ein funktionierendes Video-Modell, zwei Blog-Posts, ein Tracker-Skill. Der Ertrag kam aus dem Scheitern.
 7. **Fazit** — Plane Spielzeit ein. Nicht als Luxus, sondern als Strategie.
+
+---
+
+### 📝 Strukturvorschlag Post #10
+
+**Titel:** *AI as Junior: Headroom for Ideas*
+
+1. **Die These** — AI arbeitet als Junior: Routine, Boilerplate, Grunt Work. Der freigewordene Freiraum gehört den Ideen.
+2. **Die gute Seite** — Klare Arbeitsteilung: Mensch entscheidet *was*, AI macht *wie*. Freiraum für das, was nur du kannst.
+3. **Der Multiplikator** — Feld-Seniorität ist Gold wert: AI multipliziert den Input. Guter Input wird 100x besserer Output. Schlechter Input wird katastrophaler Output. Die Senior-Fähigkeit entscheidet, ob der Verstärker brillant oder zerstörerisch wirkt.
+4. **Der Kern** — **Ideas without the instincts to judge them are just enthusiasm.** Der Freiraum für Ideen ist nur wertvoll, wenn die Urteils-Instinkte da sind, sie zu bewerten. Diese Instinkte entstehen durch Erfahrung — nicht durch Prompting.
+5. **Das kritische Denken** — "Macht diese Lösung überhaupt Sinn?" ist eine Senior-Fähigkeit, ob Mensch oder AI. Genau das bleibt der Anker: Wer prüft den Prüfer?
+6. **Junior-Reboot vs. Feld-Seniorität** — "Everybody is a junior again" gilt nur für die AI-Domäne (die Technik ist zu jung für AI-Seniorität). Die Feld-Seniorität überlebt — und ist genau der Multiplikator, der zählt.
+7. **Fazit** — Freiraum ist eine Startbahn, kein Parkplatz. Investiere ihn in Urteilsvermögen, Geschmack und die menschliche Note — bevor AI auch den Senior-Posten übernimmt.
 
 ---
 
