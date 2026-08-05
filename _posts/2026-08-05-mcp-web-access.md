@@ -11,23 +11,23 @@ categories: technology
 
 When I turned my Raspberry Pi into an AI agent that does real things, I had a specific goal in mind: automate certain scenarios end to end, like applying for an apartment automatically. In the end I got surprisingly far, but not all the way. The blocker was never the AI. It was the web, and the gatekeepers standing in front of it.
 
-This post is the story of learning that the hard way. Three MCP tools for web access, what they are actually good at, and the real-world case that taught me the most: getting an agent into Immobilienscout24.
+This post is the story of learning that the hard way. Three MCP tools for web access, what they are actually good at, and the real-world case that taught me the most: getting an agent into [Immobilienscout24](https://www.immobilienscout24.de).
 
 ## What is an MCP anyway?
 
-MCP (Model Context Protocol) is a standard way for AI agents to plug into tools. Instead of every agent inventing its own way to talk to a browser, an MCP server exposes a common interface. For web access, I have learned about three tools that seem useful for interacting with webpages:
+MCP ([Model Context Protocol](https://modelcontextprotocol.io)) is a standard way for AI agents to plug into tools. Instead of every agent inventing its own way to talk to a browser, an MCP server exposes a common interface. For web access, I have learned about three tools that seem useful for interacting with webpages:
 
 | Tool | What it does | Best for |
 |------|--------------|----------|
-| **Chrome DevTools MCP** | Drives a Chrome browser via the DevTools protocol | Clicking, form filling, debugging, persistent sessions |
-| **Browser Use** | Playwright-based automation with a clean Python API | Scripted browsing, scraping, multi-step flows |
-| **Hound MCP** | Fetch + extract text with automatic anti-bot escalation | Reading content quickly, search, PDFs |
+| **[Chrome DevTools MCP](https://github.com/ChromeDevTools/chrome-devtools-mcp)** | Drives a Chrome browser via the DevTools protocol | Clicking, form filling, debugging, persistent sessions |
+| **[Browser Use](https://github.com/browser-use/browser-use)** | Playwright-based automation with a clean Python API | Scripted browsing, scraping, multi-step flows |
+| **[Hound MCP](https://github.com/ther3ptil31987-prog/Hound)** | Fetch + extract text with automatic anti-bot escalation | Reading content quickly, search, PDFs |
 
 And the question everyone asks first: **can they solve CAPTCHAs?** No. None of them. They are vehicles for interacting with webpages, not keys to get past the gate. What they can do is choose which browser to present to the gatekeeper, and that choice determines whether you hit a wall.
 
 ## The honest truth about anti-bot systems
 
-Every serious website now runs bot detection: Imperva, Cloudflare, reCAPTCHA, PerimeterX. These systems check far more than "does this look like a browser?":
+Every serious website now runs bot detection: [Imperva](https://www.imperva.com), [Cloudflare](https://www.cloudflare.com), [reCAPTCHA](https://www.google.com/recaptcha/about/), [PerimeterX](https://www.perimeterx.com). These systems check far more than "does this look like a browser?":
 
 - Headless vs. headed rendering
 - WebDriver flags and automation fingerprints
@@ -37,7 +37,7 @@ Every serious website now runs bot detection: Imperva, Cloudflare, reCAPTCHA, Pe
 
 **An MCP cannot solve CAPTCHAs.** It can only choose which browser to present to the gatekeeper, and that choice determines whether you hit a wall. This is the sentence I wish I had read before spending an evening on it.
 
-## Case study: Immobilienscout24 (the fun part)
+## Case study: [Immobilienscout24](https://www.immobilienscout24.de) (the fun part)
 
 I wanted my agent to contact apartment owners on Immobilienscout24. Sounds simple. It took three failed approaches and one working one.
 
@@ -47,7 +47,7 @@ The MCP spins up a headless Chrome. Result: instant CAPTCHA. "Ich bin kein Robot
 
 ### Attempt 2: Browser Use + browserforge fingerprint
 
-Next I tried Playwright with a crafted Windows Chrome fingerprint, still headless. The idea: spoof enough browser traits to pass. Here is the actual fingerprint code:
+Next I tried [Playwright](https://playwright.dev) with a crafted Windows Chrome fingerprint via [browserforge](https://github.com/daijro/browserforge), still headless. The idea: spoof enough browser traits to pass. Here is the actual fingerprint code:
 
 ```python
 from browserforge.headers import HeaderGenerator
@@ -64,11 +64,11 @@ Result: CAPTCHA again. Fingerprint spoofing is a cat-and-mouse game, and headles
 
 ### Attempt 3: Headed browser via Xvfb
 
-Maybe the problem was headless rendering itself. So I ran a real headed Chromium on a virtual display (Xvfb) on the Pi. Result: still CAPTCHA. Headed-vs-headless is not the whole story. Automation traces and IP reputation matter too.
+Maybe the problem was headless rendering itself. So I ran a real headed Chromium on a virtual display ([Xvfb](https://en.wikipedia.org/wiki/Xvfb)) on the Pi. Result: still CAPTCHA. Headed-vs-headless is not the whole story. Automation traces and IP reputation matter too.
 
 ### What actually worked
 
-A **real headed desktop Chromium** with a persistent profile, logged in manually once, then driven over CDP. No CAPTCHA. Why? Because it is indistinguishable from a human browser: real rendering, real session cookies, no automation flags from the browser's point of view.
+A **real headed desktop Chromium** with a persistent profile, logged in manually once, then driven over [CDP (Chrome DevTools Protocol)](https://chromedevtools.github.io/devtools-protocol/). No CAPTCHA. Why? Because it is indistinguishable from a human browser: real rendering, real session cookies, no automation flags from the browser's point of view.
 
 ### The solution is semi-automatic. And that is the point.
 
@@ -94,4 +94,4 @@ For Immobilienscout, the boundary is one login, once per session. For your own p
 
 The pattern here is bigger than one apartment site. Any time you give an agent access to the real web, you are negotiating with a gatekeeper that exists to keep agents out. The winning move is not a cleverer fingerprint. It is finding the smallest honest human step that opens the gate, and automating everything on the other side of it.
 
-My agent now checks Immobilienscout every ten minutes, reads new listings, and drafts contact messages. The only human input is the login that happens once per session. Everything else is automatic. And honestly, that boundary feels like the right shape for a lot of automation: a human at the door, an agent everywhere else.
+My agent now checks [Immobilienscout24](https://www.immobilienscout24.de) every ten minutes, reads new listings, and drafts contact messages. The only human input is the login that happens once per session. Everything else is automatic. And honestly, that boundary feels like the right shape for a lot of automation: a human at the door, an agent everywhere else.
