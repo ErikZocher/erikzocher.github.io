@@ -19,7 +19,9 @@ MCP ([Model Context Protocol](https://modelcontextprotocol.io)) is a standard wa
 
 The easiest way to think about it: **the LLM is the brain, and MCP servers are the hands.** The brain alone can only think, it cannot touch anything. It cannot open a website, click a button, or read a PDF. The hands are the MCP servers: they reach out to different third-party sources, fetch data, press buttons, and bring results back to the brain. The brain decides what to do, the hands do it. This is the whole architecture of an AI agent in one sentence, and it is why MCP is useful: instead of hard-coding one tool into one agent, any brain can grab any set of hands through a common interface.
 
-Under the hood, an MCP server is a small contract. It publishes **metadata**: a list of tools, each describing what it can do and what input it needs (the parameters). The LLM reads that metadata, figures out which tool fits the task, and calls it with the right parameters. Behind that call, the server runs the actual function against the underlying service, and the LLM never has to know how: the API details, authentication, and plumbing are all abstracted away inside the server. The model sends "search this address" and gets results back, without ever learning how the search was performed.
+Under the hood, an MCP server provides a standardized interface to capabilities. It can publish tools, resources, and prompts; each tool describes what it does and the structured input it accepts. The MCP host discovers these capabilities and makes the relevant definitions available to the LLM, which can choose a suitable tool and invoke it with schema-defined parameters.
+
+The server then handles the underlying work, such as calling an API, applying authentication, and managing service-specific details. This abstracts the integration away from the model: it can request a location search and receive the result without needing to implement or directly interact with the service itself.
 
 For web access, I have learned about three tools that seem useful for interacting with webpages:
 
