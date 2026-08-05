@@ -9,7 +9,7 @@ categories: technology
 
 # I Gave an AI Agent Web Access. The CAPTCHA Was Not the Hard Part.
 
-I wanted my Raspberry Pi agent to apply for apartments on [Immobilienscout24](https://www.immobilienscout24.de) by itself. Load the listing, check the details, contact the owner. I expected the CAPTCHA to be the battle. It was not. The battle was understanding what the CAPTCHA is actually protecting: identity. Once I did, the solution stopped being an arms race with bot detection and became a clean division of labor between a human and a machine.
+I wanted my Raspberry Pi agent to apply for apartments on [Immobilienscout24](https://www.immobilienscout24.de) by itself. Load the listing, check the details, contact the owner. I expected the CAPTCHA to be the obstacle. It was not. The real obstacle was understanding what the CAPTCHA is actually protecting: identity. Once I did, the solution stopped being about outsmarting bot detection and became a clean division of labor between a human and a machine.
 
 **The 30-second version:** headless browsers, spoofed fingerprints, and virtual displays all got blocked within seconds. What worked was a real headed browser with a persistent profile, logged in once by a human over a remote desktop session, then driven by the agent over the DevTools protocol. The boundary that matters is human identity verification: the person proves who they are once, the agent reuses the result until the session expires. No CAPTCHA solving, no credential extraction, nothing against the site's terms.
 
