@@ -19,6 +19,8 @@ MCP ([Model Context Protocol](https://modelcontextprotocol.io)) is a standard wa
 
 The easiest way to think about it: **the LLM is the brain, and MCP servers are the hands.** The brain alone can only think, it cannot touch anything. It cannot open a website, click a button, or read a PDF. The hands are the MCP servers: they reach out to different third-party sources, fetch data, press buttons, and bring results back to the brain. The brain decides what to do, the hands do it. This is the whole architecture of an AI agent in one sentence, and it is why MCP is useful: instead of hard-coding one tool into one agent, any brain can grab any set of hands through a common interface.
 
+Under the hood, an MCP server is a small contract. It publishes **metadata**: a list of tools, each describing what it can do and what input it needs (the parameters). The LLM reads that metadata, figures out which tool fits the task, and calls it with the right parameters. Behind that call, the server runs the actual function against the underlying service, and the LLM never has to know how: the API details, authentication, and plumbing are all abstracted away inside the server. The model sends "search this address" and gets results back, without ever learning how the search was performed.
+
 For web access, I have learned about three tools that seem useful for interacting with webpages:
 
 | Tool | What it does | Best for |
