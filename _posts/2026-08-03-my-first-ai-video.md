@@ -13,6 +13,8 @@ Every AI hobbyist reaches the moment where still images stop being enough. For m
 
 So I built a small Frankenstein: the Pi stays the brain, and a Windows PC with an NVIDIA RTX 3070 Ti became the muscle.
 
+**The 30-second version:** I ran ComfyUI on a Windows PC with an RTX 3070 Ti and drove it remotely from my Raspberry Pi over the LAN. The Pi submits a workflow as JSON, the PC renders it on the GPU, and the result comes back. No cables, no cloud. The first video: 16 frames at 512x512, 20 steps, about a minute of render time. It is a wobbly two-tailed cat in a vaguely sunlit park, and it is the most satisfying minute I have spent on this hobby so far.
+
 ## The Setup
 
 Two machines, one home network:
@@ -23,6 +25,14 @@ Two machines, one home network:
 | Windows PC | Muscle: runs ComfyUI | RTX 3070 Ti (8 GB VRAM), 16 GB RAM |
 
 The magic ingredient is the [ComfyUI API](https://www.comfy.org). ComfyUI, the node-based AI image and video tool, exposes a REST API. Any machine on the network can submit a workflow as JSON and pull back the result. The Pi talks to the PC over the LAN, no cables, no cloud.
+
+```mermaid
+flowchart LR
+    PI["Raspberry Pi 5<br/>(brain, no GPU)"] -->|"workflow JSON<br/>POST :8188/prompt"| CU["ComfyUI on Windows PC<br/>(RTX 3070 Ti, 8 GB)"]
+    CU -->|"renders 16 frames<br/>512x512, 20 steps"| GPU["GPU"]
+    GPU -->|"animated webp"| CU
+    CU -->|"result back over LAN"| PI
+```
 
 ## What We Did
 
@@ -44,12 +54,25 @@ Setting it up took longer than the actual generation, which is the classic patte
 
 Here is the very first video my little cluster ever made. The prompt was "a cute cat walking through a sunlit park, cinematic lighting, high quality."
 
+> **Note on sound:** this video is silent. AnimateDiff is a motion module on top of an image model, so it has no audio path at all. The LTX-2.3 model I later switched to is a joint audio-video model and can generate sound, but that is a separate project.
+
 <video controls loop muted playsinline width="100%" style="max-width:512px; border-radius:8px;">
   <source src="/assets/videos/cat-park-animatediff.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
-It is not Hollywood. The cat drifts more than it walks, and the park is more suggestion than scenery. It also has two tails, because of course it does. When a diffusion model does not know how many tails a cat should have, it simply gives it the average number of tails, rounded up. But consider what just happened: a text prompt typed on a tiny Linux board in Berlin traveled over WiFi to a Windows PC, became a latent-space dream on an NVIDIA GPU, and came back as sixteen frames of a cat in a park. The whole loop took about a minute.
+It is not Hollywood. The cat drifts more than it walks, and the park is more suggestion than scenery. It also has two tails, because of course it does. When a diffusion model does not know how many tails a cat should have, it simply gives it the average number of tails, rounded up. Happy little accidents, as the painter would say: the cat was never supposed to have two tails, and I would not change it now. But consider what just happened: a text prompt typed on a tiny Linux board in Berlin traveled over WiFi to a Windows PC, became a latent-space dream on an NVIDIA GPU, and came back as sixteen frames of a cat in a park. The whole loop took about a minute.
+
+**The run, in numbers:**
+
+| Setting | Value |
+|---------|-------|
+| Model | DreamShaper + AnimateDiff v1.6 |
+| Resolution | 512x512 |
+| Frames | 16 |
+| Steps | 20 |
+| Render time | ~1 minute |
+| VRAM used | 8 GB (fits comfortably) |
 
 ## Lessons Learned
 
@@ -62,3 +85,14 @@ It is not Hollywood. The cat drifts more than it walks, and the park is more sug
 The pipeline works. The Pi is now a remote control for a GPU that lives across the room. Next steps are tempting: longer clips, higher resolution, image-to-video, maybe that [LTX-2.3 model](https://huggingface.co/Lightricks/LTX-2.3-fp8) I downloaded and never got to use properly. If you want the full story of how the Pi itself is set up, from SSD boot to auto-starting services, I wrote that up in [Raspberry Pi 5 From Scratch](https://erikzocher.github.io/technology/2026/08/02/raspberry-pi-technical-deep-dive.html).
 
 But for now, I have a cat. A slightly wobbly, vaguely sunlit, entirely machine-made cat. And that is a good place to start.
+
+## The Pattern, Reusable
+
+If you want to do the same thing, the shape is simple:
+
+1. **Keep the brain and the muscle separate.** Your always-on machine stays the brain; the GPU box is a dumb renderer you reach over the network.
+2. **Expose the muscle as an API, not a screen.** ComfyUI's REST endpoint turns "use a GPU" into a `curl` call. Anything that can speak HTTP can render.
+3. **Start with the smallest model that fits your VRAM.** AnimateDiff on 8 GB beat the 20-30 GB video models I never could have run. The first win matters more than the ideal model.
+4. **Expect the setup to take longer than the generation.** Folder names change, node names change, the first render is always an argument with the tool. The generation itself is the easy part.
+
+The whole pattern: Pi thinks, PC renders, LAN connects, cat wobbles. Happy little accidents included.
