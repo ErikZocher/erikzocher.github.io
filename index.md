@@ -23,5 +23,3 @@ I built a personal AI agent named [Puck](https://erikzocher.github.io/technology
 [🔍 Search](suche) · [🏷️ Tags](tags)
 
 ---
-
-**📡 Follow the blog via [RSS feed](feed.xml)**
