@@ -26,7 +26,7 @@ I wanted my agent to contact apartment owners on Immobilienscout24. Sounds simpl
 
 ### Attempt 1: Chrome DevTools MCP
 
-[Chrome DevTools MCP](https://github.com/ChromeDevTools/chrome-devtools-mcp) is designed to control and inspect a live Chrome browser. In my setup I drove it against a headless Chrome instance, and the result was an instant CAPTCHA: "Ich bin kein Roboter" on every page. Worth noting: the headless launch was my choice, not an inherent property of the MCP server, which can attach to a normal running browser too. The lesson stands either way: headless Chrome is exactly what bot detection is built to flag.
+[Chrome DevTools MCP](https://github.com/ChromeDevTools/chrome-devtools-mcp) is designed to control and inspect a live Chrome browser. In my setup I drove it against a headless Chrome instance, and the result was an instant CAPTCHA: "Ich bin kein Roboter" (German for "I am not a robot") on every page. Worth noting: the headless launch was my choice, not an inherent property of the MCP server, which can attach to a normal running browser too. The lesson stands either way: headless Chrome is exactly what bot detection is built to flag.
 
 ### Attempt 2: Browser Use + a spoofed fingerprint
 
