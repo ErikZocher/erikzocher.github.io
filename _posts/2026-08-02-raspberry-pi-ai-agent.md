@@ -33,7 +33,7 @@ The agent itself is [Hermes Agent](https://hermes-agent.nousresearch.com) by Nou
 
 ## Why a Cloud Model, Not a Local One
 
-I used to run local models on the Pi, served by Ollama. I tried four of them over a few weeks:
+I used to run local models on the Pi, served by Ollama. I tried four of them over a few days:
 
 | Model | Parameters | File size |
 |-------|:----------:|:---------:|
