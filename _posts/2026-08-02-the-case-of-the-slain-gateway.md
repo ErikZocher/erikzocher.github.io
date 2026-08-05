@@ -11,7 +11,7 @@ categories: [technology]
 
 *2026-08-02 · 8 min read · [raspberry-pi] [systemd] [debugging] [homelab] [storytelling]*
 
-Everything in this story actually happened. My headless Raspberry Pi went unreachable one Sunday evening, and debugging it turned out to be a genuine whodunit. The technical TL;DR is at the bottom if you prefer facts over fog. But first, the case.
+Everything in this story actually happened. My headless Raspberry Pi went unreachable one Sunday evening, and debugging it turned out to be a genuine whodunit. Debugging a machine that goes silent has the same shape as a detective case: a victim, a scene, witnesses, conflicting clues, and a culprit who was there all along. Two enabled services that each think the other is an impostor, a crashed process that keeps reviving itself, a watchdog barking into the void. That is not an analogy, it is the plot. Sherlock Holmes is simply the clearest lens for it. The facts are untouched, only the telling is dramatized, and the technical [TL;DR is at the bottom](#tldr-what-actually-happened) if you prefer facts over fog.
 
 > **AI disclosure:** All illustrations in this story are AI-generated images (FLUX.1-dev), selected and edited by me. They were added later, imagining what the case would have looked like if Sherlock Holmes had worked with systemd and a soldering iron.
 
@@ -153,7 +153,7 @@ He closed his notebook and reached for his coat.
 
 ## TL;DR: What Actually Happened
 
-**The setup:** A Raspberry Pi 5 runs Hermes Agent as a systemd service (`hermes-gateway.service`), connecting to Telegram and running cron jobs. It had run stably for about a week and a half before becoming unreachable via both SSH and Telegram (a full system-level hang, likely a hard reset; no clean shutdown was recorded in the journal).
+**The setup:** A Raspberry Pi 5 runs [Hermes Agent](https://hermes-agent.nousresearch.com) as a [systemd](https://systemd.io) service (`hermes-gateway.service`), connecting to Telegram and running cron jobs. It had run stably for about a week and a half before becoming unreachable via both SSH and Telegram (a full system-level hang, likely a hard reset; no clean shutdown was recorded in the journal).
 
 **The real culprit: dual systemd units.**
 
@@ -174,7 +174,7 @@ Both units were enabled, so every boot spawned two gateway instances competing f
 - **`--replace` flag** added to the gateway's ExecStart (the official "useful for systemd" option). A fresh start now auto-replaces any stale instance instead of dying on the PID lock.
 - **Override repaired:** `ExecStart=` (empty, resets the main unit's value) followed by the new `ExecStart=`. Required because systemd merges drop-ins, so a bare second `ExecStart=` would add, not replace.
 - **User unit disabled** via `systemctl --user disable hermes-gateway`, removing the duplicate doorkeeper. Only the system unit starts at boot now.
-- **Watchdog script** (`gateway_watchdog.sh`, cron every 5 minutes) checks that `ActiveState/SubState` is active/running and that exactly one gateway process exists. On failure it sends an email via himalaya, a fallback channel, since Telegram is dead when the gateway is. Alert spam is prevented with rate-limiting.
+- **Watchdog script** (`gateway_watchdog.sh`, cron every 5 minutes) checks that `ActiveState/SubState` is active/running and that exactly one gateway process exists. On failure it sends an email via [himalaya](https://github.com/pimalaya/himalaya), a fallback channel, since Telegram is dead when the gateway is. Alert spam is prevented with rate-limiting.
 
 **Root cause in one line:** Two enabled systemd units (system + user) fought over one PID file; a broken drop-in override then locked the service in a crash-loop. Adding `--replace`, disabling the user unit, and installing a mail-capable watchdog made the whole thing self-healing.
 
