@@ -180,4 +180,4 @@ Both units were enabled, so every boot spawned two gateway instances competing f
 
 ---
 
-*License note: the illustrations above were generated with Flux Dev, which is free for non-commercial use under the FLUX.1-dev Non-Commercial License, which this hobby blog clearly falls under. The images themselves may even be used commercially with a few caveats (attribution and AI-disclosure requirements apply). If I ever want to sell something made with it, I would need a license from Black Forest Labs or switch to the Apache-licensed FLUX.1-schnell. Your mileage may vary, so check the license before publishing anything commercial.*
+*License: illustrations generated with FLUX.1-dev, free for non-commercial use; this blog qualifies. Check the license before any commercial use.*
