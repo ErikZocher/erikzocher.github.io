@@ -1,25 +1,25 @@
 ---
 layout: post
-title: "My Engineer Friend Asked Me to Explain LLMs, Skills, and MCPs. Here's the Field Guide."
+title: "My Engineer Friend Knows the Buzzwords. Here's What Actually Matters."
 date: 2026-08-06 21:40:00 +0200
-description: "A practical field guide to LLM-assisted work for software engineers who are new to it: the mental model, writing prompts like engineering briefs, matching process to task size, using MCP tools deliberately, and writing skills."
+description: "A practical field guide to LLM-assisted work for software engineers who know the buzzwords but not what to focus on: the mental model, prompts as engineering briefs, task sizing, deliberate MCP use, and writing skills."
 tags: [ai, llm, mcp, skills, prompting, agents, beginner]
 categories: [technology]
 ---
 
-# My Engineer Friend Asked Me to Explain LLMs, Skills, and MCPs. Here's the Field Guide.
+# My Engineer Friend Knows the Buzzwords. Here's What Actually Matters.
 
-*2026-08-06 · 9 min read · [ai] [llm] [mcp] [skills] [prompting] [beginner]*
+*2026-08-06 · 10 min read · [ai] [llm] [mcp] [skills] [prompting] [beginner]*
 
-A friend of mine is a senior software engineer. He can debug a distributed system in his sleep. And last week he told me he has no idea what an LLM is, no idea what MCP means, and no idea how anyone gets a reliable result out of any of it.
+A friend of mine is a software engineer. He knows what an LLM is. He has heard of RAG, agents, MCPs, embeddings, fine-tuning, and half a dozen more terms, and he can nod along to most conversations about AI. And last week he told me the problem: he still does not know what to focus on.
 
-That is a more common position than most people admit. The tools are new, the vocabulary is new, and half the articles assume you already know the other half. So I wrote him a field guide. This is it, and it is yours too if you are in the same boat.
+That is the real gap, and it is more common than most people admit. The field moves so fast that the knowledge goes stale within days. Click-bait articles tell you what is new; almost none of them tell you what actually matters and what you can safely ignore. So I wrote him a field guide: the concepts that stay useful, the habits that get a reliable result, and the checklist that keeps a task honest. This is it, and it is yours too if you are in the same boat.
 
 **The 30-second version:** an LLM is a language model that predicts a useful next response from the context you give it. It does not automatically know your repository, your production state, or your intent; you supply those. Context engineering is choosing what the model sees. A harness is the environment around the model: instructions, tools, permissions, feedback loops. A skill is a reusable workflow for a class of tasks. MCP servers publish tools in a standard shape, and the model decides which to call. Write prompts like engineering briefs, match your process to the task size, and verify the outcome before you believe it.
 
 ## The Mental Model
 
-Five terms cover most of what you need to know. Learn these and the rest is detail.
+Five terms cover most of what you need to know. These are the concepts that do not go stale: the vocabulary changes weekly, but this mental model is the same one the field has been building on for years. Learn these and the rest is detail.
 
 **LLM.** A language model. Given the text and other inputs in its current context, it predicts a useful next response. It can explain, plan, write code, and decide which available tool to call. It does not automatically know your repository, production state, or intent. Those must be supplied or discovered.
 
