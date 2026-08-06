@@ -13,6 +13,8 @@ categories: [technology]
 
 I spent an evening trying to move a button to the right side of a banner. Five separate CSS fixes, each one textbook-correct, and the button stayed stubbornly on the left. The cause was one line of JavaScript that had been disabling my entire layout the whole time.
 
+There is something funny about that. An AI can write code, debug a broken boot sequence, and help run a whole blog, and yet moving one button to the right took an entire evening. The task seems so trivial that the failure reads like a joke. It is. The punchline is that the button was never the hard part, and neither was the CSS. The hard part was a single word hiding in a place nobody thought to look.
+
 **The 30-second version:** the cookie banner on my blog has a dismiss button, "Understood, carry on". The design calls for the text on top and the button below it, right-aligned. My AI assistant wrote the CSS three different ways, verified it in a headless browser, and every measurement said the button was on the right. I kept looking at the real page and seeing it on the left. The gap between our measurements and reality turned out to be the bug: the page's own JavaScript showed the banner with `display: block`, which turns off every flexbox property, and the assistant's test tool had been quietly switching it back.
 
 ## The Setup
