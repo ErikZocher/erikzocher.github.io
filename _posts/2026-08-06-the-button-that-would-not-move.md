@@ -79,6 +79,8 @@ My assistant's measurement script did not just measure the banner. It set `banne
 
 That is what went wrong: we had built a verification tool that silently corrected the very bug it was supposed to detect. Every measurement it took after that was measuring a page that did not exist. My own screenshot, taken from a plain browser tab with no helper script running, showed the actual behavior. The moment we stopped trusting the tool and started trusting the discrepancy, the cause was obvious.
 
+And here is the funniest part. During that whole evening, I never looked at the code of the banner once. Not a single line. I only gave instructions to my AI assistant, and it kept confidently reporting that everything was fine. The first time I actually opened the browser's developer tools myself and inspected the elements, the answer was right there in seconds. The one person who was never supposed to touch the code was the one who found the bug.
+
 ## The Actual Bug
 
 The page's JavaScript reveals the banner with:
@@ -101,6 +103,7 @@ banner.style.display = 'flex';
 - **Flexbox properties are powerless without `display: flex`.** The mistake reads as a CSS problem but it is a layout-model problem. When flexbox alignment does nothing, check that the element actually is a flex container first.
 - **Your test tool can become part of the bug.** Any script that sets a property to make something testable can mask the very issue you are chasing. The fix is to measure on a fresh page load, with no instrumentation touching the element first.
 - **Screenshots settle arguments.** When two people look at the same page and see different things, one of them is not looking at the same page. Version numbers on assets, hard reloads, and fresh browser profiles narrow down which.
+- **The human is the last verification layer.** The whole point of the assistant is that I do not have to inspect code. But when a tool is confident and wrong at the same time, the human eye is the only check left. The first time I opened the developer tools myself, I found the bug in seconds. Hands-on inspection is not a fallback to be ashamed of. It is the final anchor.
 
 ## The Checklist
 
