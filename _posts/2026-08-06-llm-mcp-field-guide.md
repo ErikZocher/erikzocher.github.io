@@ -58,7 +58,7 @@ A good prompt reduces ambiguity. It does not need to be long; it needs to answer
 ### Weak prompt
 
 ```text
-Fix the shipping notice page.
+Fix the departure board.
 ```
 
 The model must guess the bug, the affected files, the intended behavior, and how much it may change.
@@ -66,17 +66,17 @@ The model must guess the bug, the affected files, the intended behavior, and how
 ### Stronger prompt
 
 ```text
-Fix the status-filter options on the shipping notice page.
+Fix the line-filter options on the departure board.
 
-Context: the page renders the expected table rows, but the filter options are
-wrong. In the Draft tab there must be no status filter. In the Announcements
-tab, the only options are "To be confirmed" and "Dispatch queued".
+Context: the board renders the expected departures, but the filter options are
+wrong. In the All view there must be no line filter. In the Tram view, the only
+options are "M4" and "27".
 
-Constraints: preserve the existing table query and do not change the options
-for other tabs. Reuse existing filter components; do not add a dependency.
+Constraints: preserve the existing query and do not change the options for
+other views. Reuse the existing filter components; do not add a dependency.
 
-Done when: the focused tests cover both tab cases and the existing relevant
-tests still pass.
+Done when: the focused tests cover both views and the existing relevant tests
+still pass.
 
 Response: first identify the affected files and proposed change. Then make the
 smallest patch and report the tests run.
