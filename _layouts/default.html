@@ -7,12 +7,13 @@
   <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e87d87d4d5b749ac9e25be88bc875153"}'></script>
   <!-- End Cloudflare Web Analytics -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  {%- assign css_ver = site.github.build_revision | default: site.time | date: "%Y%m%d%H%M%S" -%}
   <title>{% if page.title %}{{ page.title | escape }} | {% endif %}{{ site.title | escape }}</title>
   <link rel="icon" type="image/x-icon" href="{{ "/assets/images/favicon.ico?v=" | append: site.github.build_revision | relative_url }}">
   <link rel="icon" type="image/png" sizes="32x32" href="{{ "/assets/images/favicon-32x32.png?v=" | append: site.github.build_revision | relative_url }}">
   <link rel="icon" type="image/png" sizes="16x16" href="{{ "/assets/images/favicon-16x16.png?v=" | append: site.github.build_revision | relative_url }}">
   <link rel="apple-touch-icon" sizes="180x180" href="{{ "/assets/images/apple-touch-icon.png?v=" | append: site.github.build_revision | relative_url }}">
-  <link rel="stylesheet" href="{{ "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
+  <link rel="stylesheet" href="{{ "/assets/css/style.css?v=" | append: css_ver | relative_url }}">
   <link rel="stylesheet" href="{{ "/assets/css/fonts.css" | relative_url }}">
   <script type="module" integrity="sha384-H3I/GBuI2vR7qAVY20j3ATk7IbKGz5cjGE6Yu5r32ybgMxbG6WBs1dWh+nVIJzxW" crossorigin="anonymous">
     import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
@@ -159,7 +160,7 @@
       if (!dismissed) {
         var banner = document.getElementById('cookie-banner');
         if (banner) {
-          banner.style.display = 'block';
+          banner.style.display = 'flex';
           var btn = document.getElementById('cookie-banner-ok');
           if (btn) {
             btn.addEventListener('click', function() {
