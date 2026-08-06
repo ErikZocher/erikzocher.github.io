@@ -86,6 +86,13 @@ body {
   padding-top: 52px;
 }
 
+/* Reserve scrollbar space so the centered header/logo does not shift
+   when navigating between short (no scrollbar) and long pages (scrollbar). */
+html {
+  scrollbar-gutter: stable;
+  overflow-y: scroll;
+}
+
 /* On small screens: keep header readable, allow wrap of nav */
 @media screen and (max-width: 42em) {
   .site-header-inner {
