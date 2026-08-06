@@ -79,7 +79,7 @@ My assistant's measurement script did not just measure the banner. It set `banne
 
 That is what went wrong: we had built a verification tool that silently corrected the very bug it was supposed to detect. Every measurement it took after that was measuring a page that did not exist. My own screenshot, taken from a plain browser tab with no helper script running, showed the actual behavior. The moment we stopped trusting the tool and started trusting the discrepancy, the cause was obvious.
 
-And here is the funniest part: we could not fix a simple bug. Eventually, I opened the browser's developer tools myself. I have never looked at this blog's code before - not just that evening, not a single line, ever. Every change, fix, and deployment came from instructions to my AI assistant. And on that one evening, the assistant kept confidently reporting that everything was fine, while the button stayed stubbornly on the left. The answer was sitting in the elements panel, obvious within seconds. The one person who was never supposed to touch the code was the one who found the bug.
+And here is the funniest part. I never look at this blog's code. Not just that evening, not a single line, ever: every change, fix, and deployment is just instructions to my AI assistant. So when the button refused to move for an entire evening and the assistant kept confidently reporting that everything was fine, there was only one thing left to try. I opened the browser's developer tools myself. The answer was sitting in the elements panel, obvious within seconds. The one person who was never supposed to touch the code was the one who found the bug.
 
 ## The Actual Bug
 
