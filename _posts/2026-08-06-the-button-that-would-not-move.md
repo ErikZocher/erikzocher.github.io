@@ -47,11 +47,11 @@ Text on top, button below, button on the right. That is the whole design. It sho
 
 ## Attempt 1: The Obvious Fix
 
-The button was sitting on the left, directly under the text. I added `align-self: flex-end` to the button. Textbook flexbox. The button stayed left.
+The button was sitting on the left, directly under the text. I had my AI assistant add `align-self: flex-end` to the button. Textbook flexbox. The button stayed left.
 
 ## Attempt 2: The Parent
 
-Maybe the parent was not actually a flex container at that moment. I inspected the banner in the browser and confirmed `display: flex` and `flex-direction: column` were applied. I added `margin-left: auto` to the button as a belt-and-suspenders push to the right. The button stayed left.
+Maybe the parent was not actually a flex container at that moment. My AI assistant inspected the banner in its headless browser and confirmed `display: flex` and `flex-direction: column` were applied. It added `margin-left: auto` to the button as a belt-and-suspenders push to the right. The button stayed left.
 
 ## Attempt 3: The Measure
 
