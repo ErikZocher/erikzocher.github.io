@@ -11,7 +11,7 @@ categories: [technology]
 
 *2026-08-06 · 5 min read · [debugging] [css] [javascript] [web] [raspberry-pi]*
 
-I spent an evening trying to move a button to the right side of a banner. Five separate CSS fixes, each one textbook-correct, and the button stayed stubbornly on the left. The cause was one line of JavaScript that had been disabling my entire layout the whole time.
+I spent an evening trying to move a button to the right side of a banner, with the help of AI. Five separate CSS fixes, each one textbook-correct, and the button stayed stubbornly on the left. The cause was one line of JavaScript that had been disabling my entire layout the whole time.
 
 There is something funny about that. An AI can write code, debug a broken boot sequence, and help run a whole blog, and yet moving one button to the right took an entire evening. The task seems so trivial that the failure reads like a joke. It is. The punchline is that the button was never the hard part, and neither was the CSS. The hard part was a single word hiding in a place nobody thought to look.
 
@@ -79,7 +79,7 @@ My assistant's measurement script did not just measure the banner. It set `banne
 
 That is what went wrong: we had built a verification tool that silently corrected the very bug it was supposed to detect. Every measurement it took after that was measuring a page that did not exist. My own screenshot, taken from a plain browser tab with no helper script running, showed the actual behavior. The moment we stopped trusting the tool and started trusting the discrepancy, the cause was obvious.
 
-And here is the funniest part. During that whole evening, I never looked at the code of the banner once. Not a single line. I only gave instructions to my AI assistant, and it kept confidently reporting that everything was fine. The first time I actually opened the browser's developer tools myself and inspected the elements, the answer was right there in seconds. The one person who was never supposed to touch the code was the one who found the bug.
+And here is the funniest part. I have not looked at the code of this blog at all, and I do not mean just that evening. Not a single line, ever. Every change, every fix, every deployment has been instructions to my AI assistant, and it kept confidently reporting that everything was fine. The first time I actually opened the browser's developer tools myself and inspected the elements, the answer was right there in seconds. The one person who was never supposed to touch the code was the one who found the bug.
 
 ## The Actual Bug
 
