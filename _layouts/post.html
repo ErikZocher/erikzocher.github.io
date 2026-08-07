@@ -90,13 +90,13 @@ document.addEventListener('DOMContentLoaded', function() {
       a.title = 'Link to this section';
       a.textContent = '#';
       a.addEventListener('click', function(e) {
+        e.preventDefault(); /* copy only, do NOT jump on click */
         var url = location.origin + location.pathname + '#' + h.id;
         copyTextWithFallback(url, function() {
           var old = a.textContent;
           a.textContent = '🔗';
           setTimeout(function() { a.textContent = old; }, 1500);
         });
-        /* do NOT preventDefault: let the browser jump to the section too */
       });
       h.appendChild(a);
     })(headings[i]);
