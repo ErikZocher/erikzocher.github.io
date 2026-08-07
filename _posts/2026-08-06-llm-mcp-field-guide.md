@@ -2,7 +2,7 @@
 layout: post
 title: "My Engineer Friend Knows the Buzzwords. Here's What Actually Matters."
 date: 2026-08-06 21:40:00 +0200
-description: "A practical field guide to LLM-assisted work for software engineers who know the buzzwords but not what to focus on: the mental model, prompts as engineering briefs, task sizing, deliberate MCP use, and writing skills."
+description: "A practical field guide to LLM-assisted work for software engineers who know the buzzwords but not what to focus on: the mental model, prompt structure, task sizing, deliberate MCP use, and writing skills."
 tags: [ai, llm, mcp, skills, prompting, agents, beginner]
 categories: [technology]
 ---
@@ -15,7 +15,7 @@ Every week brings a new AI technology. Every week, articles explain it. And ever
 
 That gap is real, and it is more common than most people admit. Techniques get announced, hyped, and replaced within weeks, and click-bait articles tell you what is new, not what is worth learning. So I wrote him a field guide: the concepts that stay useful, the habits that get a reliable result, and the checklist that keeps a task honest. This is it, and it is yours too if you are in the same boat.
 
-**The 30-second version:** an LLM is a language model that predicts a useful next response from the context you give it. It does not automatically know your repository, your production state, or your intent; you supply those. Context engineering is choosing what the model sees. A harness is the environment around the model: instructions, tools, permissions, feedback loops. A skill is a reusable workflow for a class of tasks. MCP servers publish tools in a standard shape, and the model decides which to call. Write prompts like engineering briefs, match your process to the task size, and verify the outcome before you believe it.
+**The 30-second version:** an LLM is a language model that predicts a useful next response from the context you give it. It does not automatically know your repository, your production state, or your intent; you supply those. Context engineering is choosing what the model sees. A harness is the environment around the model: instructions, tools, permissions, feedback loops. A skill is a reusable workflow for a class of tasks. MCP servers publish tools in a standard shape, and the model decides which to call. Write prompts like engineering specs, match your process to the task size, and verify the outcome before you believe it.
 
 ## The Mental Model
 
@@ -27,7 +27,7 @@ Five terms cover most of what you need to know. These are the concepts that do n
 
 **Harness.** The environment around the model: its instructions, tools, permissions, repository, feedback loops, and user interface. Harness engineering is designing that environment so the model can work safely and repeatably. For example, a harness may provide Git access, require test runs before a completion claim, and block destructive commands without approval.
 
-**Skill.** A reusable workflow the harness can load for a class of tasks. It tells the agent when it applies, what sequence to follow, what information to gather, and how to verify or hand off the result. A skill is not a substitute for a task brief: it supplies process, while your prompt supplies the goal and local constraints.
+**Skill.** A reusable workflow the harness can load for a class of tasks. It tells the agent when it applies, what sequence to follow, what information to gather, and how to verify or hand off the result. A skill is not a substitute for a well-written prompt: it supplies process, while your prompt supplies the goal and local constraints.
 
 **MCP.** Model Context Protocol. An [MCP](https://modelcontextprotocol.io) server publishes tools or data sources in a standard shape. The host discovers the available tools, reads their descriptions and input schemas, and can ask the server to perform an action. The LLM chooses and sequences those tool calls. The MCP server is not the LLM and does not make decisions itself.
 
@@ -43,7 +43,7 @@ flowchart LR
 
 My own setup sits at this level. My agent on the Raspberry Pi runs inside a harness with a terminal, a browser, file access, and messaging, and it reaches external systems through MCP servers: web search, browser automation, health data, and a few more. The model makes the decisions. The servers do the work.
 
-## Write Prompts Like an Engineering Brief
+## Write Prompts Like an Engineering Spec
 
 A good prompt reduces ambiguity. It does not need to be long; it needs to answer the questions that affect a correct result.
 
@@ -184,6 +184,6 @@ Before sending a meaningful task, ask:
 
 If the answer is yes to all five, the prompt is usually ready. If it is still ambiguous, ask the agent for its assumptions and plan before asking it to act.
 
-That is the whole field guide. The mental model, the brief, the sizing, the tools, the skills, the checklist. If your next prompt feels like a gamble, the fix is rarely a longer prompt. It is a better brief.
+That is the whole field guide. The mental model, the prompt, the sizing, the tools, the skills, the checklist. If your next prompt feels like a gamble, the fix is rarely a longer prompt. It is a better one.
 
 For the full ladder from prompts to agent graphs, I wrote it up in [Working with AI: Five Ways, From Prompts to Agent Graphs](https://erikzocher.github.io/technology/2026/07/31/working-with-ai.html).
