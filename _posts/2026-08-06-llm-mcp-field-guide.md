@@ -148,9 +148,9 @@ Stop and ask when: the API owner or rollout strategy is unclear.
 
 Give skills a specific trigger, required inputs, ordered steps, a definition of done, and stop conditions. Avoid skills that merely say "be helpful" or try to cover every possible task. Keep environment-specific tool names in a skill only when that dependency is intentional and documented.
 
-## What the Working History Suggests
+## What Eight Months of Working History Suggests
 
-An anonymized retrospective of Copilot and Claude histories found the strongest recurring correction signals in three areas: workflow and verification expectations, choosing the correct tool or environment, and controlling the scope of changes. These are practical prompt guardrails:
+After eight months of using Copilot and Claude almost every day, I kept seeing the same corrections come up again and again in my own history. They cluster into three areas: workflow and verification expectations, choosing the correct tool or environment, and controlling the scope of changes. These are practical prompt guardrails:
 
 - State the workflow and evidence required before the agent begins.
 - Name the required tool and environment when they affect correctness.
