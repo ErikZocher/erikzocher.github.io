@@ -251,6 +251,27 @@ body {
   overflow-x: auto;
 }
 
+/* Small screens: wrap long code lines instead of showing a horizontal slider.
+   A scrollable pre inside a vertically-scrolling page hijacks the touch
+   gesture (swiping up scrolls the code horizontally instead of the page),
+   which makes the article feel like it is shifting around. Wrapping removes
+   the slider entirely; larger screens keep the original behavior. */
+@media (max-width: 42em) {
+  .main-content pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  /* the theme sets white-space: pre on code, which beats the pre's wrapping */
+  .main-content pre code {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+}
+
 .main-content code {
   border-radius: 4px;
   padding: 0.15em 0.4em;
