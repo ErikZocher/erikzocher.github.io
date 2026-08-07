@@ -9,7 +9,7 @@ categories: [technology]
 
 # My Engineer Friend Knows the Buzzwords. Here's What Actually Matters.
 
-*2026-08-06 · 10 min read · [ai] [llm] [mcp] [skills] [prompting] [beginner]*
+*2026-08-06 · 11 min read · [ai] [llm] [mcp] [skills] [prompting] [beginner]*
 
 Every week brings a new AI technology. Every week, articles explain it. And every week, my friend, a software engineer, reads them and still cannot say what he should focus on. He knows the vocabulary: RAG, agents, MCPs, embeddings, fine-tuning, and half a dozen more terms. He just cannot tell which of them matter, because almost nothing he reads answers that question.
 
@@ -150,11 +150,25 @@ Give skills a specific trigger, required inputs, ordered steps, a definition of 
 
 ## What Eight Months of Working History Suggests
 
-After eight months of using Copilot and Claude almost every day, I kept seeing the same corrections come up again and again in my own history. They cluster into three areas: workflow and verification expectations, choosing the correct tool or environment, and controlling the scope of changes. These are practical prompt guardrails:
+After eight months of using Copilot and Claude almost every day, I kept seeing the same corrections come up again and again in my own history. They cluster into three areas, and each one has a bad version and a good version.
 
-- State the workflow and evidence required before the agent begins.
-- Name the required tool and environment when they affect correctness.
-- Bound the scope: say what may change and what must remain untouched.
+**1. State the workflow and evidence required before the agent begins.**
+
+Bad: "Fix the search results." The model must guess what is wrong, which part of the stack to touch, and what "fixed" means.
+
+Good: "Investigate why the search endpoint returns empty results for multi-word queries. First reproduce it with a specific request, identify the failing component, then propose the smallest change and run the existing test suite before claiming it is done."
+
+**2. Name the required tool and environment when they affect correctness.**
+
+Bad: "Deploy the new version." Which environment? Which pipeline? Which rollback plan?
+
+Good: "Deploy version 2.4.1 to the staging environment using the standard release script. Verify the health endpoint returns 200 and the version endpoint reports 2.4.1, then report the checks."
+
+**3. Bound the scope: say what may change and what must remain untouched.**
+
+Bad: "Improve the performance of the search." The model decides how far it may go, and that is exactly where overreach starts.
+
+Good: "Optimize the search query path. You may change the query builder and the caching layer. Do not change the API contract, the database schema, or the frontend. Benchmark before and after and show the numbers."
 
 These are not rules for making every request longer. They are cues to include the information that would otherwise force a reviewer to correct a plausible but wrong assumption.
 
