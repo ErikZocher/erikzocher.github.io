@@ -150,25 +150,25 @@ Give skills a specific trigger, required inputs, ordered steps, a definition of 
 
 ## What Eight Months of Working History Suggests
 
-After eight months of using Copilot and Claude almost every day, I kept seeing the same corrections come up again and again in my own history. They cluster into three areas, and each one has a bad version and a good version.
+After eight months of using Copilot and Claude almost every day, I kept seeing the same corrections come up again and again in my own history. They cluster into three areas. For each one, here is the kind of prompt that caused the correction, and a stronger way to write it.
 
 **1. State the workflow and evidence required before the agent begins.**
 
-Bad: "Fix the search results." The model must guess what is wrong, which part of the stack to touch, and what "fixed" means.
+Weak: "Fix the search results." The model must guess what is wrong, which part of the stack to touch, and what "fixed" means.
 
-Good: "Investigate why the search endpoint returns empty results for multi-word queries. First reproduce it with a specific request, identify the failing component, then propose the smallest change and run the existing test suite before claiming it is done."
+Stronger: "Investigate why the search endpoint returns empty results for multi-word queries. First reproduce it with a specific request, identify the failing component, then propose the smallest change and run the existing test suite before claiming it is done."
 
 **2. Name the required tool and environment when they affect correctness.**
 
-Bad: "Deploy the new version." Which environment? Which pipeline? Which rollback plan?
+Weak: "Deploy the new version." Which environment? Which pipeline? Which rollback plan?
 
-Good: "Deploy version 2.4.1 to the staging environment using the standard release script. Verify the health endpoint returns 200 and the version endpoint reports 2.4.1, then report the checks."
+Stronger: "Deploy version 2.4.1 to the staging environment using the standard release script. Verify the health endpoint returns 200 and the version endpoint reports 2.4.1, then report the checks."
 
 **3. Bound the scope: say what may change and what must remain untouched.**
 
-Bad: "Improve the performance of the search." The model decides how far it may go, and that is exactly where overreach starts.
+Weak: "Improve the performance of the search." The model decides how far it may go, and that is exactly where overreach starts.
 
-Good: "Optimize the search query path. You may change the query builder and the caching layer. Do not change the API contract, the database schema, or the frontend. Benchmark before and after and show the numbers."
+Stronger: "Optimize the search query path. You may change the query builder and the caching layer. Do not change the API contract, the database schema, or the frontend. Benchmark before and after and show the numbers."
 
 These are not rules for making every request longer. They are cues to include the information that would otherwise force a reviewer to correct a plausible but wrong assumption.
 
