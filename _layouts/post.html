@@ -56,6 +56,34 @@ layout: default
 </div>
 
 <script>
+/* Heading anchors: add a GitHub-style # link to every h2/h3 in the article.
+   Clicking copies the full chapter URL to the clipboard. */
+document.addEventListener('DOMContentLoaded', function() {
+  var headings = document.querySelectorAll('article h2[id], article h3[id]');
+  for (var i = 0; i < headings.length; i++) {
+    (function(h) {
+      var a = document.createElement('a');
+      a.className = 'heading-anchor';
+      a.href = '#' + h.id;
+      a.setAttribute('aria-label', 'Link to this section');
+      a.title = 'Link to this section';
+      a.textContent = '#';
+      a.addEventListener('click', function(e) {
+        e.preventDefault();
+        var url = location.origin + location.pathname + '#' + h.id;
+        navigator.clipboard.writeText(url).then(function() {
+          var old = a.textContent;
+          a.textContent = '🔗';
+          setTimeout(function() { a.textContent = old; }, 1500);
+        });
+      });
+      h.appendChild(a);
+    })(headings[i]);
+  }
+});
+</script>
+
+<script>
 function copyLink(url, btn) {
   navigator.clipboard.writeText(url).then(function() {
     var old = btn.textContent;
