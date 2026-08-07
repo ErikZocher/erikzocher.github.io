@@ -634,3 +634,28 @@ body.modal-open {
     width: auto;
   }
 }
+
+/* Heading anchor links (GitHub-style): # appears on hover, click copies the
+   full chapter URL. Kramdown already generates the id on every heading. */
+.main-content h2,
+.main-content h3 {
+  position: relative;
+  scroll-margin-top: 80px; /* offset for the fixed header when jumping to an anchor */
+}
+.heading-anchor {
+  opacity: 0;
+  margin-left: 8px;
+  font-size: 0.8em;
+  font-weight: normal;
+  color: var(--link);
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+}
+.main-content h2:hover .heading-anchor,
+.main-content h3:hover .heading-anchor,
+.heading-anchor:focus-visible {
+  opacity: 0.6;
+}
+.heading-anchor:hover {
+  opacity: 1;
+}
