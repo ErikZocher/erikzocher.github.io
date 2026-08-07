@@ -57,7 +57,28 @@ layout: default
 
 <script>
 /* Heading anchors: add a GitHub-style # link to every h2/h3 in the article.
-   Clicking copies the full chapter URL to the clipboard. */
+   Clicking jumps to the section AND copies the full chapter URL (including
+   the anchor) to the clipboard, so readers can share the interesting part. */
+function copyTextWithFallback(text, done) {
+  function fallback() {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+    done();
+  }
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(done, fallback);
+  } else {
+    fallback();
+  }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   var headings = document.querySelectorAll('article h2[id], article h3[id]');
   for (var i = 0; i < headings.length; i++) {
@@ -69,13 +90,13 @@ document.addEventListener('DOMContentLoaded', function() {
       a.title = 'Link to this section';
       a.textContent = '#';
       a.addEventListener('click', function(e) {
-        e.preventDefault();
         var url = location.origin + location.pathname + '#' + h.id;
-        navigator.clipboard.writeText(url).then(function() {
+        copyTextWithFallback(url, function() {
           var old = a.textContent;
           a.textContent = '🔗';
           setTimeout(function() { a.textContent = old; }, 1500);
         });
+        /* do NOT preventDefault: let the browser jump to the section too */
       });
       h.appendChild(a);
     })(headings[i]);
@@ -85,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <script>
 function copyLink(url, btn) {
-  navigator.clipboard.writeText(url).then(function() {
+  copyTextWithFallback(url, function() {
     var old = btn.textContent;
     btn.textContent = "✅ Copied!";
     setTimeout(function() { btn.textContent = old; }, 2000);
