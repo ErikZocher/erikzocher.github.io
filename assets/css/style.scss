@@ -125,9 +125,8 @@ html {
   --link: #7aa2f7;
   --header-bg: #111316;
   --header-bg-secondary: #0f1115;
-  --code-bg: #242e3b;
-  --code-border: #33404f;
-  --code-text: #9ececa;
+  --code-bg: #16181d;
+  --code-text: #cdece8;
   --border: #23262d;
   --table-border: #23262d;
   --hr-border: #1d2026;
@@ -148,7 +147,6 @@ html {
   --header-bg: #f5f7fa;
   --header-bg-secondary: #e9ecf1;
   --code-bg: #f6f8fa;
-  --code-border: #d8dee4;
   --code-text: #567482;
   --border: #d8dee4;
   --table-border: #d8dee4;
@@ -250,9 +248,6 @@ body {
   border-radius: 8px;
   padding: 16px 20px;
   line-height: 1.6;
-  /* Brighter code-box border in dark mode so the box reads as a distinct
-     panel (--border is darker than the new --code-bg fill). */
-  border-color: var(--code-border, var(--border));
   overflow-x: auto;
 }
 
@@ -323,7 +318,7 @@ body {
 :root .highlight .cs,
 :root .highlight .c,
 :root .highlight .cd {
-  color: #8b949e;           /* comments: muted gray */
+  color: #9ba8b4;           /* comments: brighter muted gray */
 }
 :root .highlight .k,
 :root .highlight .kc,
@@ -334,7 +329,7 @@ body {
 :root .highlight .kt,
 :root .highlight .o,
 :root .highlight .ow {
-  color: #ff7b72;           /* keywords/operators: soft red */
+  color: #ff8f86;           /* keywords/operators: soft red */
 }
 :root .highlight .s,
 :root .highlight .sa,
@@ -350,14 +345,14 @@ body {
 :root .highlight .sr,
 :root .highlight .s1,
 :root .highlight .ss {
-  color: #a5d6ff;           /* strings: light blue */
+  color: #b5e0ff;           /* strings: light blue */
 }
 :root .highlight .nf,
 :root .highlight .fm,
 :root .highlight .nc,
 :root .highlight .nn,
 :root .highlight .nt {
-  color: #d2a8ff;           /* function/class names: soft purple */
+  color: #ddbbff;           /* function/class names: soft purple */
 }
 :root .highlight .nb,
 :root .highlight .bp,
@@ -366,7 +361,7 @@ body {
 :root .highlight .vc,
 :root .highlight .vg,
 :root .highlight .vi {
-  color: #79c0ff;           /* builtins/vars: blue */
+  color: #8cc9ff;           /* builtins/vars: blue */
 }
 :root .highlight .m,
 :root .highlight .mb,
@@ -375,7 +370,7 @@ body {
 :root .highlight .mi,
 :root .highlight .il,
 :root .highlight .mo {
-  color: #f0883e;           /* numbers: orange */
+  color: #f5a05c;           /* numbers: orange */
 }
 :root .highlight .p,
 :root .highlight .err {
