@@ -283,6 +283,11 @@ body {
   background: transparent;
   border: none;
   font-size: 0.9rem;
+  /* The Cayman theme hardcodes color on .main-content pre > code
+     ($code-text-color, a light-mode blue-gray #567482) with higher
+     specificity than the variable rule above. This explicit color
+     restores the themed value in both modes. */
+  color: var(--code-text);
 }
 
 /* Inline code: hairline border instead of heavy fill */
