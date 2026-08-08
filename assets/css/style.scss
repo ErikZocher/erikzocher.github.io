@@ -126,7 +126,7 @@ html {
   --header-bg: #111316;
   --header-bg-secondary: #0f1115;
   --code-bg: #16181d;
-  --code-text: #cdece8;
+  --code-text: #e2f3f0;
   --border: #23262d;
   --table-border: #23262d;
   --hr-border: #1d2026;
@@ -318,7 +318,7 @@ body {
 :root .highlight .cs,
 :root .highlight .c,
 :root .highlight .cd {
-  color: #9ba8b4;           /* comments: brighter muted gray */
+  color: #aab6c2;           /* comments: brighter muted gray */
 }
 :root .highlight .k,
 :root .highlight .kc,
@@ -329,7 +329,7 @@ body {
 :root .highlight .kt,
 :root .highlight .o,
 :root .highlight .ow {
-  color: #ff8f86;           /* keywords/operators: soft red */
+  color: #ff9d95;           /* keywords/operators: soft red */
 }
 :root .highlight .s,
 :root .highlight .sa,
@@ -345,14 +345,14 @@ body {
 :root .highlight .sr,
 :root .highlight .s1,
 :root .highlight .ss {
-  color: #b5e0ff;           /* strings: light blue */
+  color: #c2e8ff;           /* strings: light blue */
 }
 :root .highlight .nf,
 :root .highlight .fm,
 :root .highlight .nc,
 :root .highlight .nn,
 :root .highlight .nt {
-  color: #ddbbff;           /* function/class names: soft purple */
+  color: #e6ccff;           /* function/class names: soft purple */
 }
 :root .highlight .nb,
 :root .highlight .bp,
@@ -361,7 +361,7 @@ body {
 :root .highlight .vc,
 :root .highlight .vg,
 :root .highlight .vi {
-  color: #8cc9ff;           /* builtins/vars: blue */
+  color: #9ed4ff;           /* builtins/vars: blue */
 }
 :root .highlight .m,
 :root .highlight .mb,
@@ -370,10 +370,79 @@ body {
 :root .highlight .mi,
 :root .highlight .il,
 :root .highlight .mo {
-  color: #f5a05c;           /* numbers: orange */
+  color: #f7b075;           /* numbers: orange */
 }
 :root .highlight .p,
 :root .highlight .err {
+  color: var(--code-text);  /* punctuation: default code text */
+}
+
+/* Light mode gets its own syntax palette: the original values from
+   before the dark-mode brightening. The :root block above applies to
+   both themes, so without this override the brightened dark-mode
+   colors would leak into light mode. */
+[data-theme="light"] .highlight .c1,
+[data-theme="light"] .highlight .cm,
+[data-theme="light"] .highlight .cp,
+[data-theme="light"] .highlight .cs,
+[data-theme="light"] .highlight .c,
+[data-theme="light"] .highlight .cd {
+  color: #6e7781;           /* comments: muted gray */
+}
+[data-theme="light"] .highlight .k,
+[data-theme="light"] .highlight .kc,
+[data-theme="light"] .highlight .kd,
+[data-theme="light"] .highlight .kn,
+[data-theme="light"] .highlight .kp,
+[data-theme="light"] .highlight .kr,
+[data-theme="light"] .highlight .kt,
+[data-theme="light"] .highlight .o,
+[data-theme="light"] .highlight .ow {
+  color: #cf222e;           /* keywords/operators: readable red on white */
+}
+[data-theme="light"] .highlight .s,
+[data-theme="light"] .highlight .sa,
+[data-theme="light"] .highlight .sb,
+[data-theme="light"] .highlight .sc,
+[data-theme="light"] .highlight .dl,
+[data-theme="light"] .highlight .sd,
+[data-theme="light"] .highlight .s2,
+[data-theme="light"] .highlight .se,
+[data-theme="light"] .highlight .sh,
+[data-theme="light"] .highlight .si,
+[data-theme="light"] .highlight .sx,
+[data-theme="light"] .highlight .sr,
+[data-theme="light"] .highlight .s1,
+[data-theme="light"] .highlight .ss {
+  color: #0a3069;           /* strings: deep navy, readable on white */
+}
+[data-theme="light"] .highlight .nf,
+[data-theme="light"] .highlight .fm,
+[data-theme="light"] .highlight .nc,
+[data-theme="light"] .highlight .nn,
+[data-theme="light"] .highlight .nt {
+  color: #8250df;           /* function/class names: purple */
+}
+[data-theme="light"] .highlight .nb,
+[data-theme="light"] .highlight .bp,
+[data-theme="light"] .highlight .na,
+[data-theme="light"] .highlight .nv,
+[data-theme="light"] .highlight .vc,
+[data-theme="light"] .highlight .vg,
+[data-theme="light"] .highlight .vi {
+  color: #0550ae;           /* builtins/vars: blue */
+}
+[data-theme="light"] .highlight .m,
+[data-theme="light"] .highlight .mb,
+[data-theme="light"] .highlight .mf,
+[data-theme="light"] .highlight .mh,
+[data-theme="light"] .highlight .mi,
+[data-theme="light"] .highlight .il,
+[data-theme="light"] .highlight .mo {
+  color: #b05a00;           /* numbers: orange */
+}
+[data-theme="light"] .highlight .p,
+[data-theme="light"] .highlight .err {
   color: var(--code-text);  /* punctuation: default code text */
 }
 
