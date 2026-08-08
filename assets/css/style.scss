@@ -125,7 +125,8 @@ html {
   --link: #7aa2f7;
   --header-bg: #111316;
   --header-bg-secondary: #0f1115;
-  --code-bg: #16181d;
+  --code-bg: #1e2530;
+  --code-border: #2b333f;
   --code-text: #9ececa;
   --border: #23262d;
   --table-border: #23262d;
@@ -147,6 +148,7 @@ html {
   --header-bg: #f5f7fa;
   --header-bg-secondary: #e9ecf1;
   --code-bg: #f6f8fa;
+  --code-border: #d8dee4;
   --code-text: #567482;
   --border: #d8dee4;
   --table-border: #d8dee4;
@@ -248,6 +250,9 @@ body {
   border-radius: 8px;
   padding: 16px 20px;
   line-height: 1.6;
+  /* Brighter code-box border in dark mode so the box reads as a distinct
+     panel (--border is darker than the new --code-bg fill). */
+  border-color: var(--code-border, var(--border));
   overflow-x: auto;
 }
 
