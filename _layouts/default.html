@@ -172,6 +172,68 @@
         }
       }
     });
+
+    /* ---------- Copy-to-clipboard on code blocks ---------- */
+    function initCodeCopy() {
+      // Kramdown renders ```lang fences as <pre><code class="language-X">.
+      // Add a copy button to every such block EXCEPT mermaid diagrams.
+      var blocks = document.querySelectorAll('.main-content pre');
+      for (var i = 0; i < blocks.length; i++) {
+        var pre = blocks[i];
+        if (pre.querySelector('.code-copy-btn')) continue;            // already done
+        if (pre.querySelector('.mermaid, code.language-mermaid')) continue; // skip diagrams
+        var code = pre.querySelector('code');
+        if (!code) continue;
+
+        pre.classList.add('has-copy-btn');
+
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'code-copy-btn';
+        btn.setAttribute('aria-label', 'Copy code to clipboard');
+        btn.textContent = 'Copy';
+        btn.addEventListener('click', function () {
+          copyCode(code, btn);
+        });
+        pre.insertBefore(btn, pre.firstChild);
+      }
+    }
+
+    function copyCode(codeEl, btn) {
+      var text = codeEl.innerText;
+      // Clipboard API works on https/localhost; fall back to a textarea for old browsers.
+      function done() {
+        btn.textContent = '✅ Copied!';
+        btn.classList.add('copied');
+        setTimeout(function () {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 2000);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, function () { legacyCopy(text, done); });
+      } else {
+        legacyCopy(text, done);
+      }
+    }
+
+    function legacyCopy(text, done) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+      done();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initCodeCopy);
+    } else {
+      initCodeCopy();
+    }
   </script>
   {% include head-custom.html %}
 </head>
