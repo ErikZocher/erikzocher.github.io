@@ -251,6 +251,49 @@ body {
   padding: 16px 20px;
   line-height: 1.6;
   overflow-x: auto;
+  position: relative; /* anchor for the copy button */
+}
+/* Only code blocks that actually get a copy button get the top padding
+   (set by JS via .has-copy-btn). Mermaid diagrams are also <pre> but must
+   keep their normal padding. */
+.main-content pre.has-copy-btn {
+  padding-top: 44px;
+}
+
+/* Copy-to-clipboard button on code blocks (GitHub/Stack Overflow pattern):
+   sits in the top-right corner, visible on hover/focus, sticky so it stays
+   reachable when the block scrolls horizontally. */
+.code-copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--code-bg);
+  border: 1px solid var(--code-border, var(--border));
+  border-radius: 6px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s ease, background-color 0.15s ease;
+  user-select: none;
+  white-space: nowrap;
+}
+.main-content pre:hover .code-copy-btn,
+.code-copy-btn:focus-visible,
+.code-copy-btn.copied {
+  opacity: 1;
+}
+.code-copy-btn:hover {
+  background: var(--border);
+}
+.code-copy-btn.copied {
+  color: #3fb950; /* GitHub's success green, readable on both themes */
 }
 
 /* Small screens: wrap long code lines instead of showing a horizontal slider.
