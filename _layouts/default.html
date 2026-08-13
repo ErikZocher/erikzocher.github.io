@@ -177,17 +177,19 @@
     function initCodeCopy() {
       // Kramdown renders ```lang fences as <pre><code class="language-X">.
       // Add a copy button to every such block EXCEPT mermaid diagrams.
+      // NOTE: use `let` (block-scoped) for loop vars — `var` is function-scoped,
+      // so every closure would capture the LAST block (bug hit 2026-08-13).
       var blocks = document.querySelectorAll('.main-content pre');
       for (var i = 0; i < blocks.length; i++) {
-        var pre = blocks[i];
+        let pre = blocks[i];
         if (pre.querySelector('.code-copy-btn')) continue;            // already done
         if (pre.querySelector('.mermaid, code.language-mermaid')) continue; // skip diagrams
-        var code = pre.querySelector('code');
+        let code = pre.querySelector('code');
         if (!code) continue;
 
         pre.classList.add('has-copy-btn');
 
-        var btn = document.createElement('button');
+        let btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'code-copy-btn';
         btn.setAttribute('aria-label', 'Copy code to clipboard');
