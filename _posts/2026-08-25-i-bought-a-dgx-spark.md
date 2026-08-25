@@ -50,6 +50,13 @@ Nvidia sells the reference design as the **DGX Spark Founders Edition**, but par
 | NVIDIA DGX Spark Founders | ~€5,599 | 4 TB SSD, 1 yr warranty |
 | Dell Pro Max with GB10 | ~€5,576+ | Business support |
 
+**Where these prices come from.** All figures are the *lowest listed offers* on German price-comparison sites, checked on **19-20 August 2026**: [Geizhals.de](https://geizhals.de), [idealo.de](https://www.idealo.de), and their Austrian siblings ([Geizhals.at](https://geizhals.at), [idealo.at](https://www.idealo.at)) — plus direct shop listings (e-tec.at, cyberport.de, notebooksbilliger.de, galaxus.at). Prices were pulled from the comparison engines' offer lists, which aggregate shop inventory in real time. A few caveats on the numbers:
+
+- **Availability fluctuates.** Geizhals showed *no offers at all* for the Lenovo PGX on some days, while idealo listed it — inventory comes and goes.
+- **The HP 1 TB at €3,580 is an Austrian deal** (idealo.at), not a German one. The same machine lists around €5,200 in Germany. Cross-border shipping usually works, but check VAT and delivery terms.
+- **The ASUS Ascent GX10 at €3,999** is the 1 TB model — the 4 TB version costs roughly €5,400.
+- Prices move fast on these machines; treat the table as a snapshot, not a promise. This is why I checked multiple sources rather than trusting a single shop.
+
 They're all the same chip. You're choosing SSD size, warranty, and chassis — not performance. I picked the **ASUS Ascent GX10** because it was the cheapest entry point with a 3-year warranty, and I plan to upgrade the storage.
 
 ## What you can actually do with it
