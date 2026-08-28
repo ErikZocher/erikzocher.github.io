@@ -3,7 +3,7 @@ description: "Personal blog - Design, Technology, Berlin & more"
 author: Erik Zocher
 email: zocher.erik+blog@gmail.com
 baseurl: ""
-url: "https://erikzocher.github.io"
+url: "https://erikzocher.dev"
 lang: en
 timezone: Europe/Berlin
 markdown: kramdown

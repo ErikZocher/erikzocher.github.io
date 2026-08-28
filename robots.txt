@@ -5,4 +5,4 @@ Disallow: /drafts/
 Disallow: /suche
 Disallow: /tags/
 
-Sitemap: https://erikzocher.github.io/sitemap.xml
+Sitemap: https://erikzocher.dev/sitemap.xml
