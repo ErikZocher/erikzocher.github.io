@@ -2,7 +2,7 @@
 layout: post
 title: "What an AI Agent Actually Is: The Five Ideas Behind Puck"
 date: 2026-08-30 23:55:00 +0200
-description: "Part three of the non-technical AI guide: the five core ideas behind a working agent. Context windows, tool calling, prompting, MCP servers, and the harness (like Hermes) that glues it all together. Explained through one real conversation: checking the M4 tram."
+description: "Part two of the non-technical AI guide: the five core ideas behind a working agent. Context windows, tool calling, prompting, MCP servers, and the harness (like Hermes) that glues it all together. Explained through one real conversation: checking the M4 tram."
 tags: [ai, ai-agents, llm, mcp, prompting, hermes, puck]
 categories: [technology]
 ---
@@ -43,7 +43,7 @@ Everything I have ever corrected Puck on ends up back in that prompt or in the m
 
 Tool calling works, but until recently every program had to build its own tools, in its own way, for its own model. There was no common standard, like USB was for hardware.
 
-**MCP (Model Context Protocol)** is that standard. An MCP server is a small program that speaks one universal language: "here is a tool called `search`, here is how you call it, here is the result." Any agent that supports MCP can plug in any MCP server, and that server immediately becomes available to every model it talks to. My Puck uses three of them: one that gives it a real browser, one that reads my Garmin watch data, and one for web search. Installing a new capability is starting one more server, not writing new code.
+**[MCP (Model Context Protocol)](https://modelcontextprotocol.io)** is that standard. An MCP server is a small program that speaks one universal language: "here is a tool called `search`, here is how you call it, here is the result." Any agent that supports MCP can plug in any MCP server, and that server immediately becomes available to every model it talks to. My Puck uses three of them: one that gives it a real browser, one that reads my Garmin watch data, and one for web search. Installing a new capability is starting one more server, not writing new code.
 
 The pattern is worth noticing, because it repeats everywhere in this world: the model is the engine, and everything around it, the tools, the memory, the servers, the standards, is plumbing. Most of the progress you see in agent products is plumbing that finally fits together.
 

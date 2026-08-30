@@ -27,7 +27,7 @@ The "settings" are called **parameters**. A model with 27 billion parameters (27
 
 The honest answer: it did not get good suddenly, it got good on a curve, and we only recently crossed the line where "impressive demo" becomes "genuinely useful".
 
-- **2017:** Google publishes the Transformer architecture, the design every modern model is built on.
+- **2017:** Google publishes the Transformer architecture, the design every modern model is built on. The paper, [Attention Is All You Need](https://arxiv.org/abs/1706.03762), is short enough to read in one sitting if you want to.
 - **2018-2020:** Models grow from millions to 175 billion parameters. People are stunned to find abilities nobody taught them: doing arithmetic, writing code, translating. Scale, not cleverness, was the trick.
 - **2022:** ChatGPT appears. Same basic idea, but the model is additionally trained on conversations and feedback, so it behaves like a helper instead of an autocomplete. This is the moment it becomes usable for normal people.
 - **2023-2025:** Models learn to see (images), to handle very long conversations, and to "think" before answering by writing out their reasoning.
@@ -57,7 +57,7 @@ I use both. The cloud is my backup brain, the local setup is the everyday one.
 
 Here is what is actually running in my flat, because this is the part that was confusing.
 
-**The Raspberry Pi (the hands).** A small single-board computer with 16 GB of RAM, NVMe storage, and a price like a mid-range phone. It is always on, sips about 5 watts, and runs **Puck**, my personal AI agent. Puck is the part you talk to: it remembers what we discussed, checks the M4 tram schedule, manages my todos, drafts blog posts, and drives the other machines. It is the body. The Pi alone is too weak to run a good language model, and that is fine, because it does not need to.
+**The Raspberry Pi (the hands).** A small [single-board computer](https://www.raspberrypi.com) with 16 GB of RAM, NVMe storage, and a price like a mid-range phone. It is always on, sips about 5 watts, and runs **Puck**, my personal AI agent. Puck is the part you talk to: it remembers what we discussed, checks the M4 tram schedule, manages my todos, drafts blog posts, and drives the other machines. It is the body. The Pi alone is too weak to run a good language model, and that is fine, because it does not need to.
 
 **The ASUS Ascent GX10 (the brain).** A little black box, roughly the size of a Mac mini, that costs about 4,000 euros. Inside is Nvidia's GB10 chip with 128 GB of unified memory, and that memory is the whole point. It is big enough to hold a 27-billion-parameter language model (mine is **Qwen 3.8 27B**, 16.5 GB after compression) plus an image model at the same time. The Pi talks to the GX10 over my home network, so Puck feels like one assistant, but the heavy thinking happens in the box under my desk.
 
@@ -99,7 +99,7 @@ That last point is the whole game. A model generates ideas at almost no cost, bu
 
 ## How the same machine also draws: ComfyUI
 
-The same GX10 runs **ComfyUI**, a program that generates images from text. If a language model predicts the next word, an image model predicts the next pixel. Both are just trained predictors, which is why they run on the same hardware and share the same 128 GB.
+The same GX10 runs [**ComfyUI**](https://www.comfyui.com), a program that generates images from text. If a language model predicts the next word, an image model predicts the next pixel. Both are just trained predictors, which is why they run on the same hardware and share the same 128 GB.
 
 ComfyUI is not a chat box. It is a node editor, a flowchart you build from boxes connected by lines. One box loads the model, one box takes your prompt, one box sets the size and step count, one box writes the file out. You press "queue prompt" and the flowchart runs left to right.
 
