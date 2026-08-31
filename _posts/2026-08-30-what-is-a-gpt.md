@@ -73,7 +73,7 @@ By default, a parameter is stored with 16 bits of precision. My 27B model would 
 
 | Format | Bits per parameter | My Qwen 27B file | What you lose |
 |---|---|---|---|
-| 16-bit (original) | 16 | ~55 GB | Nothing, it just does not fit |
+| 16-bit (original) | 16 | ~55 GB | Nothing. But at 55 GB it does not fit on most home hardware |
 | Q8 | 8 | ~28 GB | Barely anything |
 | **Q4 (what I run)** | ~4.5 | **16.5 GB** | A little, mostly in fine details |
 | Q3 / IQ3 | ~3 | ~12 GB | More; small models get worse fast |
