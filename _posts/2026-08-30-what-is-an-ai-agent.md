@@ -11,7 +11,7 @@ categories: [technology]
 
 *2026-08-30 · 7 min read · [ai-agents] [llm] [mcp] [prompting] [puck]*
 
-So far: what a language model is, and how I pick one. But a model alone is just a file that finishes sentences. The thing you actually talk to, my [Puck](/technology/2026-07-28/meet-puck.html), is built from five more ideas on top of it. This post explains each one, in plain language, using a real conversation as the thread: I ask Puck "when is the next M4 tram at Buschallee?"
+So far: what a language model is, and how I pick one. But a model alone is just a file that finishes sentences. The thing you actually talk to, my [Puck](/technology/2026/07/28/meet-puck.html), is built from five more ideas on top of it. This post explains each one, in plain language, using a real conversation as the thread: I ask Puck "when is the next M4 tram at Buschallee?"
 
 ## 1. The context window: what the model can see right now
 
