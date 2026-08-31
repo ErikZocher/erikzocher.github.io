@@ -103,7 +103,7 @@ The same GX10 runs [**ComfyUI**](https://www.comfyui.com), a program that genera
 
 ComfyUI is not a chat box. It is a node editor, a flowchart you build from boxes connected by lines. One box loads the model, one box takes your prompt, one box sets the size and step count, one box writes the file out. You press "queue prompt" and the flowchart runs left to right.
 
-That sounds like more trouble than a text box, and it is, until you realize what a workflow actually is: **a saved recipe.** Once I build a workflow for "1024 by 1024, 20 steps, this sampling setup", I never rebuild it. I store it, reuse it, and share it. I generated all ten pixel icons on my neon about page from one batch run of the same workflow, about a minute each.
+That sounds like more trouble than a text box, and it is, until you realize what a workflow actually is: **a saved recipe.** Once I build a workflow for "1024 by 1024, 20 steps, this sampling setup", I never rebuild it. I store it, reuse it, and share it. That is how I made all ten pixel icons for a small neon-styled about page I was experimenting with: one batch run of the same workflow, about a minute each. The page never went live, but it was a nice end-to-end test of the whole pipeline.
 
 My image model is **FLUX.1-dev**, a 17.2 GB file (in fp8, the same compression idea as Q8 but for image models). It makes a 1024 by 1024 image in about 55 seconds on the GX10, good enough quality that the 8-bit pixelation step I apply afterwards is the only thing keeping it looking like a retro sprite. I also keep an old 2018 model (Stable Diffusion 1.5, 4 GB) around, which runs 256 pixel images in 5 seconds, the fast and rough option for quick tests.
 
