@@ -31,7 +31,7 @@ The honest answer: it did not get good suddenly, it got good on a curve, and we 
 - **2018-2020:** Models grow from millions to 175 billion parameters. People are stunned to find abilities nobody taught them: doing arithmetic, writing code, translating. Scale, not cleverness, was the trick.
 - **2022:** ChatGPT appears. Same basic idea, but the model is additionally trained on conversations and feedback, so it behaves like a helper instead of an autocomplete. This is the moment it becomes usable for normal people.
 - **2023-2025:** Models learn to see (images), to handle very long conversations, and to "think" before answering by writing out their reasoning.
-- **2025-2026:** The agent era. You hand the model tools (a browser, a terminal, a calendar) and it does not just talk, it *acts*. That is the difference between ChatGPT and my Puck: Puck can check the tram schedule itself, fix a config file, and publish this post.
+- **2025-2026:** The agent era. You hand the model tools (a browser, a terminal, a calendar) and it does not just talk, it *acts*. That is the difference between ChatGPT and my [Puck](/technology/2026-07-28/meet-puck.html), the agent that picked its own name: Puck can check the tram schedule itself, fix a config file, and publish this post.
 
 The reason it felt like it happened overnight is that every year added a different capability, and the capabilities multiply each other. A model that can see, reason, and use tools is not three times as useful as one that only chats, it is more like a different animal.
 
