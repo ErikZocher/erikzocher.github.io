@@ -86,7 +86,7 @@ Q4 is the sweet spot I run daily, the same way a good JPEG is good enough for th
 
 **MoE** (Mixture of Experts) models are bigger on paper but only partly active. The model contains many small expert networks, and for each word a router picks the few experts that seem relevant. My other text model, DeepSeek V4 Flash, has 284 billion parameters but activates only a fraction of them per word, so it runs at speeds you would not expect for its size. The catch is memory: even the unused experts have to sit in RAM, so a MoE model needs a lot of it and rewards you with a lot of knowledge per second of compute.
 
-A rough rule for my hardware: dense models up to about 30B parameters are my daily territory. The 284B MoE lives on the same machine for special jobs, because 128 GB is exactly where it stops being impossible.
+A rough rule for my hardware: dense models up to about 30B parameters are my daily territory. The 284B MoE also lives on the same machine for special jobs. Even compressed hard, that model loads as roughly 110 GB of numbers, so it fits in only one place in the house: the 128 GB box. Any smaller machine and it does not fit at all.
 
 ## How I actually pick
 
