@@ -9,7 +9,7 @@ description: "Berlin's Ringbahn has no official 'inside', so I pulled the train'
 
 # How I Found Every Berlin Postleitzahl Inside the Ring
 
-*2026-09-01 · 6 min read · [geospatial] [berlin] [openstreetmap] [data]*
+*2026-09-01 · 7 min read · [geospatial] [berlin] [openstreetmap] [data]*
 
 I wanted a simple answer: which of Berlin's postal codes live inside the Ringbahn, the circular S-Bahn loop that rings the center of the city. I expected a five minute Google search. I found no official list, because "inside the ring" is not a legal boundary. Nobody draws it. So I pulled the train's actual geometry from OpenStreetMap, closed it into a polygon, and measured every postal code against it. Here is the whole method, the map, and every single number.
 
@@ -17,7 +17,7 @@ I wanted a simple answer: which of Berlin's postal codes live inside the Ringbah
 
 ## The question, and why it has no official answer
 
-A postal code (*Postleitzahl*, PLZ) is an administrative region. The city draws its boundaries, but the boundaries are fuzzy. Rivers, parkland, and railway corridors are often not assigned to any code, and adjacent codes do not always meet cleanly. The Ringbahn itself is a 37 km loop of track. It is a line, not a wall. A postal code can be cut in two by it.
+A postal code (*Postleitzahl*, PLZ) is an administrative region. The city draws its boundaries, but the boundaries are fuzzy: in the map data, neighboring codes do not always meet cleanly, so a thin sliver of map can fall between two of them. The Ringbahn itself is a 37 km loop of track. It is a line, not a wall. A postal code can be cut in two by it.
 
 So "is PLZ X inside the ring" does not have a yes or no answer that any authority will print. It only has a *geometric* answer: how much of that code's area lies on the inside of the loop. That is a question a computer can answer, which is why I went looking for the data.
 
@@ -62,13 +62,17 @@ That fraction tells me how much of the code is on the inside. 1.0 means the whol
 
 The strict answer is tier A: **40 postal codes**. The everyday answer, tier A plus tier B, is **59**. Anyone who tells you "I live in the ring" and whose code is in tier B is telling the truth in the way people mean it.
 
-## What the white gaps are
+## The gaps in the data, and how I filled them
 
-On the map below, some areas inside the ring are white, colored by no code at all. That is not a bug in my math. It is the fuzzy-boundary problem from the first section, made visible. The white space is water and infrastructure that no postal code claims: the Spree and its side canals, the railway corridors the train itself runs on, and small seams where two adjacent codes do not quite meet. Roughly a third of the ring's area is like this, and it functionally belongs to the codes that border it.
+When I first drew this, a third of the ring came out white, colored by no code at all. My first instinct was that the map was wrong, so I checked it against the [Berlin postal code map on Wikipedia](https://en.wikipedia.org/wiki/Berlin#/media/File:Berlin_Postleitzahlen.svg), which shows the whole city tiled edge to edge with no holes. The reference was right and my data was the problem.
+
+The cause: OpenStreetMap stores each postal code as a set of boundary lines, and those lines do not always meet cleanly. Where two neighboring codes stop short of each other, there is a sliver of map that belongs to no code in the data. Waterways and railway corridors contribute to it too, but the big pieces, like the Tiergarten, are just gaps between boundaries, not areas without a postal code.
+
+So I did what the reference map does: I assigned each gap to the postal code it borders. That removes the white. The map below has no unfilled area inside the ring, and every colored region carries a number.
 
 ## The map
 
-Green is tier A (entirely inside), yellow is tier B (mostly inside), red is tier C (straddling). The black loop is the S41/S42 ring.
+Green is tier A (entirely inside), yellow is tier B (mostly inside), red is tier C (straddling). The black loop is the S41/S42 ring, and every colored region is labeled with its number.
 
 ![Berlin postal codes inside the Ringbahn: green entirely inside, yellow mostly inside, red straddling, black ring loop](/assets/images/plz-ringbahn/ringbahn-map.svg)
 
@@ -82,5 +86,6 @@ This is a small problem, but it has the shape of a lot of "is X inside Y" questi
 2. Close each set of line segments into a filled polygon.
 3. Intersect each candidate with the region and record the fraction of its area that falls inside.
 4. Sort and tier the fractions.
+5. Check your coverage. Subtract the union of your polygons from the region, and if you get holes, assign each hole to the shape that borders it.
 
 The hard part is not the code. It is deciding what "inside" means, and accepting that the data will be a little messy at the edges. The numbers above are as good as the underlying map data, and the map data is good enough to be useful.
