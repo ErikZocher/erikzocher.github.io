@@ -3,8 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="google-site-verification" content="esmmcqnNy_X_l2O5TzghmwPjkHRAEZXbSSuFcPxeJEA" />
-  <!-- Cloudflare Web Analytics -->
-  <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e486e6f51ffe449d980f4457aff2ebec"}'></script>
+  <!-- Cloudflare Web Analytics (skipped for cf_admin) -->
+  <script>
+    if (!localStorage.getItem('cf_admin')) {
+      // Only load beacon for non-admin visitors
+      const s = document.createElement('script');
+      s.type = 'module';
+      s.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+      s.setAttribute('data-cf-beacon', '{"token": "e486e6f51ffe449d980f4457aff2ebec"}');
+      document.head.appendChild(s);
+    }
+  </script>
   <!-- End Cloudflare Web Analytics -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {%- assign css_ver = site.github.build_revision | default: site.time | date: "%Y%m%d%H%M%S" -%}
