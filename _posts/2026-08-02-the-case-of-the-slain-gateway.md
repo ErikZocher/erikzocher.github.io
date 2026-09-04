@@ -13,7 +13,7 @@ categories: [technology]
 
 Everything in this story actually happened. My headless Raspberry Pi went unreachable one Sunday evening, and debugging it turned out to be a genuine whodunit. Debugging a machine that goes silent has the same shape as a detective case: a victim, a scene, witnesses, conflicting clues, and a culprit who was there all along. Two enabled services that each think the other is an impostor, a crashed process that keeps reviving itself, a watchdog barking into the void. That is not an analogy, it is the plot. Sherlock Holmes is simply the clearest lens for it. The facts are untouched, only the telling is dramatized, and the technical [TL;DR is at the bottom](#tldr-what-actually-happened) if you prefer facts over fog.
 
-> **AI disclosure:** All illustrations in this story are AI-generated images (FLUX.1-dev), and the animated explainer at the end is generated with MiniMax H3 (image-to-video) from those same illustrations. Both were made by me, added later, imagining what the case would have looked like if Sherlock Holmes had worked with systemd and a soldering iron.
+> **AI disclosure:** All illustrations in this story are AI-generated images (FLUX.1-dev), selected and edited by me. They were added later, imagining what the case would have looked like if Sherlock Holmes had worked with systemd and a soldering iron.
 
 ---
 
@@ -180,15 +180,6 @@ Both units were enabled, so every boot spawned two gateway instances competing f
 
 ---
 
-## The Case, Animated
+*License: illustrations generated with FLUX.1-dev, free for non-commercial use; this blog qualifies. Check the license before any commercial use.*
 
-The full case, told as a short animated film: each chapter's illustration breathes, with narration over a continuous Victorian score. It runs about a minute and a half, and the faces and clothing stay true to the illustrations throughout, because every scene starts from the chapter's own image.
-
-<video controls playsinline width="100%" style="max-width:768px; border-radius:8px;">
-  <source src="/assets/videos/2026-08-02-the-case-of-the-slain-gateway/slain-gateway-explainer.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-
----
-
-*License: illustrations generated with FLUX.1-dev (free for non-commercial use; this blog qualifies), and the animated explainer generated with MiniMax H3 (image-to-video). Check each model's license before any commercial use.*
+The case now has a film: [I Animated My Blog Post with a 42 GB Video Model](/technology/2026/09/04/animating-a-blog-post.html) walks through the full MiniMax H3 image-to-video pipeline that turned these illustrations into an 87 second narrated explainer, with the prompts, the ComfyUI graph, and everything that broke along the way.
