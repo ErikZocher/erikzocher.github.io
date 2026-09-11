@@ -91,7 +91,7 @@ That limitation matters, so I am stating it plainly: this ComfyUI build's image-
 
 The render times are the other reason this works: a 72 frame Wan segment takes about three minutes on the GB10. Sixteen of them, queued, is a lunch. Compare that to a single 141 frame H3 shot taking up to 38 minutes, where one bad roll meant another 38 minutes and a new prompt.
 
-The final video is stitched from the four winning segments with a short 0.15 second dissolve at each seam, so the model's arrival drift blends across near-identical frames instead of hard-cutting. The continuous music bed sits underneath, and the seams are checked the same way as before: the last frame of each segment against the first frame of the next, in pixels.
+The final video is stitched with anchor holds. Each segment dissolves into a short hold of the exact keyframe, then dissolves into the next segment. The model's arrival drift blends across the hold instead of hard-cutting, and the four cardinal moments (front, left, back, right) show the exact reference images rather than the model's drift. The continuous music bed sits underneath.
 
 ## The numbers
 
